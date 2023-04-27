@@ -2,21 +2,48 @@ import MiniPage from "@/components/Works/MiniPage";
 
 export const dynamic = "force-dynamic";
 
-// async function fetchData() {
-//   const response = await fetch("http://localhost:3000/api/search/seasons?season=2023-spring", {
-//     // const response = await fetch(`${process.env.VERCEL_URL}/api/search/seasons?season=2023-spring`, {
-//     cache: "no-store",
-//   });
-//   return response.json();
-// }
+async function fetchData() {
+  const { data } = await (
+    await fetch("https://api.annict.com/graphql", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.ANNICT_TOKEN}`,
+      },
+      body: JSON.stringify({
+        query: `query {
+            searchWorks(
+              seasons:["2023-spring"]
+              orderBy: { field: WATCHERS_COUNT, direction: DESC }
+            ) {
+              nodes {
+                annictId
+                title
+                titleKana
+                seasonName
+                seasonYear
+                media
+                twitterHashtag
+                episodesCount
+                image{facebookOgImageUrl,recommendedImageUrl}         
+                casts(first:5){nodes{name,character{name}}}
+              }
+            }
+          }`,
+      }),
+      cache: "no-store",
+    })
+  ).json();
+  const results = data.searchWorks.nodes;
+  return results;
+}
 
 const HomePage = async () => {
-  // const worksData = await fetchData();
+  const worksData = await fetchData();
 
   return (
     <main>
-      <h1>placeholder</h1>
-      {/* <MiniPage worksData={worksData} mode="view" /> */}
+      <MiniPage worksData={worksData} mode="view" />
     </main>
   );
 };
