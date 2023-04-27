@@ -9,6 +9,8 @@ const font = Zen_Maru_Gothic({
   subsets: ["cyrillic"],
 });
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Banngumi View | Annict",
   description: "Keeps track of your favorite animes.",
