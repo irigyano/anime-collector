@@ -15,15 +15,7 @@ model User {
   username  String    @unique  
   password  String
   avatar String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  watchedWorks Review[]
+  watchedWorks Int[]
   watchingWorks Int[]
   followingWorks Int[]
-}
-
-type Review {
-  annictId Int
-  rating Int
-  comment String
 }

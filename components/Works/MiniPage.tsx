@@ -5,12 +5,20 @@ import { useState } from "react";
 import WorkCard from "@/components/Works/WorkCard";
 import SeasonSelector from "@/components/Works/SeasonSelector";
 import Loading from "../../app/loading";
+import { User } from "@prisma/client";
+
 export type SeasonInfo = {
   year: number;
   season: string;
 };
 
-const MiniPage = ({ worksData, mode }: { worksData: WorkData[]; mode: string }) => {
+type MiniPageProps = {
+  worksData: WorkData[];
+  mode: string;
+  currentUser: User;
+};
+
+const MiniPage = ({ worksData, mode, currentUser }: MiniPageProps) => {
   const [miniPageIndex, setMiniPageIndex] = useState<number>(0);
   const [works, setWork] = useState<WorkData[] | null>(worksData);
   const [isSearchPage, setIsSearchPage] = useState(false);
@@ -19,18 +27,18 @@ const MiniPage = ({ worksData, mode }: { worksData: WorkData[]; mode: string }) 
     return <Loading />;
   }
 
-  // fixed the type
+  // highlighting SeasonSelector condition
   const seasonInfo: SeasonInfo = { year: 2023, season: "" };
-
   if ((works.length > 0 && mode === "view") || isSearchPage) {
     seasonInfo["year"] = works[0].seasonYear;
     seasonInfo["season"] = works[0].seasonName;
   }
-
+  // divide data from Annict into pages
   const worksMiniPages: WorkData[][] = [];
   for (let i = 0; i < works.length; i += 12) {
     worksMiniPages.push(works.slice(i, i + 12));
   }
+  // create index based on pages
   const miniPageIndexes = [];
   for (let page = 0; page < worksMiniPages.length; page++) {
     miniPageIndexes.push(page);
@@ -46,7 +54,7 @@ const MiniPage = ({ worksData, mode }: { worksData: WorkData[]; mode: string }) 
       />
       <section className="flex flex-wrap justify-center">
         {worksMiniPages[miniPageIndex].map((work) => {
-          return <WorkCard key={work.annictId} work={work} />;
+          return <WorkCard currentUser={currentUser} key={work.annictId} work={work} />;
         })}
       </section>
 

@@ -11,7 +11,6 @@ const SignUp = () => {
 
   const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(username, password, confirmPassword);
 
     if (password !== confirmPassword) {
       // pw not matched

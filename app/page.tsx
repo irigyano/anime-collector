@@ -1,4 +1,5 @@
 import MiniPage from "@/components/Works/MiniPage";
+import { User } from "@prisma/client";
 
 // fetching external directly due to how Next builds.
 async function fetchData() {
@@ -37,12 +38,12 @@ async function fetchData() {
   return results;
 }
 
-const HomePage = async () => {
+const HomePage = async ({ params }: { params: { currentUser: User } }) => {
   const worksData = await fetchData();
-
+  const currentUser = params.currentUser;
   return (
     <main>
-      <MiniPage worksData={worksData} mode="view" />
+      <MiniPage worksData={worksData} currentUser={currentUser} mode="view" />
     </main>
   );
 };

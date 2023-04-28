@@ -1,16 +1,35 @@
 import Image from "next/image";
 import { WorkData } from "./WorkCard";
 import Link from "next/link";
+import { User } from "@prisma/client";
+import { useState } from "react";
+import { HiOutlineCheckCircle, HiOutlinePlay, HiOutlineStar } from "react-icons/hi";
 
-const WorkModal = ({
-  toggleModal,
-  work,
-  srcUrl,
-}: {
+type WorkModalProps = {
   toggleModal: () => void;
   work: WorkData;
   srcUrl: string;
-}) => {
+  currentUser: User;
+};
+
+const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) => {
+  const [isWatched, setIsWatched] = useState(false);
+  const [isWatching, setIsWatching] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
+
+  // Check if user stored the work
+  if (currentUser) {
+    if (currentUser.watchedWorks.includes(work.annictId) && !isWatched) {
+      setIsWatched(true);
+    }
+    if (currentUser.watchingWorks.includes(work.annictId) && !isWatching) {
+      setIsWatching(true);
+    }
+    if (currentUser.followingWorks.includes(work.annictId) && !isFollowing) {
+      setIsFollowing(true);
+    }
+  }
+
   return (
     <div className="fixed inset-0 w-full h-full z-20 bg-black bg-opacity-50" onClick={toggleModal}>
       <div className="relative w-4/5 mx-auto md:w-1/2 xl:w-1/3 my-6">
@@ -22,13 +41,25 @@ const WorkModal = ({
             <Image src={srcUrl} alt="cover_photo" fill className="object-cover" sizes="640px" />
           </header>
           <div className="flex justify-center m-1">
-            <div className="border-2 border-green-400 text-green-400 rounded-2xl px-2 m-1 text-sm">
+            <div className="border-2 border-rose-400 text-rose-400 rounded-2xl px-2 m-1 text-sm">
               {work.seasonYear}
             </div>
-            <div className="border-2 border-blue-400 text-blue-400 rounded-2xl px-2 m-1 text-sm">
+            <div
+              className={`border-2 ${
+                work.seasonName === "WINTER"
+                  ? "border-winter text-winter"
+                  : work.seasonName === "SPRING"
+                  ? "border-spring text-spring"
+                  : work.seasonName === "SUMMER"
+                  ? "border-summer text-summer"
+                  : work.seasonName === "AUTUMN"
+                  ? "border-autumn text-autumn"
+                  : null
+              } rounded-2xl px-2 m-1 text-sm`}
+            >
               {work.seasonName}
             </div>
-            <div className="border-2 border-blue-700 text-blue-700 rounded-2xl px-2 m-1 text-sm">
+            <div className="border-2 border-yellow-500 text-yellow-500 rounded-2xl px-2 m-1 text-sm">
               {work.media}
             </div>
             {work.twitterHashtag ? (
@@ -66,16 +97,82 @@ const WorkModal = ({
             </section>
           </main>
           <footer className="flex justify-between">
-            <button
-              onClick={() => {
-                console.log(work.annictId);
-              }}
-              className="basis-1/3 bg-red-500"
-            >
-              良い
-            </button>
-            <button className="basis-1/3 bg-blue-500">見てる</button>
-            <button className="basis-1/3 bg-yellow-500">見たい</button>
+            {isWatched ? (
+              <div className="basis-1/3 flex justify-center items-center duration-300 text-green-500">
+                <button
+                  onClick={() => {
+                    setIsWatched(false);
+                  }}
+                >
+                  <HiOutlineCheckCircle size={30} />
+                </button>
+              </div>
+            ) : (
+              <div className="basis-1/3 flex justify-center items-center  ">
+                <button
+                  className="duration-300 hover:text-green-500"
+                  onClick={() => {
+                    if (!currentUser) {
+                      return console.log("please log in toast");
+                    }
+                    setIsWatched(true);
+                  }}
+                >
+                  <HiOutlineCheckCircle size={30} />
+                </button>
+              </div>
+            )}
+
+            {isWatching ? (
+              <div className="basis-1/3 flex justify-center items-center duration-300 text-blue-500">
+                <button
+                  onClick={() => {
+                    setIsWatching(false);
+                  }}
+                >
+                  <HiOutlinePlay size={30} />
+                </button>
+              </div>
+            ) : (
+              <div className="basis-1/3 flex justify-center items-center  ">
+                <button
+                  className="duration-300 hover:text-blue-500"
+                  onClick={() => {
+                    if (!currentUser) {
+                      return console.log("please log in toast");
+                    }
+                    setIsWatching(true);
+                  }}
+                >
+                  <HiOutlinePlay size={30} />
+                </button>
+              </div>
+            )}
+            {isFollowing ? (
+              <div className="basis-1/3 flex justify-center items-center duration-300 text-yellow-500">
+                <button
+                  onClick={() => {
+                    setIsFollowing(false);
+                  }}
+                >
+                  <HiOutlineStar size={30} />
+                </button>
+              </div>
+            ) : (
+              <div className="basis-1/3 flex justify-center items-center  ">
+                <button
+                  className="duration-300 hover:text-yellow-500"
+                  onClick={() => {
+                    if (!currentUser) {
+                      return console.log("please log in toast");
+                    }
+                    setIsFollowing(true);
+                  }}
+                >
+                  <HiOutlineStar size={30} />
+                </button>
+              </div>
+            )}
           </footer>
         </div>
       </div>

@@ -44,6 +44,9 @@ const MenuModal = ({ currentUser, toggleModal, theme, setTheme }: MenuModalProps
             <div className="flex flex-col items-center">
               <Link href={"/"}>Home</Link>
               <Link href={"/community"}>Community</Link>
+              <Link target="_blank" href={"https://annict.com/"}>
+                Annict.com
+              </Link>
             </div>
 
             <div className="border m-1"></div>
@@ -107,6 +110,9 @@ const MenuModal = ({ currentUser, toggleModal, theme, setTheme }: MenuModalProps
             <div className="flex flex-col items-center">
               <Link href={"/"}>Home</Link>
               <Link href={"/community"}>Community</Link>
+              <Link target="_blank" href={"https://annict.com/"}>
+                Annict.com
+              </Link>
             </div>
             <div className="border m-1"></div>
 

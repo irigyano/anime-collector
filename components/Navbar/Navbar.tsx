@@ -23,14 +23,28 @@ const Navbar = ({ currentUser }: NavbarProps) => {
     <>
       <nav className="flex justify-center lg:justify-between lg:px-20 border-b shadow-md items-center w-full z-20 fixed bg-[#f1f1f1] dark:bg-[#0f0f0f] duration-500">
         <div className="h-10 flex items-center justify-start basis-1/3">
-          <div className="m-1 hover:border-b-2 border-transparent duration-100">
-            <Link href={"/"} className="hidden lg:block">
+          <div className="hidden lg:block m-1 hover:border-b-2 border-transparent duration-100">
+            <Link href={"/"} className="lg:block">
               <Image alt="logo" src="/images/logo.png" width={40} height={40} />
             </Link>
           </div>
+          <div className="hidden lg:block">
+            <div className="h-8 w-20 m-1 justify-center items-center flex">
+              <Link
+                className="hidden lg:block hover:text-blue-500 duration-300"
+                href={"/community"}
+              >
+                Community
+              </Link>
+            </div>
+          </div>
           <div className="h-8 w-20 m-1 justify-center items-center flex">
-            <Link className="hidden lg:block hover:text-blue-500 duration-300" href={"/community"}>
-              Community
+            <Link
+              className="hidden lg:block hover:text-blue-500 duration-300"
+              target="_blank"
+              href={"https://annict.com/"}
+            >
+              Annict.com
             </Link>
           </div>
         </div>

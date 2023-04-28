@@ -1,5 +1,5 @@
 "use client";
-
+import { User } from "@prisma/client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Loading from "../loading";
@@ -14,10 +14,12 @@ const fetchData = async (title: string | null) => {
   return response.json();
 };
 
-const SearchPage = () => {
+const SearchPage = ({ params }: { params: { currentUser: User } }) => {
   const [worksData, setWorksData] = useState<[] | null>(null);
   const searchParams = useSearchParams();
   const title = searchParams.get("title");
+  const currentUser = params.currentUser;
+
   useEffect(() => {
     fetchData(title).then((data) => {
       setWorksData(data);
@@ -38,6 +40,6 @@ const SearchPage = () => {
     );
   }
 
-  return <MiniPage worksData={worksData} mode="search" />;
+  return <MiniPage worksData={worksData} currentUser={currentUser} mode="search" />;
 };
 export default SearchPage;
