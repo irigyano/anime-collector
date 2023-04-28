@@ -1,7 +1,6 @@
 import MiniPage from "@/components/Works/MiniPage";
 
-export const dynamic = "force-dynamic";
-
+// fetching external directly due to how Next builds.
 async function fetchData() {
   const { data } = await (
     await fetch("https://api.annict.com/graphql", {

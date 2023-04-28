@@ -46,7 +46,7 @@ const SignUp = () => {
 
   return (
     <section className="flex justify-center">
-      <div className="m-6 p-4 w-96 bg-[#f1f1f1] dark:bg-slate-900 shadow-md rounded-lg">
+      <div className="m-6 p-4 w-96 bg-[#f1f1f1] dark:bg-zinc-800 shadow-md rounded-lg">
         <h1 className="text-2xl font-bold mb-4">アカウント作成</h1>
         <form className="space-y-4" onSubmit={submitForm}>
           <div>
@@ -103,7 +103,7 @@ const SignUp = () => {
           >
             Create an account
           </button>
-          {error && <h1>{error}</h1>}
+          {error && <h1 className="text-lg text-red-600">{error}</h1>}
           <p className="text-sm font-light">
             Already have an account?{" "}
             <Link

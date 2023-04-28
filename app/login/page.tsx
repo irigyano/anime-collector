@@ -15,21 +15,11 @@ const LogInPage = () => {
       password,
       callbackUrl: "/",
     });
-
-    if (error) {
-      setError("");
-    }
-
-    try {
-      const res = await fetch("/api/login");
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
     <section className="flex justify-center">
-      <div className="m-6 p-4 w-96 bg-[#f1f1f1] dark:bg-slate-900 shadow-md rounded-lg">
+      <div className="m-6 p-4 w-96 bg-[#f1f1f1] dark:bg-zinc-800 shadow-md rounded-lg">
         <h1 className="text-2xl font-bold mb-4">ログイン</h1>
         <form className="space-y-4" onSubmit={submitForm}>
           <div>

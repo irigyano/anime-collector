@@ -22,7 +22,7 @@ const ThemeModal = ({
         setShowThemeModal(!showThemeModal);
       }}
     >
-      <div className="fixed gap-1 top-16 right-32 w-36 text-lg justify-start flex-col flex opacity-90 bg-gray-100 dark:bg-slate-900 rounded-lg overflow-hidden">
+      <div className="fixed gap-1 top-16 right-32 w-36 text-lg justify-start flex-col flex opacity-90 bg-gray-100 dark:bg-zinc-800 rounded-lg overflow-hidden">
         <button
           className={`flex m-1 rounded-lg hover:bg-slate-200 dark:hover:bg-gray-700 hover:opacity-80 duration-200 gap-2 ${
             theme === "light" && "text-blue-500"

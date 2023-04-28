@@ -12,6 +12,7 @@ export async function POST(req: Request) {
       data: {
         username,
         password: hashedPassword,
+        avatar: "/images/default_avatar.png",
         watchedWorks: [],
         watchingWorks: [],
         followingWorks: [],

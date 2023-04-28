@@ -5,26 +5,28 @@ import { useState } from "react";
 import WorkCard from "@/components/Works/WorkCard";
 import SeasonSelector from "@/components/Works/SeasonSelector";
 import Loading from "../../app/loading";
+export type SeasonInfo = {
+  year: number;
+  season: string;
+};
 
 const MiniPage = ({ worksData, mode }: { worksData: WorkData[]; mode: string }) => {
   const [miniPageIndex, setMiniPageIndex] = useState<number>(0);
   const [works, setWork] = useState<WorkData[] | null>(worksData);
+  const [isSearchPage, setIsSearchPage] = useState(false);
 
   if (works === null) {
     return <Loading />;
   }
 
-  type SeasonInfo = {
-    year: number;
-    season: string;
-  };
-
   // fixed the type
   const seasonInfo: SeasonInfo = { year: 2023, season: "" };
-  if (works.length > 0 && mode === "view") {
+
+  if ((works.length > 0 && mode === "view") || isSearchPage) {
     seasonInfo["year"] = works[0].seasonYear;
     seasonInfo["season"] = works[0].seasonName;
   }
+
   const worksMiniPages: WorkData[][] = [];
   for (let i = 0; i < works.length; i += 12) {
     worksMiniPages.push(works.slice(i, i + 12));
@@ -40,6 +42,7 @@ const MiniPage = ({ worksData, mode }: { worksData: WorkData[]; mode: string }) 
         setWork={setWork}
         seasonInfo={seasonInfo}
         setMiniPageIndex={setMiniPageIndex}
+        setIsSearchPage={setIsSearchPage}
       />
       <section className="flex flex-wrap justify-center">
         {worksMiniPages[miniPageIndex].map((work) => {

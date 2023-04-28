@@ -29,7 +29,13 @@ const SearchPage = () => {
   }
 
   if (worksData && worksData.length === 0) {
-    return <h1>No Result.</h1>;
+    return (
+      <div className="flex flex-col justify-center items-center h-screen pb-40 text-xl lg:text-3xl text-center">
+        <div>結果が見つかりませんでした。</div>
+        <div>かなを使って検索してみてください。</div>
+        <div>例えば、「進撃の巨人」または「ソードアート・オンライン」。</div>
+      </div>
+    );
   }
 
   return <MiniPage worksData={worksData} mode="search" />;

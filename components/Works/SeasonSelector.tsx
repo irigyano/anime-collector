@@ -2,6 +2,7 @@
 
 import { SetStateAction, useState } from "react";
 import { WorkData } from "@/components/Works/WorkCard";
+import { SeasonInfo } from "./MiniPage";
 
 const fetchWorkByYear = async (
   year: string,
@@ -17,16 +18,19 @@ const fetchWorkByYear = async (
   stateSetter(data);
   // reset the page index
   indexSetter(0);
+  // switching from search mode to view mode, set seasonInfo to default
 };
 
 const SeasonSelector = ({
   setWork,
   setMiniPageIndex,
   seasonInfo,
+  setIsSearchPage,
 }: {
   setWork: React.Dispatch<SetStateAction<WorkData[] | null>>;
   setMiniPageIndex: React.Dispatch<SetStateAction<number>>;
-  seasonInfo: { year: number; season: string };
+  seasonInfo: SeasonInfo;
+  setIsSearchPage: React.Dispatch<SetStateAction<boolean>>;
 }) => {
   const [Year, setYear] = useState(seasonInfo.year.toString());
 
@@ -56,6 +60,7 @@ const SeasonSelector = ({
       <button
         onClick={() => {
           setWork(null);
+          setIsSearchPage(true);
           fetchWorkByYear(Year, "winter", setWork, setMiniPageIndex);
         }}
         className={`border-2 rounded-full w-7 h-7 duration-500 hover:bg-winter border-winter ${
@@ -67,6 +72,8 @@ const SeasonSelector = ({
       <button
         onClick={() => {
           setWork(null);
+          setIsSearchPage(true);
+
           fetchWorkByYear(Year, "spring", setWork, setMiniPageIndex);
         }}
         className={`border-2 rounded-full w-7 h-7 duration-500 hover:bg-spring border-spring ${
@@ -77,6 +84,7 @@ const SeasonSelector = ({
       </button>
       <button
         onClick={() => {
+          setIsSearchPage(true);
           setWork(null);
           fetchWorkByYear(Year, "summer", setWork, setMiniPageIndex);
         }}
@@ -88,6 +96,7 @@ const SeasonSelector = ({
       </button>
       <button
         onClick={() => {
+          setIsSearchPage(true);
           setWork(null);
           fetchWorkByYear(Year, "autumn", setWork, setMiniPageIndex);
         }}
