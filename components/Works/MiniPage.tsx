@@ -15,7 +15,7 @@ export type SeasonInfo = {
 type MiniPageProps = {
   worksData: WorkData[];
   mode: string;
-  currentUser: User;
+  currentUser: User | null;
 };
 
 const MiniPage = ({ worksData, mode, currentUser }: MiniPageProps) => {

@@ -34,7 +34,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
                 className="hidden lg:block hover:text-blue-500 duration-300"
                 href={"/community"}
               >
-                Community
+                社群
               </Link>
             </div>
           </div>
@@ -54,7 +54,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
         {/* desktop */}
         <div className="hidden lg:flex basis-1/3 justify-end items-center">
           <Link
-            href={"https://github.com/irigyano"}
+            href={"https://github.com/irigyano/Banngumi-View"}
             target="_blank"
             className="hover:text-blue-500 duration-300 h-10 w-10 m-1 flex justify-center items-center"
           >
@@ -118,13 +118,13 @@ const Navbar = ({ currentUser }: NavbarProps) => {
                 className="flex basis-1/2 justify-center items-center h-8 bg-zinc-200 rounded-lg m-2 shadow-md duration-300 hover:bg-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-500"
                 href={"/login"}
               >
-                <div className="">Log In</div>
+                <div className="">登入</div>
               </Link>
               <Link
                 className="flex basis-1/2 justify-center items-center h-8 bg-pink-200 rounded-lg m-2 shadow-md duration-300 hover:bg-pink-300 dark:bg-pink-700 dark:hover:bg-pink-500"
                 href={"/signup"}
               >
-                <div className="">Sign Up</div>
+                <div className="">註冊</div>
               </Link>
             </div>
           )}

@@ -22,7 +22,7 @@ const ThemeModal = ({
         setShowThemeModal(!showThemeModal);
       }}
     >
-      <div className="fixed gap-1 top-16 right-60 w-36 text-lg justify-start flex-col flex bg-gray-100 dark:bg-zinc-800 rounded-lg overflow-hidden">
+      <div className="fixed gap-1 top-16 right-32 w-36 text-lg justify-start flex-col flex bg-gray-100 dark:bg-zinc-800 rounded-lg overflow-hidden">
         <button
           className={`flex m-1 rounded-lg hover:bg-slate-200 dark:hover:bg-gray-700 hover:opacity-80 duration-200 gap-2 ${
             theme === "light" && "text-blue-500"
@@ -32,7 +32,7 @@ const ThemeModal = ({
           }}
         >
           <MdOutlineLightMode size={30} />
-          Light
+          明亮模式
         </button>
 
         <button
@@ -44,7 +44,7 @@ const ThemeModal = ({
           }}
         >
           <MdOutlineDarkMode size={30} />
-          Dark
+          深色模式
         </button>
         <button
           className={`flex m-1 rounded-lg hover:bg-slate-200 dark:hover:bg-gray-700 hover:opacity-80 duration-200 gap-2 ${
@@ -55,7 +55,7 @@ const ThemeModal = ({
           }}
         >
           <CgScreen size={30} />
-          System
+          系統預設
         </button>
       </div>
     </div>

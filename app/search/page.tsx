@@ -4,13 +4,11 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Loading from "../loading";
 import MiniPage from "@/components/Works/MiniPage";
+import { useSession } from "next-auth/react";
+import prisma from "@/lib/prisma";
 
 const fetchData = async (title: string | null) => {
-  const response = await fetch(
-    `/api/search/titles?title=${title}`,
-    // `/api/test/data?title=${title}`,
-    { cache: "no-store" }
-  );
+  const response = await fetch(`/api/search/titles?title=${title}`);
   return response.json();
 };
 
@@ -18,6 +16,7 @@ const SearchPage = ({ params }: { params: { currentUser: User } }) => {
   const [worksData, setWorksData] = useState<[] | null>(null);
   const searchParams = useSearchParams();
   const title = searchParams.get("title");
+
   const currentUser = params.currentUser;
 
   useEffect(() => {

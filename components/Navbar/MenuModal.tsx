@@ -42,8 +42,8 @@ const MenuModal = ({ currentUser, toggleModal, theme, setTheme }: MenuModalProps
 
             <div className="border m-1"></div>
             <div className="flex flex-col items-center">
-              <Link href={"/"}>Home</Link>
-              <Link href={"/community"}>Community</Link>
+              <Link href={"/"}>主頁</Link>
+              <Link href={"/community"}>社群</Link>
               <Link target="_blank" href={"https://annict.com/"}>
                 Annict.com
               </Link>
@@ -90,7 +90,7 @@ const MenuModal = ({ currentUser, toggleModal, theme, setTheme }: MenuModalProps
               <button className="w-full text-start" onClick={() => signOut()}>
                 <div className="flex justify-center items-center">
                   <RiLogoutBoxLine size={20} />
-                  <div className="mx-2">Log Out</div>
+                  <div className="mx-2">登出</div>
                 </div>
               </button>
             </div>
@@ -103,13 +103,13 @@ const MenuModal = ({ currentUser, toggleModal, theme, setTheme }: MenuModalProps
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex flex-col items-center">
-              <Link href={"/login"}>Log In</Link>
-              <Link href={"/signup"}>Sign Up</Link>
+              <Link href={"/login"}>登入</Link>
+              <Link href={"/signup"}>註冊</Link>
             </div>
             <div className="border m-1"></div>
             <div className="flex flex-col items-center">
-              <Link href={"/"}>Home</Link>
-              <Link href={"/community"}>Community</Link>
+              <Link href={"/"}>首頁</Link>
+              <Link href={"/community"}>社群</Link>
               <Link target="_blank" href={"https://annict.com/"}>
                 Annict.com
               </Link>

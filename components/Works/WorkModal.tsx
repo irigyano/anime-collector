@@ -1,45 +1,43 @@
+"use client";
 import Image from "next/image";
 import { WorkData } from "./WorkCard";
 import Link from "next/link";
 import { User } from "@prisma/client";
 import { useState } from "react";
 import { HiOutlineCheckCircle, HiOutlinePlay, HiOutlineStar } from "react-icons/hi";
+import { Toaster } from "react-hot-toast";
+import TruthyButton from "./TruthyButton";
+import FalsyButton from "./FalsyButton";
 
 type WorkModalProps = {
   toggleModal: () => void;
   work: WorkData;
   srcUrl: string;
-  currentUser: User;
+  currentUser: User | null;
 };
 
 const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) => {
-  const [isWatched, setIsWatched] = useState(false);
-  const [isWatching, setIsWatching] = useState(false);
-  const [isFollowing, setIsFollowing] = useState(false);
-
-  // Check if user stored the work
-  if (currentUser) {
-    if (currentUser.watchedWorks.includes(work.annictId) && !isWatched) {
-      setIsWatched(true);
-    }
-    if (currentUser.watchingWorks.includes(work.annictId) && !isWatching) {
-      setIsWatching(true);
-    }
-    if (currentUser.followingWorks.includes(work.annictId) && !isFollowing) {
-      setIsFollowing(true);
-    }
-  }
+  const [isWatched, setIsWatched] = useState(
+    currentUser ? currentUser.watchedWorks.includes(work.annictId) : false
+  );
+  const [isWatching, setIsWatching] = useState(
+    currentUser ? currentUser.watchingWorks.includes(work.annictId) : false
+  );
+  const [isFollowing, setIsFollowing] = useState(
+    currentUser ? currentUser.followingWorks.includes(work.annictId) : false
+  );
 
   return (
     <div className="fixed inset-0 w-full h-full z-20 bg-black bg-opacity-50" onClick={toggleModal}>
+      <Toaster />
       <div className="relative w-4/5 mx-auto md:w-1/2 xl:w-1/3 my-6">
         <div
           className="relative bg-[#fff] dark:bg-[#0f0f0f] dark:text-[#f1f1f1] rounded-md z-20 overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >
-          <header className="relative h-60 drop-shadow overflow-hidden md:h-72">
+          <div className="relative h-60 drop-shadow overflow-hidden md:h-72">
             <Image src={srcUrl} alt="cover_photo" fill className="object-cover" sizes="640px" />
-          </header>
+          </div>
           <div className="flex justify-center m-1">
             <div className="border-2 border-rose-400 text-rose-400 rounded-2xl px-2 m-1 text-sm">
               {work.seasonYear}
@@ -76,102 +74,124 @@ const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) =
           </div>
 
           <main className="mb-1 text-center">
-            <header>
-              <div>{work.title}</div>
-              <div>{work.titleKana}</div>
+            <div className="flex flex-col justify-center items-center">
+              <Link
+                className="hover:text-blue-500 duration-300"
+                target="_blank"
+                href={`https://annict.com/works/${work.annictId}`}
+              >
+                <div>{work.title}</div>
+                <div>{work.titleKana}</div>
+              </Link>
               <div>{work.episodesCount !== 0 ? `エピソード：${work.episodesCount}話` : null}</div>
-            </header>
+            </div>
             <section className="text-left">
               {work.casts?.nodes.map((cast, index) => {
                 return (
                   <div key={index} className="flex justify-between">
                     <div className="basis-1/2 flex justify-center truncate">
-                      <div className="">{cast.character.name}</div>
+                      <Link
+                        className="hover:text-blue-500 duration-300"
+                        target="_blank"
+                        href={`https://annict.com/characters/${cast.character.annictId}`}
+                      >
+                        <div>{cast.character.name}</div>
+                      </Link>
                     </div>
                     <div className="basis-1/2 flex justify-center">
-                      <div className="">{cast.name}</div>
+                      <Link
+                        className="hover:text-blue-500 duration-300"
+                        target="_blank"
+                        href={`https://annict.com/people/${cast.person.annictId}`}
+                      >
+                        <div>{cast.name}</div>
+                      </Link>
                     </div>
                   </div>
                 );
               })}
             </section>
           </main>
+
           <footer className="flex justify-between">
             {isWatched ? (
-              <div className="basis-1/3 flex justify-center items-center duration-300 text-green-500">
-                <button
-                  onClick={() => {
-                    setIsWatched(false);
-                  }}
-                >
-                  <HiOutlineCheckCircle size={30} />
-                </button>
-              </div>
+              <TruthyButton
+                text={"看過"}
+                workId={work.annictId}
+                color={"text-green-500"}
+                category={"watchedWorks"}
+                stateSetter={setIsWatched}
+                icon={<HiOutlineCheckCircle size={30} />}
+              />
             ) : (
-              <div className="basis-1/3 flex justify-center items-center  ">
-                <button
-                  className="duration-300 hover:text-green-500"
-                  onClick={() => {
-                    if (!currentUser) {
-                      return console.log("please log in toast");
-                    }
-                    setIsWatched(true);
-                  }}
-                >
-                  <HiOutlineCheckCircle size={30} />
-                </button>
-              </div>
+              <FalsyButton
+                text={"看過"}
+                category={"watchedWorks"}
+                workId={work.annictId}
+                color={"hover:text-green-500"}
+                currentUser={currentUser}
+                stateSetter={setIsWatched}
+                category2={"watchingWorks"}
+                isCategory2={isWatching}
+                category2Setter={setIsWatching}
+                category3={"followingWorks"}
+                isCategory3={isFollowing}
+                category3Setter={setIsFollowing}
+                icon={<HiOutlineCheckCircle size={30} />}
+              />
             )}
 
             {isWatching ? (
-              <div className="basis-1/3 flex justify-center items-center duration-300 text-blue-500">
-                <button
-                  onClick={() => {
-                    setIsWatching(false);
-                  }}
-                >
-                  <HiOutlinePlay size={30} />
-                </button>
-              </div>
+              <TruthyButton
+                text={"正在看"}
+                workId={work.annictId}
+                color={"text-blue-500"}
+                category={"watchingWorks"}
+                stateSetter={setIsWatching}
+                icon={<HiOutlinePlay size={30} />}
+              />
             ) : (
-              <div className="basis-1/3 flex justify-center items-center  ">
-                <button
-                  className="duration-300 hover:text-blue-500"
-                  onClick={() => {
-                    if (!currentUser) {
-                      return console.log("please log in toast");
-                    }
-                    setIsWatching(true);
-                  }}
-                >
-                  <HiOutlinePlay size={30} />
-                </button>
-              </div>
+              <FalsyButton
+                text={"正在看"}
+                category={"watchingWorks"}
+                workId={work.annictId}
+                color={"hover:text-blue-500"}
+                currentUser={currentUser}
+                stateSetter={setIsWatching}
+                category2={"followingWorks"}
+                isCategory2={isFollowing}
+                category2Setter={setIsFollowing}
+                category3={"watchedWorks"}
+                isCategory3={isWatched}
+                category3Setter={setIsWatched}
+                icon={<HiOutlinePlay size={30} />}
+              />
             )}
             {isFollowing ? (
-              <div className="basis-1/3 flex justify-center items-center duration-300 text-yellow-500">
-                <button
-                  onClick={() => {
-                    setIsFollowing(false);
-                  }}
-                >
-                  <HiOutlineStar size={30} />
-                </button>
-              </div>
+              <TruthyButton
+                text={"關注"}
+                workId={work.annictId}
+                category={"followingWorks"}
+                color={"text-yellow-500"}
+                stateSetter={setIsFollowing}
+                icon={<HiOutlineStar size={30} />}
+              />
             ) : (
-              <div className="basis-1/3 flex justify-center items-center  ">
-                <button
-                  className="duration-300 hover:text-yellow-500"
-                  onClick={() => {
-                    if (!currentUser) {
-                      return console.log("please log in toast");
-                    }
-                    setIsFollowing(true);
-                  }}
-                >
-                  <HiOutlineStar size={30} />
-                </button>
-              </div>
+              <FalsyButton
+                text={"關注"}
+                category={"followingWorks"}
+                workId={work.annictId}
+                color={"hover:text-yellow-500"}
+                currentUser={currentUser}
+                stateSetter={setIsFollowing}
+                category2={"watchedWorks"}
+                isCategory2={isWatched}
+                category2Setter={setIsWatched}
+                category3={"watchingWorks"}
+                isCategory3={isWatching}
+                category3Setter={setIsWatching}
+                icon={<HiOutlineStar size={30} />}
+              />
             )}
           </footer>
         </div>

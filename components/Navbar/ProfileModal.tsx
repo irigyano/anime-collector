@@ -41,7 +41,7 @@ const ProfileModal = ({
             <button className="w-full text-start" onClick={() => signOut()}>
               <div className="flex justify-center items-center">
                 <RiLogoutBoxLine size={20} />
-                <div className="mx-2">Log Out</div>
+                <div className="mx-2">登出</div>
               </div>
             </button>
           </div>

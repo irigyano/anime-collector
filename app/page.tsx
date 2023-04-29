@@ -26,7 +26,7 @@ async function fetchData() {
                 twitterHashtag
                 episodesCount
                 image{facebookOgImageUrl,recommendedImageUrl}         
-                casts(first:5){nodes{name,character{name}}}
+                casts(first:5){nodes{name,person{annictId},character{name,annictId}}}
               }
             }
           }`,

@@ -19,12 +19,18 @@ export type WorkData = {
     facebookOgImageUrl: string;
     recommendedImageUrl: string;
   };
-  casts: { nodes: { name: string; character: { name: string } }[] };
+  casts: {
+    nodes: {
+      name: string;
+      person: { annictId: number };
+      character: { name: string; annictId: number };
+    }[];
+  };
 };
 
 // http://[directory]/img/2022-01-26/imagica_img.jpg not valid in 2022 winter
 
-const WorkCard = ({ work, currentUser }: { work: WorkData; currentUser: User }) => {
+const WorkCard = ({ work, currentUser }: { work: WorkData; currentUser: User | null }) => {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
 

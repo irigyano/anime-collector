@@ -11,8 +11,8 @@ const font = Zen_Maru_Gothic({
 });
 
 export const metadata = {
-  title: "Banngumi View | Annict",
-  description: "Keeps track of your favorite animes.",
+  title: "Banngumi View | Annict.com",
+  description: "輕鬆整理動畫清單",
 };
 
 export const dynamic = "force-dynamic";
@@ -33,7 +33,6 @@ export default async function RootLayout({
         className={`bg-[#fff] text-[#0f0f0f] dark:bg-[#0f0f0f] dark:text-[#f1f1f1] ${font.className} duration-500`}
       >
         <NextAuthSessionProvider>
-          {/* *@ts-expect-error Async Server Component */}
           <Navbar currentUser={currentUser} />
           {children}
         </NextAuthSessionProvider>

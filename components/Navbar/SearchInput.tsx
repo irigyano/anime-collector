@@ -26,7 +26,7 @@ const SearchInput = () => {
       <input
         className="h-10 w-4/5 px-4 rounded-none outline-none text-lg border-r dark:bg-[#0f0f0f]"
         type="text"
-        placeholder="作品検索"
+        placeholder="搜尋作品"
         maxLength={12}
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
