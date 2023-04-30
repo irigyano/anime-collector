@@ -131,12 +131,6 @@ const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) =
                 color={"hover:text-green-500"}
                 currentUser={currentUser}
                 stateSetter={setIsWatched}
-                category2={"watchingWorks"}
-                isCategory2={isWatching}
-                category2Setter={setIsWatching}
-                category3={"followingWorks"}
-                isCategory3={isFollowing}
-                category3Setter={setIsFollowing}
                 icon={<HiOutlineCheckCircle size={30} />}
               />
             )}
@@ -158,12 +152,6 @@ const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) =
                 color={"hover:text-blue-500"}
                 currentUser={currentUser}
                 stateSetter={setIsWatching}
-                category2={"followingWorks"}
-                isCategory2={isFollowing}
-                category2Setter={setIsFollowing}
-                category3={"watchedWorks"}
-                isCategory3={isWatched}
-                category3Setter={setIsWatched}
                 icon={<HiOutlinePlay size={30} />}
               />
             )}
@@ -184,12 +172,6 @@ const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) =
                 color={"hover:text-yellow-500"}
                 currentUser={currentUser}
                 stateSetter={setIsFollowing}
-                category2={"watchedWorks"}
-                isCategory2={isWatched}
-                category2Setter={setIsWatched}
-                category3={"watchingWorks"}
-                isCategory3={isWatching}
-                category3Setter={setIsWatching}
                 icon={<HiOutlineStar size={30} />}
               />
             )}

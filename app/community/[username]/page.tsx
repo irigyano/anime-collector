@@ -15,9 +15,11 @@ function findMatchingId(arrayA: WorkData[], arrayB: number[], arrayC: number[], 
     const id = arrayA[i].annictId;
     if (arrayB.includes(id)) {
       matchingObjectsB.push(arrayA[i]);
-    } else if (arrayC.includes(id)) {
+    }
+    if (arrayC.includes(id)) {
       matchingObjectsC.push(arrayA[i]);
-    } else if (arrayD.includes(id)) {
+    }
+    if (arrayD.includes(id)) {
       matchingObjectsD.push(arrayA[i]);
     }
   }
