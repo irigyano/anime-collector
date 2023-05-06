@@ -3,6 +3,10 @@ import prisma from "@/lib/prisma";
 import { User } from "@prisma/client";
 import Image from "next/image";
 
+export const metadata = {
+  title: "社群 | Banngumi View | Annict.com",
+};
+
 export const dynamic = "force-dynamic";
 
 const CommunityPage = async () => {

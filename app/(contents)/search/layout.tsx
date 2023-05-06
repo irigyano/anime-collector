@@ -1,5 +1,5 @@
 import { User } from "@prisma/client";
-import getCurrentUser from "../actions/getCurrentUser";
+import getCurrentUser from "../../actions/getCurrentUser";
 
 type SearchPageLayoutProp = {
   children: React.ReactNode;
@@ -8,7 +8,6 @@ type SearchPageLayoutProp = {
 
 export const metadata = {
   title: "搜尋作品 | Banngumi View | Annict.com",
-  description: "輕鬆整理動畫清單",
 };
 
 const SearchPageLayout = async ({ children, params }: SearchPageLayoutProp) => {

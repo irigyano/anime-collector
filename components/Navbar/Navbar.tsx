@@ -24,7 +24,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
       <nav className="flex justify-center lg:justify-between lg:px-20 border-b shadow-md items-center w-full z-20 fixed bg-[#f1f1f1] dark:bg-[#0f0f0f] duration-500">
         <div className="h-10 flex items-center justify-start basis-1/3">
           <div className="hidden lg:block m-1 hover:border-b-2 border-transparent duration-100">
-            <Link href={"/"} className="lg:block">
+            <Link href={"/home"} className="lg:block">
               <Image alt="logo" src="/images/logo.png" width={40} height={40} />
             </Link>
           </div>

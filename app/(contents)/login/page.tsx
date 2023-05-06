@@ -13,7 +13,7 @@ const LogInPage = () => {
     signIn("credentials", {
       username,
       password,
-      callbackUrl: "/",
+      callbackUrl: "/home",
     });
   };
 
