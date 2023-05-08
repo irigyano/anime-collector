@@ -10,6 +10,8 @@ import { useState } from "react";
 import ThemeModal from "./ThemeModal";
 import ProfileModal from "./ProfileModal";
 import { User } from "@prisma/client";
+import LogInButton from "../LogInButton";
+import SignUpButton from "../SignUpButton";
 
 type NavbarProps = {
   currentUser?: User | null;
@@ -62,7 +64,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
           </Link>
 
           <ThemeSwitch theme={theme} setTheme={setTheme} />
-          <div className="relative h-10 w-10 m-1 flex justify-center items-center">
+          <div className="h-10 w-10 m-1 flex justify-center items-center">
             <button
               className={`hover:text-blue-500 duration-300 ${
                 showThemeModal ? "text-blue-500" : null
@@ -113,19 +115,9 @@ const Navbar = ({ currentUser }: NavbarProps) => {
               </div>
             </>
           ) : (
-            <div className="relative text-base h-10 w-40 flex text-center justify-center items-center">
-              <Link
-                className="flex basis-1/2 justify-center items-center h-8 bg-zinc-200 rounded-lg m-2 shadow-md duration-300 hover:bg-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-500"
-                href={"/login"}
-              >
-                <div className="">登入</div>
-              </Link>
-              <Link
-                className="flex basis-1/2 justify-center items-center h-8 bg-pink-200 rounded-lg m-2 shadow-md duration-300 hover:bg-pink-300 dark:bg-pink-700 dark:hover:bg-pink-500"
-                href={"/signup"}
-              >
-                <div className="">註冊</div>
-              </Link>
+            <div className="h-10 w-40 flex text-center justify-center items-center">
+              <LogInButton />
+              <SignUpButton />
             </div>
           )}
         </div>

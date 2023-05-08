@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 import Image from "next/image";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 function findMatchingId(arrayA: WorkData[], arrayB: number[], arrayC: number[], arrayD: number[]) {
   const matchingObjectsB = [];

@@ -108,7 +108,7 @@ const MenuModal = ({ currentUser, toggleModal, theme, setTheme }: MenuModalProps
             </div>
             <div className="border m-1"></div>
             <div className="flex flex-col items-center">
-              <Link href={"/"}>首頁</Link>
+              <Link href={"/home"}>首頁</Link>
               <Link href={"/community"}>社群</Link>
               <Link target="_blank" href={"https://annict.com/"}>
                 Annict.com

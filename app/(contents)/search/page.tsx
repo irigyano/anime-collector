@@ -1,11 +1,10 @@
 "use client";
+
 import { User } from "@prisma/client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Loading from "../loading";
 import MiniPage from "@/components/Works/MiniPage";
-import { useSession } from "next-auth/react";
-import prisma from "@/lib/prisma";
 
 const fetchData = async (title: string | null) => {
   const response = await fetch(`/api/search/titles?title=${title}`);
