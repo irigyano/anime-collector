@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { User } from "@prisma/client";
 import { SetStateAction, ReactNode } from "react";
 
-type FalsyButtonProp = {
+type AddCollectionButtonProp = {
   workId: number;
   category: "watchedWorks" | "watchingWorks" | "followingWorks";
   color: string;
@@ -13,7 +13,7 @@ type FalsyButtonProp = {
   text: string;
 };
 
-const FalsyButton = ({
+const AddCollectionButton = ({
   workId,
   stateSetter,
   icon,
@@ -21,7 +21,7 @@ const FalsyButton = ({
   color,
   text,
   currentUser,
-}: FalsyButtonProp) => {
+}: AddCollectionButtonProp) => {
   return (
     <div className="basis-1/3 flex flex-col justify-center items-center m-2">
       <button
@@ -30,7 +30,10 @@ const FalsyButton = ({
           if (!currentUser) {
             return toast.error("請先登入");
           }
-          fetch(`/api/${category}/${workId}`, { method: "POST" });
+          fetch("/api/collection", {
+            method: "POST",
+            body: JSON.stringify({ category: category, annictId: workId }),
+          });
           stateSetter(true);
           toast.success("收藏成功");
         }}
@@ -43,4 +46,4 @@ const FalsyButton = ({
     </div>
   );
 };
-export default FalsyButton;
+export default AddCollectionButton;

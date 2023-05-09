@@ -11,6 +11,7 @@ async function getSession() {
   if (!session) {
     return null;
   }
+
   return session.user;
 }
 
@@ -20,6 +21,7 @@ const IndexPage = async () => {
   if (user) {
     redirect("/home");
   }
+
   return (
     <>
       <div className="w-full h-screen flex flex-col items-center bg-[#fff]">

@@ -56,6 +56,7 @@ async function fetchData() {
 const HomePage = async ({ params }: { params: { currentUser: User } }) => {
   const worksData = await fetchData();
   const currentUser = params.currentUser;
+
   return (
     <main>
       <MiniPage worksData={worksData} currentUser={currentUser} mode="view" />

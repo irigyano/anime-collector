@@ -6,8 +6,8 @@ import { User } from "@prisma/client";
 import { useState } from "react";
 import { HiOutlineCheckCircle, HiOutlinePlay, HiOutlineStar } from "react-icons/hi";
 import { Toaster } from "react-hot-toast";
-import TruthyButton from "./TruthyButton";
-import FalsyButton from "./FalsyButton";
+import RemoveCollectionButton from "./RemoveCollectionButton";
+import AddCollectionButton from "./AddCollectionButton";
 
 type WorkModalProps = {
   toggleModal: () => void;
@@ -115,7 +115,7 @@ const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) =
 
           <footer className="flex justify-between">
             {isWatched ? (
-              <TruthyButton
+              <RemoveCollectionButton
                 text={"看過"}
                 workId={work.annictId}
                 color={"text-green-500"}
@@ -124,7 +124,7 @@ const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) =
                 icon={<HiOutlineCheckCircle size={30} />}
               />
             ) : (
-              <FalsyButton
+              <AddCollectionButton
                 text={"看過"}
                 category={"watchedWorks"}
                 workId={work.annictId}
@@ -136,7 +136,7 @@ const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) =
             )}
 
             {isWatching ? (
-              <TruthyButton
+              <RemoveCollectionButton
                 text={"正在看"}
                 workId={work.annictId}
                 color={"text-blue-500"}
@@ -145,7 +145,7 @@ const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) =
                 icon={<HiOutlinePlay size={30} />}
               />
             ) : (
-              <FalsyButton
+              <AddCollectionButton
                 text={"正在看"}
                 category={"watchingWorks"}
                 workId={work.annictId}
@@ -156,7 +156,7 @@ const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) =
               />
             )}
             {isFollowing ? (
-              <TruthyButton
+              <RemoveCollectionButton
                 text={"關注"}
                 workId={work.annictId}
                 category={"followingWorks"}
@@ -165,7 +165,7 @@ const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) =
                 icon={<HiOutlineStar size={30} />}
               />
             ) : (
-              <FalsyButton
+              <AddCollectionButton
                 text={"關注"}
                 category={"followingWorks"}
                 workId={work.annictId}

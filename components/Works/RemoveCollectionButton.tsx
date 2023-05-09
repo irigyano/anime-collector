@@ -2,7 +2,7 @@
 import { SetStateAction, ReactNode } from "react";
 import toast from "react-hot-toast";
 
-type TruthyButtonProp = {
+type RemoveCollectionButtonProp = {
   workId: number;
   category: string;
   color: string;
@@ -11,7 +11,14 @@ type TruthyButtonProp = {
   icon: ReactNode;
 };
 
-const TruthyButton = ({ workId, text, stateSetter, icon, category, color }: TruthyButtonProp) => {
+const RemoveCollectionButton = ({
+  workId,
+  text,
+  stateSetter,
+  icon,
+  category,
+  color,
+}: RemoveCollectionButtonProp) => {
   return (
     <div
       className={`basis-1/3 flex flex-col justify-center items-center m-2 duration-300 ${color}`}
@@ -20,8 +27,9 @@ const TruthyButton = ({ workId, text, stateSetter, icon, category, color }: Trut
         onClick={async () => {
           stateSetter(false);
           toast.success("取消收藏");
-          await fetch(`/api/${category}/${workId}`, {
-            method: "DELETE",
+          fetch("/api/collection", {
+            method: "PUT",
+            body: JSON.stringify({ category: category, annictId: workId }),
           });
         }}
       >
@@ -33,4 +41,4 @@ const TruthyButton = ({ workId, text, stateSetter, icon, category, color }: Trut
     </div>
   );
 };
-export default TruthyButton;
+export default RemoveCollectionButton;
