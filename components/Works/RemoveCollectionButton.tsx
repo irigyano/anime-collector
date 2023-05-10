@@ -31,22 +31,26 @@ const RemoveCollectionButton = ({
       className={`basis-1/3 flex flex-col justify-center items-center m-2 duration-300 ${color}`}
     >
       <button
-        onClick={() => {
-          if (!currentUser) return;
+        onClick={async () => {
+          // Removable
+          if (!currentUser) {
+            return toast.error("請先登入");
+          }
 
-          fetch("/api/collection", {
+          const data = await fetch("/api/collection", {
             method: "PUT",
             body: JSON.stringify({ category: category, annictId: workId }),
           });
 
-          const updatedWorks = [...currentUser[category]];
-          updatedWorks.splice(updatedWorks.indexOf(workId));
+          if (data.status === 200) {
+            const updatedWorks = [...currentUser[category]];
+            updatedWorks.splice(updatedWorks.indexOf(workId));
+            const updatedUser = { ...currentUser };
+            updatedUser[category] = updatedWorks;
+            dispatch(removeCollection(updatedUser));
 
-          const updatedUser = { ...currentUser };
-          updatedUser[category] = updatedWorks;
-          dispatch(removeCollection(updatedUser));
-
-          toast.success("取消收藏");
+            toast.success("取消收藏");
+          }
         }}
       >
         <div className="flex justify-center">

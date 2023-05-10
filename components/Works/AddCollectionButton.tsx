@@ -32,23 +32,22 @@ const AddCollectionButton = ({
     <div className="basis-1/3 flex flex-col justify-center items-center m-2">
       <button
         className={`duration-300 ${color}`}
-        onClick={() => {
+        onClick={async () => {
           if (!currentUser) {
             return toast.error("請先登入");
           }
 
-          fetch("/api/collection", {
+          const res = await fetch("/api/collection", {
             method: "POST",
             body: JSON.stringify({ category: category, annictId: workId }),
           });
 
-          const updatedWorks = [...currentUser[category]];
-          updatedWorks.push(workId);
-          const updatedUser = { ...currentUser };
-          updatedUser[category] = updatedWorks;
-          dispatch(addCollection(updatedUser));
-
-          toast.success("收藏成功");
+          if (res.status === 200) {
+            const data = await res.json();
+            const updatedUser = { ...currentUser, ...data };
+            dispatch(addCollection(updatedUser));
+            toast.success("收藏成功");
+          }
         }}
       >
         <div className="flex justify-center">
