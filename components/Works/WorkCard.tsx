@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import WorkModal from "./WorkModal";
-import { User } from "@prisma/client";
 
 export type WorkData = {
   annictId: number;
@@ -30,7 +29,7 @@ export type WorkData = {
 
 // http://[directory]/img/2022-01-26/imagica_img.jpg not valid in 2022 winter
 
-const WorkCard = ({ work, currentUser }: { work: WorkData; currentUser: User | null }) => {
+const WorkCard = ({ work }: { work: WorkData }) => {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
 
@@ -107,14 +106,7 @@ const WorkCard = ({ work, currentUser }: { work: WorkData; currentUser: User | n
         </div>
         <h1 className="truncate mx-1">{work.title}</h1>
       </figure>
-      {showModal && (
-        <WorkModal
-          currentUser={currentUser}
-          toggleModal={toggleModal}
-          work={work}
-          srcUrl={srcUrl}
-        />
-      )}
+      {showModal && <WorkModal toggleModal={toggleModal} work={work} srcUrl={srcUrl} />}
     </>
   );
 };

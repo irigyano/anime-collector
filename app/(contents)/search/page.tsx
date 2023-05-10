@@ -11,12 +11,10 @@ const fetchData = async (title: string | null) => {
   return response.json();
 };
 
-const SearchPage = ({ params }: { params: { currentUser: User } }) => {
+const SearchPage = () => {
   const [worksData, setWorksData] = useState<[] | null>(null);
   const searchParams = useSearchParams();
   const title = searchParams.get("title");
-
-  const currentUser = params.currentUser;
 
   useEffect(() => {
     fetchData(title).then((data) => {
@@ -38,6 +36,6 @@ const SearchPage = ({ params }: { params: { currentUser: User } }) => {
     );
   }
 
-  return <MiniPage worksData={worksData} currentUser={currentUser} mode="search" />;
+  return <MiniPage worksData={worksData} mode="search" />;
 };
 export default SearchPage;

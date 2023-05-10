@@ -15,8 +15,8 @@ export async function POST(request: Request) {
     return NextResponse.error();
   }
 
-  const updatingWorks = [...currentUser[category]];
-  updatingWorks.push(Number(annictId));
+  const updatedWorks = [...currentUser[category]];
+  updatedWorks.push(Number(annictId));
 
   const user = await prisma.user.update({
     where: {
@@ -24,7 +24,8 @@ export async function POST(request: Request) {
     },
     data: {
       // https://stackoverflow.com/questions/33194138/template-string-as-object-property-name
-      [category]: updatingWorks,
+      // Wrapped in an array so coercion evaluate it to a string.
+      [category]: updatedWorks,
     },
   });
 
@@ -40,7 +41,7 @@ export async function PUT(request: Request) {
     return NextResponse.error();
   }
 
-  const updatingWorks = [...currentUser[category]].filter((work) => {
+  const updatedWorks = [...currentUser[category]].filter((work) => {
     return work !== Number(annictId);
   });
 
@@ -49,7 +50,7 @@ export async function PUT(request: Request) {
       id: currentUser.id,
     },
     data: {
-      [category]: updatingWorks,
+      [category]: updatedWorks,
     },
   });
 

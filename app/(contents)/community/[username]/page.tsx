@@ -2,9 +2,6 @@ import WorkCard from "@/components/Works/WorkCard";
 import { WorkData } from "@/components/Works/WorkCard";
 import prisma from "@/lib/prisma";
 import Image from "next/image";
-import getCurrentUser from "@/app/actions/getCurrentUser";
-
-// export const dynamic = "force-dynamic";
 
 function findMatchingId(arrayA: WorkData[], arrayB: number[], arrayC: number[], arrayD: number[]) {
   const matchingObjectsB = [];
@@ -29,7 +26,6 @@ function findMatchingId(arrayA: WorkData[], arrayB: number[], arrayC: number[], 
 
 const UserPage = async ({ params }: { params: { username: string } }) => {
   const user = await prisma.user.findUnique({ where: { username: `${params.username}` } });
-  const currentUser = await getCurrentUser();
 
   if (!user) {
     return <div>找不到使用者</div>;
@@ -108,7 +104,7 @@ const UserPage = async ({ params }: { params: { username: string } }) => {
           {resultData[1].map((work: WorkData) => {
             return (
               <div key={work.annictId}>
-                <WorkCard work={work} currentUser={currentUser} />
+                <WorkCard work={work} />
               </div>
             );
           })}
@@ -124,7 +120,7 @@ const UserPage = async ({ params }: { params: { username: string } }) => {
           {resultData[0].map((work: WorkData) => {
             return (
               <div key={work.annictId}>
-                <WorkCard work={work} currentUser={currentUser} />
+                <WorkCard work={work} />
               </div>
             );
           })}
@@ -140,7 +136,7 @@ const UserPage = async ({ params }: { params: { username: string } }) => {
           {resultData[2].map((work: WorkData) => {
             return (
               <div key={work.annictId}>
-                <WorkCard work={work} currentUser={currentUser} />
+                <WorkCard work={work} />
               </div>
             );
           })}

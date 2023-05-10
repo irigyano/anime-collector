@@ -1,11 +1,9 @@
 "use client";
-
 import { WorkData } from "@/components/Works/WorkCard";
 import { useState } from "react";
 import WorkCard from "@/components/Works/WorkCard";
 import SeasonSelector from "@/components/Works/SeasonSelector";
 import Loading from "../../app/loading";
-import { User } from "@prisma/client";
 
 export type SeasonInfo = {
   year: number;
@@ -15,10 +13,9 @@ export type SeasonInfo = {
 type MiniPageProps = {
   worksData: WorkData[];
   mode: string;
-  currentUser: User | null;
 };
 
-const MiniPage = ({ worksData, mode, currentUser }: MiniPageProps) => {
+const MiniPage = ({ worksData, mode }: MiniPageProps) => {
   const [miniPageIndex, setMiniPageIndex] = useState<number>(0);
   const [works, setWork] = useState<WorkData[] | null>(worksData);
   const [isSearchPage, setIsSearchPage] = useState(false);
@@ -33,6 +30,7 @@ const MiniPage = ({ worksData, mode, currentUser }: MiniPageProps) => {
     seasonInfo["year"] = works[0].seasonYear;
     seasonInfo["season"] = works[0].seasonName;
   }
+
   // divide data from Annict into pages
   const worksMiniPages: WorkData[][] = [];
   for (let i = 0; i < works.length; i += 12) {
@@ -52,13 +50,12 @@ const MiniPage = ({ worksData, mode, currentUser }: MiniPageProps) => {
         setMiniPageIndex={setMiniPageIndex}
         setIsSearchPage={setIsSearchPage}
       />
+
       <section className="flex flex-wrap justify-center">
         {worksMiniPages[miniPageIndex].map((work) => {
-          return <WorkCard currentUser={currentUser} key={work.annictId} work={work} />;
+          return <WorkCard key={work.annictId} work={work} />;
         })}
       </section>
-
-      <div className="w-screen h-10"></div>
 
       <div className="w-screen fixed bottom-1 2xl:bottom-14 flex justify-center">
         <div
@@ -83,6 +80,7 @@ const MiniPage = ({ worksData, mode, currentUser }: MiniPageProps) => {
           })}
         </div>
       </div>
+      <div className="w-screen h-10" />
     </>
   );
 };

@@ -1,25 +1,31 @@
 import "../globals.css";
-import NextAuthSessionProvider from "@/components/providers/NextAuthSessionProvider";
-import Navbar from "../../components/Navbar/Navbar";
-import getCurrentUser from "./../actions/getCurrentUser";
-import { User } from "@prisma/client";
+import NextAuthSessionProvider from "@/components/NextAuthSessionProvider";
+import Navbar from "@/components/Navbar/Navbar";
+import getCurrentUser from "@/app/actions/getCurrentUser";
+import { ReduxProvider } from "@/app/redux/ReduxProvider";
+import ReduxPreloader from "@/app/redux/ReduxPreloader";
+import { store } from "../redux/store";
+import { userAuthenticated } from "../redux/features/user/userSlice";
 
 export const dynamic = "force-dynamic";
 
-export default async function ContentsLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: { currentUser: User | null };
-}) {
-  const currentUser = await getCurrentUser();
-  params.currentUser = currentUser;
+export default async function ContentsLayout({ children }: { children: React.ReactNode }) {
+  const userInfo = await getCurrentUser();
+  if (userInfo) {
+    const { username, avatar, watchedWorks, watchingWorks, followingWorks } = userInfo;
+    const currentUser = { username, avatar, watchedWorks, watchingWorks, followingWorks };
+    store.dispatch(userAuthenticated(currentUser));
+  } else {
+    store.dispatch(userAuthenticated(null));
+  }
 
   return (
     <NextAuthSessionProvider>
-      <Navbar currentUser={currentUser} />
-      {children}
+      <ReduxPreloader currentUser={store.getState().user.user} />
+      <ReduxProvider>
+        <Navbar currentUser={store.getState().user.user} />
+        {children}
+      </ReduxProvider>
     </NextAuthSessionProvider>
   );
 }

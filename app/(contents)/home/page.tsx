@@ -1,39 +1,6 @@
 import MiniPage from "@/components/Works/MiniPage";
-import { User } from "@prisma/client";
 
-const apiQuery = `query {
-  searchWorks(
-    seasons: ["2023-spring"]
-    orderBy: { field: WATCHERS_COUNT, direction: DESC }
-  ) {
-    nodes {
-      annictId
-      title
-      titleKana
-      seasonName
-      seasonYear
-      media
-      twitterHashtag
-      episodesCount
-      image {
-        facebookOgImageUrl
-        recommendedImageUrl
-      }
-      casts(first: 5) {
-        nodes {
-          name
-          person {
-            annictId
-          }
-          character {
-            name
-            annictId
-          }
-        }
-      }
-    }
-  }
-}`;
+const apiQuery = `query{searchWorks(seasons:["2023-spring"] orderBy:{field:WATCHERS_COUNT,direction:DESC}){nodes{annictId title titleKana seasonName seasonYear media twitterHashtag episodesCount image{facebookOgImageUrl recommendedImageUrl}casts(first:5){nodes{name person{annictId}character{name annictId}}}}}}`;
 
 // fetching external directly due to how Next builds.
 async function fetchData() {
@@ -53,13 +20,12 @@ async function fetchData() {
   return results;
 }
 
-const HomePage = async ({ params }: { params: { currentUser: User } }) => {
+const HomePage = async () => {
   const worksData = await fetchData();
-  const currentUser = params.currentUser;
 
   return (
     <main>
-      <MiniPage worksData={worksData} currentUser={currentUser} mode="view" />
+      <MiniPage worksData={worksData} mode="view" />
     </main>
   );
 };

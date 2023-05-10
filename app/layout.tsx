@@ -1,5 +1,5 @@
 import { Zen_Maru_Gothic } from "next/font/google";
-import NextAuthSessionProvider from "@/components/providers/NextAuthSessionProvider";
+import NextAuthSessionProvider from "@/components/NextAuthSessionProvider";
 import "./globals.css";
 
 const font = Zen_Maru_Gothic({

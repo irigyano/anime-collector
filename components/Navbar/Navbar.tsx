@@ -1,17 +1,18 @@
 "use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { User } from "@prisma/client";
 import SearchInput from "./SearchInput";
 import Menu from "./Menu";
-import { BsGithub } from "react-icons/bs";
-import Link from "next/link";
-import ThemeSwitch from "./ThemeSwitch";
-import Image from "next/image";
-import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
-import { useState } from "react";
-import ThemeModal from "./ThemeModal";
 import ProfileModal from "./ProfileModal";
-import { User } from "@prisma/client";
 import LogInButton from "../LogInButton";
 import SignUpButton from "../SignUpButton";
+import ThemeSwitch from "./ThemeSwitch";
+import ThemeModal from "./ThemeModal";
+import { BsGithub } from "react-icons/bs";
+import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 
 type NavbarProps = {
   currentUser?: User | null;
@@ -21,6 +22,7 @@ const Navbar = ({ currentUser }: NavbarProps) => {
   const [theme, setTheme] = useState<string | null>(null);
   const [showThemeModal, setShowThemeModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
+
   return (
     <>
       <nav className="flex justify-center lg:justify-between lg:px-20 border-b shadow-md items-center w-full z-20 fixed bg-[#f1f1f1] dark:bg-[#0f0f0f] duration-500">

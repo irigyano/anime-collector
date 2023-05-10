@@ -38,7 +38,6 @@ export async function GET(request: Request) {
             }
           }`,
       }),
-      cache: "no-store",
     })
   ).json();
   const results = data.searchWorks.nodes;

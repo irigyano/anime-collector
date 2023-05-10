@@ -2,30 +2,27 @@
 import Image from "next/image";
 import { WorkData } from "./WorkCard";
 import Link from "next/link";
-import { User } from "@prisma/client";
-import { useState } from "react";
 import { HiOutlineCheckCircle, HiOutlinePlay, HiOutlineStar } from "react-icons/hi";
 import { Toaster } from "react-hot-toast";
 import RemoveCollectionButton from "./RemoveCollectionButton";
 import AddCollectionButton from "./AddCollectionButton";
+import { RootState } from "@/app/redux/store";
+import { TypedUseSelectorHook, useSelector } from "react-redux";
 
 type WorkModalProps = {
   toggleModal: () => void;
   work: WorkData;
   srcUrl: string;
-  currentUser: User | null;
 };
 
-const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) => {
-  const [isWatched, setIsWatched] = useState(
-    currentUser ? currentUser.watchedWorks.includes(work.annictId) : false
-  );
-  const [isWatching, setIsWatching] = useState(
-    currentUser ? currentUser.watchingWorks.includes(work.annictId) : false
-  );
-  const [isFollowing, setIsFollowing] = useState(
-    currentUser ? currentUser.followingWorks.includes(work.annictId) : false
-  );
+const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+
+const WorkModal = ({ toggleModal, work, srcUrl }: WorkModalProps) => {
+  const currentUser = useAppSelector((state) => state.user.user);
+
+  const isWatched = currentUser ? currentUser.watchedWorks.includes(work.annictId) : false;
+  const isWatching = currentUser ? currentUser.watchingWorks.includes(work.annictId) : false;
+  const isFollowing = currentUser ? currentUser.followingWorks.includes(work.annictId) : false;
 
   return (
     <div className="fixed inset-0 w-full h-full z-20 bg-black bg-opacity-50" onClick={toggleModal}>
@@ -120,7 +117,7 @@ const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) =
                 workId={work.annictId}
                 color={"text-green-500"}
                 category={"watchedWorks"}
-                stateSetter={setIsWatched}
+                currentUser={currentUser}
                 icon={<HiOutlineCheckCircle size={30} />}
               />
             ) : (
@@ -130,7 +127,6 @@ const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) =
                 workId={work.annictId}
                 color={"hover:text-green-500"}
                 currentUser={currentUser}
-                stateSetter={setIsWatched}
                 icon={<HiOutlineCheckCircle size={30} />}
               />
             )}
@@ -141,7 +137,7 @@ const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) =
                 workId={work.annictId}
                 color={"text-blue-500"}
                 category={"watchingWorks"}
-                stateSetter={setIsWatching}
+                currentUser={currentUser}
                 icon={<HiOutlinePlay size={30} />}
               />
             ) : (
@@ -151,7 +147,6 @@ const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) =
                 workId={work.annictId}
                 color={"hover:text-blue-500"}
                 currentUser={currentUser}
-                stateSetter={setIsWatching}
                 icon={<HiOutlinePlay size={30} />}
               />
             )}
@@ -161,7 +156,7 @@ const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) =
                 workId={work.annictId}
                 category={"followingWorks"}
                 color={"text-yellow-500"}
-                stateSetter={setIsFollowing}
+                currentUser={currentUser}
                 icon={<HiOutlineStar size={30} />}
               />
             ) : (
@@ -171,7 +166,6 @@ const WorkModal = ({ toggleModal, work, srcUrl, currentUser }: WorkModalProps) =
                 workId={work.annictId}
                 color={"hover:text-yellow-500"}
                 currentUser={currentUser}
-                stateSetter={setIsFollowing}
                 icon={<HiOutlineStar size={30} />}
               />
             )}
