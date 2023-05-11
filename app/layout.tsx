@@ -8,8 +8,8 @@ const font = Zen_Maru_Gothic({
 });
 
 export const metadata = {
-  title: "Banngumi View | Annict.com",
-  description: "輕鬆整理動畫清單",
+  title: { default: "Banngumi View | Annict.com", template: "%s | Banngumi View | Annict.com" },
+  description: "Share Your Anime Collection with Friends.",
 };
 
 export default async function IndexRootLayout({ children }: { children: React.ReactNode }) {

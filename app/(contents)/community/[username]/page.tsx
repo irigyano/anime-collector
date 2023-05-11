@@ -2,6 +2,19 @@ import WorkCard from "@/components/Works/WorkCard";
 import { WorkData } from "@/components/Works/WorkCard";
 import prisma from "@/lib/prisma";
 import Image from "next/image";
+import { Metadata } from "next";
+
+type Props = {
+  params: { username: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  // read route params
+  const username = params.username;
+  return {
+    title: `@${username}`,
+  };
+}
 
 function findMatchingId(arrayA: WorkData[], arrayB: number[], arrayC: number[], arrayD: number[]) {
   const matchingObjectsB = [];

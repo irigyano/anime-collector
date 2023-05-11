@@ -4,7 +4,7 @@ import { User } from "@prisma/client";
 import Image from "next/image";
 
 export const metadata = {
-  title: "社群 | Banngumi View | Annict.com",
+  title: "社群",
 };
 
 export const dynamic = "force-dynamic";

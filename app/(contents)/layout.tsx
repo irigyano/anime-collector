@@ -6,6 +6,7 @@ import { ReduxProvider } from "@/app/redux/ReduxProvider";
 import ReduxPreloader from "@/app/redux/ReduxPreloader";
 import { store } from "../redux/store";
 import { userAuthenticated } from "../redux/features/user/userSlice";
+import { Analytics } from "@vercel/analytics/react";
 
 export const dynamic = "force-dynamic";
 
@@ -25,6 +26,7 @@ export default async function ContentsLayout({ children }: { children: React.Rea
       <ReduxProvider>
         <Navbar currentUser={store.getState().user.user} />
         {children}
+        <Analytics />
       </ReduxProvider>
     </NextAuthSessionProvider>
   );
