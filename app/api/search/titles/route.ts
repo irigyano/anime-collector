@@ -3,12 +3,9 @@ import { Base64 } from "js-base64";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  // unreadable to be fixed
   const title = searchParams.get("title")
     ? `titles:["${Base64.decode(searchParams.get("title") ? `${searchParams.get("title")}` : "")}"]`
     : null;
-
-  console.log("api/search/titles", title);
 
   const { data } = await (
     await fetch("https://api.annict.com/graphql", {

@@ -1,6 +1,4 @@
 "use client";
-
-import { User } from "@prisma/client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Loading from "../loading";
@@ -20,7 +18,7 @@ const SearchPage = () => {
     fetchData(title).then((data) => {
       setWorksData(data);
     });
-  }, []);
+  }, [title]);
 
   if (!worksData) {
     return <Loading />;
@@ -35,7 +33,6 @@ const SearchPage = () => {
       </div>
     );
   }
-
   return <MiniPage worksData={worksData} mode="search" />;
 };
 export default SearchPage;

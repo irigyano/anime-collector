@@ -1,7 +1,7 @@
 import "../globals.css";
 import NextAuthSessionProvider from "@/components/NextAuthSessionProvider";
 import Navbar from "@/components/Navbar/Navbar";
-import getCurrentUser from "@/app/actions/getCurrentUser";
+import { getCurrentUser } from "@/app/api/collection/route";
 import { ReduxProvider } from "@/app/redux/ReduxProvider";
 import ReduxPreloader from "@/app/redux/ReduxPreloader";
 import { store } from "../redux/store";

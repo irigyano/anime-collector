@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import getCurrentUser from "@/app/actions/getCurrentUser";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
 
 type category = "watchedWorks" | "watchingWorks" | "followingWorks";
@@ -8,6 +9,31 @@ type reqAction = {
   category: category;
   annictId: number;
 };
+
+export async function getCurrentUser() {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user) {
+      return null;
+    }
+
+    const currentUser = await prisma.user.findUnique({
+      where: {
+        username: session.user.name as string,
+      },
+    });
+
+    if (!currentUser) {
+      return null;
+    }
+
+    return currentUser;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
 
 function removeCollectionState(staleArray: number[], annictId: number) {
   const filteredArray = [...staleArray];

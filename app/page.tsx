@@ -24,22 +24,18 @@ const IndexPage = async () => {
 
   return (
     <>
-      <div className="w-full h-screen flex flex-col items-center bg-[#fff]">
-        <h1 className="text-5xl text-center">Banngumi View</h1>
-        <Link href={"/home"}>See More</Link>
+      <div className="w-full h-screen flex flex-col items-center px-10 bg-[#fff]">
+        <h1 className="text-3xl my-20">Share your taste with friends.</h1>
+
         <div className="h-10 w-40 flex text-center justify-center items-center">
           <LogInButton />
           <SignUpButton />
         </div>
+        <Link className="my-5" href={"/home"}>
+          先到處看看 ..
+        </Link>
       </div>
-      <div className="w-full h-screen flex flex-col items-center bg-blue-500">
-        <h1 className="text-5xl text-center">Banngumi View</h1>
-        <Link href={"/home"}>See More</Link>
-        <div className="h-10 w-40 flex text-center justify-center items-center">
-          <LogInButton />
-          <SignUpButton />
-        </div>
-      </div>
+      <div className="w-full h-screen flex flex-col items-center bg-blue-500"></div>
     </>
   );
 };
