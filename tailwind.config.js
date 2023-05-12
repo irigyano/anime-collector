@@ -14,6 +14,18 @@ module.exports = {
         summer: "rgb(220 38 38)",
         autumn: "rgb(234 88 12)",
       },
+      animation: {
+        BgFloat: "BackgroundFloat 5s infinite",
+      },
+      keyframes: {
+        BackgroundFloat: {
+          "0%, 100%": { "background-position": "0% 50%" },
+          "50%": { "background-position": "100% 50%" },
+        },
+      },
+      backgroundSize: {
+        "4x": "400%",
+      },
     },
   },
   plugins: [],

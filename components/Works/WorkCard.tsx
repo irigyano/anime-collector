@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import WorkModal from "./WorkModal";
+import cover_replacement from "../../public/images/cover_replacement.webp";
 
 export type WorkData = {
   annictId: number;
@@ -38,11 +39,11 @@ const WorkCard = ({ work }: { work: WorkData }) => {
     ? work.image.facebookOgImageUrl
     : work.image?.recommendedImageUrl
     ? work.image.recommendedImageUrl
-    : "/images/cover_replacement.webp";
+    : cover_replacement;
   // Validate if workUrl starts with http/https
-  if (workUrl !== "/images/cover_replacement.webp") {
+  if (workUrl !== cover_replacement && typeof workUrl === "string") {
     if (!workUrl.startsWith("http://") && !workUrl.startsWith("https://")) {
-      workUrl = "/images/cover_replacement.webp";
+      workUrl = cover_replacement;
     }
   }
 

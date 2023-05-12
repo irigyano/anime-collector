@@ -8,11 +8,12 @@ import RemoveCollectionButton from "./RemoveCollectionButton";
 import AddCollectionButton from "./AddCollectionButton";
 import { RootState } from "@/app/redux/store";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
+import type { StaticImageData } from "next/image";
 
 type WorkModalProps = {
   toggleModal: () => void;
   work: WorkData;
-  srcUrl: string;
+  srcUrl: string | StaticImageData;
 };
 
 const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

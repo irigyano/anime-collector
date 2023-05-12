@@ -61,7 +61,7 @@ const MiniPage = ({ worksData, mode }: MiniPageProps) => {
         })}
       </section>
 
-      <div className="w-screen fixed bottom-1 2xl:bottom-14 flex justify-center">
+      <div className="w-full fixed bottom-1 2xl:bottom-14 flex justify-center">
         <div
           className={`bg-gray-100 dark:bg-gray-800 opacity-80 rounded-lg w-max flex justify-center shadow-lg ${
             miniPageIndexes.length === 1 ? "hidden" : null
@@ -84,7 +84,7 @@ const MiniPage = ({ worksData, mode }: MiniPageProps) => {
           })}
         </div>
       </div>
-      <div className="w-screen h-10" />
+      <div className="w-full h-10" />
     </>
   );
 };
