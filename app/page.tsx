@@ -28,7 +28,7 @@ const IndexPage = async () => {
   }
 
   return (
-    <div className="min-h-screen bg-4x animate-BgFloat bg-gradient-to-br from-yellow-100 from-10% via-sky-200 via-30% to-zinc-500 to-90%">
+    <div className="min-h-screen">
       <div className="flex flex-col items-center">
         <h1 className="text-3xl pt-10 px-5">Share your Anime Collection with Friends.</h1>
         <div className="h-10 w-40 flex text-center justify-center items-center mt-4">

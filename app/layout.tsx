@@ -16,7 +16,12 @@ export default async function IndexRootLayout({ children }: { children: React.Re
   return (
     <html lang="en">
       <body
-        className={`bg-[#fff] text-[#0f0f0f] dark:bg-[#0f0f0f] dark:text-[#f1f1f1] ${font.className} duration-500`}
+        className={`min-h-screen ${font.className} duration-500
+        text-[#0f0f0f] dark:text-[#f1f1f1]
+        bg-4x animate-BgFloat bg-gradient-to-br dark:bg-gradient-to-bl
+         from-yellow-100 from-5% via-sky-200 via-30% to-emerald-300 to-90%
+         dark:from-slate-600 dark:from-10% dark:via-blue-950 dark:via-30% dark:to-zinc-600 dark:to-90%
+         `}
       >
         <NextAuthSessionProvider>{children}</NextAuthSessionProvider>
       </body>

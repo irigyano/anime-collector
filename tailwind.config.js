@@ -15,7 +15,7 @@ module.exports = {
         autumn: "rgb(234 88 12)",
       },
       animation: {
-        BgFloat: "BackgroundFloat 5s infinite",
+        BgFloat: "BackgroundFloat 10s infinite",
       },
       keyframes: {
         BackgroundFloat: {
