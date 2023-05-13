@@ -21,7 +21,7 @@ const MenuModal = ({ currentUser, toggleModal, theme, setTheme }: MenuModalProps
       {currentUser ? (
         <div className="fixed inset-0 w-full h-full z-20" onClick={toggleModal}>
           <div
-            className="m-2 p-2 shadow-2xl absolute right-2 top-16 rounded-2xl w-32 bg-[#fff] text-[#0f0f0f] dark:bg-zinc-800 dark:text-[#f1f1f1]"
+            className="m-2 p-2 shadow-2xl absolute right-2 top-16 rounded-2xl w-32 bg-[#fff] text-[#0f0f0f] dark:bg-zinc-800 dark:text-[#f1f1f1]0"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex flex-col items-center">

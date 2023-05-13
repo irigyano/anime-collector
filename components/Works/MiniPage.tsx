@@ -3,7 +3,7 @@ import { WorkData } from "@/components/Works/WorkCard";
 import { useEffect, useState } from "react";
 import WorkCard from "@/components/Works/WorkCard";
 import SeasonSelector from "@/components/Works/SeasonSelector";
-import Loading from "../../app/loading";
+import LoadingSpinner from "../LoadingSpinner";
 
 export type SeasonInfo = {
   year: number;
@@ -25,7 +25,7 @@ const MiniPage = ({ worksData, mode }: MiniPageProps) => {
   }, [worksData]);
 
   if (works === null) {
-    return <Loading />;
+    return <LoadingSpinner />;
   }
 
   // highlighting SeasonSelector condition

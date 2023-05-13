@@ -1,8 +1,8 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import Loading from "../loading";
 import MiniPage from "@/components/Works/MiniPage";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const fetchData = async (title: string | null) => {
   const response = await fetch(`/api/search/titles?title=${title}`);
@@ -21,7 +21,7 @@ const SearchPage = () => {
   }, [title]);
 
   if (!worksData) {
-    return <Loading />;
+    return <LoadingSpinner />;
   }
 
   if (worksData && worksData.length === 0) {
