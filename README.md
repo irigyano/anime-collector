@@ -13,11 +13,13 @@ Full stack Next.js app to view all the anime works information and track the pro
 
 ## Running Locally
 
+Create a `.env` file following `.env.example`
+
 ```bash
 git clone https://github.com/irigyano/Banngumi-View.git
 cd banngumi-view
 pnpm install
+npx prisma generate
+npx prisma db push
 pnpm run dev
 ```
-
-Create a `.env` file similar to `.env.example`
