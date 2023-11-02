@@ -1,55 +1,34 @@
-import LogInButton from "@/components/LogInButton";
-import SignUpButton from "@/components/SignUpButton";
-import Link from "next/link";
-import { authOptions } from "./api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth/next";
-import { redirect } from "next/navigation";
-import collection from "../public/images/intro/collection.png";
-import userpage from "../public/images/intro/userpage.png";
-import searchbyjp from "../public/images/intro/searchbyjp.png";
-import viewbyseason from "../public/images/intro/viewbyseason.png";
-import IntroSlide from "@/components/IntroSlide";
+import MiniPage from "@/components/Works/MiniPage";
 
-async function getSession() {
-  const session = await getServerSession(authOptions);
+const apiQuery = `query{searchWorks(seasons:["2023-spring"] orderBy:{field:WATCHERS_COUNT,direction:DESC}){nodes{annictId title titleKana seasonName seasonYear media twitterHashtag episodesCount image{facebookOgImageUrl recommendedImageUrl}casts(first:5){nodes{name person{annictId}character{name annictId}}}}}}`;
 
-  if (!session) {
-    return null;
-  }
-
-  return session.user;
+// fetching external directly due to how Next builds.
+async function fetchData() {
+  const { data } = await (
+    await fetch("https://api.annict.com/graphql", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.ANNICT_TOKEN}`,
+      },
+      body: JSON.stringify({
+        query: apiQuery,
+      }),
+      cache: "force-cache",
+    })
+  ).json();
+  const results = data.searchWorks.nodes;
+  return results;
 }
 
-const IndexPage = async () => {
-  const user = await getSession();
-
-  if (user) {
-    redirect("/home");
-  }
+const HomePage = async () => {
+  const worksData = await fetchData();
 
   return (
-    <div className="min-h-screen">
-      <div className="flex flex-col items-center">
-        <h1 className="text-3xl pt-10 px-5">Share your Anime Collection with Friends.</h1>
-        <div className="h-10 w-40 flex text-center justify-center items-center mt-4">
-          <LogInButton />
-          <SignUpButton />
-        </div>
-        <Link
-          href={"/home"}
-          className="my-2 text-sm text-zinc-600 duration-200 hover:text-blue-500"
-        >
-          先到處看看 ..
-        </Link>
-      </div>
-
-      <div className="flex overflow-x-auto gap-5 p-5 rounded-lg overflow-hidden md:justify-center">
-        <IntroSlide imageSrc={collection} text={"根據視聽收藏作品"} />
-        <IntroSlide imageSrc={userpage} text={"瀏覽社群成員收藏"} />
-        <IntroSlide imageSrc={searchbyjp} text={"支援日文搜尋作品"} />
-        <IntroSlide imageSrc={viewbyseason} text={"依照季度瀏覽作品"} />
-      </div>
-    </div>
+    <main>
+      <MiniPage worksData={worksData} mode="view" />
+    </main>
   );
 };
-export default IndexPage;
+
+export default HomePage;

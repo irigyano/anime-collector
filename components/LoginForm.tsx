@@ -12,7 +12,7 @@ const LoginForm = () => {
     signIn("credentials", {
       username,
       password,
-      callbackUrl: "/home",
+      callbackUrl: "/",
     });
   };
 
@@ -22,7 +22,10 @@ const LoginForm = () => {
         <h1 className="text-2xl font-bold mb-4">登入</h1>
         <form className="space-y-4" onSubmit={submitForm}>
           <div>
-            <label htmlFor="username" className="block mb-2 text-sm font-medium">
+            <label
+              htmlFor="username"
+              className="block mb-2 text-sm font-medium"
+            >
               使用者名稱
             </label>
             <input
@@ -37,7 +40,10 @@ const LoginForm = () => {
             ></input>
           </div>
           <div>
-            <label htmlFor="password" className="block mb-2 text-sm font-medium">
+            <label
+              htmlFor="password"
+              className="block mb-2 text-sm font-medium"
+            >
               密碼
             </label>
             <input
