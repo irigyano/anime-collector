@@ -11,16 +11,9 @@ import { CgScreen } from "react-icons/cg";
 type MenuModalProps = {
   currentUser?: User | null;
   toggleModal: () => void;
-  theme: string | null;
-  setTheme: React.Dispatch<SetStateAction<string | null>>;
 };
 
-const MenuModal = ({
-  currentUser,
-  toggleModal,
-  theme,
-  setTheme,
-}: MenuModalProps) => {
+const MenuModal = ({ currentUser, toggleModal }: MenuModalProps) => {
   return (
     <>
       {currentUser ? (
@@ -58,35 +51,21 @@ const MenuModal = ({
 
             <div className="flex justify-center items-center">
               <button
-                className={`flex m-1 rounded-lg hover:bg-slate-200 dark:hover:bg-gray-700 hover:opacity-80 duration-200 gap-2 ${
-                  theme === "light" && "text-blue-500"
-                }`}
+                className={`flex m-1 rounded-lg hover:bg-slate-200 dark:hover:bg-gray-700 hover:opacity-80 duration-200 gap-2 `}
                 onClick={() => {
-                  setTheme("light");
+                  document.documentElement.classList.remove("dark");
                 }}
               >
                 <MdOutlineLightMode size={24} />
               </button>
 
               <button
-                className={`flex m-1 rounded-lg hover:bg-slate-200 dark:hover:bg-gray-700 hover:opacity-80 duration-200 gap-2 ${
-                  theme === "dark" && "text-blue-500"
-                }`}
+                className={`flex m-1 rounded-lg hover:bg-slate-200 dark:hover:bg-gray-700 hover:opacity-80 duration-200 gap-2 `}
                 onClick={() => {
-                  setTheme("dark");
+                  document.documentElement.classList.add("dark");
                 }}
               >
                 <MdOutlineDarkMode size={24} />
-              </button>
-              <button
-                className={`flex m-1 rounded-lg hover:bg-slate-200 dark:hover:bg-gray-700 hover:opacity-80 duration-200 gap-2 ${
-                  theme === "system" && "text-blue-500"
-                }`}
-                onClick={() => {
-                  setTheme("system");
-                }}
-              >
-                <CgScreen size={24} />
               </button>
             </div>
             <div className="border m-1"></div>
@@ -123,35 +102,23 @@ const MenuModal = ({
 
             <div className="flex justify-center items-center">
               <button
-                className={`flex m-1 rounded-lg hover:bg-slate-200 dark:hover:bg-gray-700 hover:opacity-80 duration-200 gap-2 ${
-                  theme === "light" && "text-blue-500"
-                }`}
+                className={`flex m-1 rounded-lg hover:bg-slate-200 dark:hover:bg-gray-700 hover:opacity-80 duration-200 gap-2 
+                `}
                 onClick={() => {
-                  setTheme("light");
+                  document.documentElement.classList.remove("dark");
                 }}
               >
                 <MdOutlineLightMode size={24} />
               </button>
 
               <button
-                className={`flex m-1 rounded-lg hover:bg-slate-200 dark:hover:bg-gray-700 hover:opacity-80 duration-200 gap-2 ${
-                  theme === "dark" && "text-blue-500"
-                }`}
+                className={`flex m-1 rounded-lg hover:bg-slate-200 dark:hover:bg-gray-700 hover:opacity-80 duration-200 gap-2 
+                `}
                 onClick={() => {
-                  setTheme("dark");
+                  document.documentElement.classList.add("dark");
                 }}
               >
                 <MdOutlineDarkMode size={24} />
-              </button>
-              <button
-                className={`flex m-1 rounded-lg hover:bg-slate-200 dark:hover:bg-gray-700 hover:opacity-80 duration-200 gap-2 ${
-                  theme === "system" && "text-blue-500"
-                }`}
-                onClick={() => {
-                  setTheme("system");
-                }}
-              >
-                <CgScreen size={24} />
               </button>
             </div>
           </div>

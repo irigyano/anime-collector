@@ -36,7 +36,7 @@ const SeasonSelector = ({
 
   const years: number[] = [];
 
-  for (let year = 2023; year > 1994; year--) {
+  for (let year = 2024; year > 1994; year--) {
     years.push(year);
   }
   return (

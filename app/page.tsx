@@ -1,6 +1,6 @@
 import MiniPage from "@/components/Works/MiniPage";
 
-const apiQuery = `query{searchWorks(seasons:["2023-spring"] orderBy:{field:WATCHERS_COUNT,direction:DESC}){nodes{annictId title titleKana seasonName seasonYear media twitterHashtag episodesCount image{facebookOgImageUrl recommendedImageUrl}casts(first:5){nodes{name person{annictId}character{name annictId}}}}}}`;
+const apiQuery = `query{searchWorks(seasons:["2024-winter"] orderBy:{field:WATCHERS_COUNT,direction:DESC}){nodes{annictId title titleKana seasonName seasonYear media twitterHashtag episodesCount image{facebookOgImageUrl recommendedImageUrl}casts(first:5){nodes{name person{annictId}character{name annictId}}}}}}`;
 
 // fetching external directly due to how Next builds.
 async function fetchData() {

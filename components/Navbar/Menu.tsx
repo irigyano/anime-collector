@@ -7,11 +7,9 @@ import { User } from "@prisma/client";
 
 type MenuProps = {
   currentUser?: User | null;
-  theme: string | null;
-  setTheme: React.Dispatch<SetStateAction<string | null>>;
 };
 
-const Menu = ({ theme, currentUser, setTheme }: MenuProps) => {
+const Menu = ({ currentUser }: MenuProps) => {
   const [showMenu, setShowMenu] = useState(false);
   const toggleModal = () => setShowMenu(!showMenu);
   return (
@@ -25,12 +23,7 @@ const Menu = ({ theme, currentUser, setTheme }: MenuProps) => {
         <AiOutlineMenu />
       </button>
       {showMenu && (
-        <MenuModal
-          theme={theme}
-          currentUser={currentUser}
-          toggleModal={toggleModal}
-          setTheme={setTheme}
-        />
+        <MenuModal currentUser={currentUser} toggleModal={toggleModal} />
       )}
     </div>
   );
