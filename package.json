@@ -15,8 +15,8 @@
     "autoprefixer": "10.4.16",
     "bcrypt": "^5.1.1",
     "js-base64": "^3.7.5",
-    "next": "14.0.0",
-    "next-auth": "^4.24.4",
+    "next": "14.0.2",
+    "next-auth": "^4.24.5",
     "postcss": "8.4.31",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -27,10 +27,10 @@
     "typescript": "5.2.2"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.1",
-    "@types/node": "20.8.9",
-    "@types/react": "18.2.33",
-    "@types/react-dom": "18.2.14",
+    "@types/bcrypt": "^5.0.2",
+    "@types/node": "20.9.0",
+    "@types/react": "18.2.37",
+    "@types/react-dom": "18.2.15",
     "prisma": "^5.5.2"
   }
 }
