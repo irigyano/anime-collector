@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
-import WorkModal from "./WorkModal";
+import WorkModal from "./WorkModal/WorkModal";
 import cover_replacement from "../../public/images/cover_replacement.webp";
+import TagList from "./TagList";
 
 export type WorkData = {
   annictId: number;
@@ -28,23 +28,23 @@ export type WorkData = {
   };
 };
 
-// http://[directory]/img/2022-01-26/imagica_img.jpg not valid in 2022 winter
-
 const WorkCard = ({ work }: { work: WorkData }) => {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
 
   // filling empty image src
-  let workUrl = work.image?.facebookOgImageUrl
-    ? work.image.facebookOgImageUrl
-    : work.image?.recommendedImageUrl
-    ? work.image.recommendedImageUrl
-    : cover_replacement;
+  let workUrl =
+    work.image?.facebookOgImageUrl ||
+    work.image?.recommendedImageUrl ||
+    cover_replacement;
   // Validate if workUrl starts with http/https
-  if (workUrl !== cover_replacement && typeof workUrl === "string") {
-    if (!workUrl.startsWith("http://") && !workUrl.startsWith("https://")) {
-      workUrl = cover_replacement;
-    }
+  if (
+    workUrl === "string" &&
+    !workUrl.match(
+      /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+    )
+  ) {
+    workUrl = cover_replacement;
   }
 
   const [srcUrl, SetSrcUrl] = useState(workUrl);
@@ -71,43 +71,14 @@ const WorkCard = ({ work }: { work: WorkData }) => {
           />
         </div>
         <div className="flex">
-          <div className="border-2 border-rose-400 text-rose-400 rounded-2xl px-2 m-1 text-sm">
-            {work.seasonYear}
-          </div>
-          {/* <div className="border-2 border-blue-400 text-blue-400 rounded-2xl px-2 m-1 text-sm"> */}
-          <div
-            className={`border-2 rounded-2xl px-2 m-1 text-sm ${
-              work.seasonName === "WINTER"
-                ? "border-winter text-winter"
-                : work.seasonName === "SPRING"
-                ? "border-spring text-spring"
-                : work.seasonName === "SUMMER"
-                ? "border-summer text-summer"
-                : work.seasonName === "AUTUMN"
-                ? "border-autumn text-autumn"
-                : null
-            }`}
-          >
-            {work.seasonName}
-          </div>
-          <div className="border-2 border-yellow-500 text-yellow-500 rounded-2xl px-2 m-1 text-sm">
-            {work.media}
-          </div>
-          {work.twitterHashtag ? (
-            <Link
-              href={`https://twitter.com/hashtag/${work.twitterHashtag}`}
-              target="_blank"
-              className="truncate"
-            >
-              <div className="border-2 border-[#1d9bf0] text-[#1d9bf0] rounded-2xl px-2 m-1 text-sm truncate hover:bg-[#1d9bf0] hover:text-[#fff] duration-300">
-                {"#" + work.twitterHashtag}
-              </div>
-            </Link>
-          ) : null}
+          <TagList work={work} />
         </div>
+
         <h1 className="truncate mx-1">{work.title}</h1>
       </figure>
-      {showModal && <WorkModal toggleModal={toggleModal} work={work} srcUrl={srcUrl} />}
+      {showModal && (
+        <WorkModal toggleModal={toggleModal} work={work} srcUrl={srcUrl} />
+      )}
     </>
   );
 };
