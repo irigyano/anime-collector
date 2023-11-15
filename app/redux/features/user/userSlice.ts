@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { User } from "@prisma/client";
+import { UserClientSide } from "@/types/UserClientSide";
 
-const initialState: { user: null | User } = { user: null };
+const initialState: { user: null | UserClientSide } = { user: null };
 
 export const userSlice = createSlice({
   name: "user",
@@ -19,6 +19,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { userAuthenticated, addCollection, removeCollection } = userSlice.actions;
+export const { userAuthenticated, addCollection, removeCollection } =
+  userSlice.actions;
 
 export default userSlice.reducer;

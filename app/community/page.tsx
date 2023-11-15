@@ -1,6 +1,7 @@
 import Link from "next/link";
 import prisma from "@/lib/prisma";
-import { User } from "@prisma/client";
+import { UserClientSide } from "@/types/UserClientSide";
+
 import Image from "next/image";
 
 export const metadata = {
@@ -18,7 +19,7 @@ const CommunityPage = async () => {
 
   return (
     <div className="flex flex-wrap justify-center">
-      {users.map((user: User) => {
+      {users.map((user: UserClientSide) => {
         return (
           <Link
             key={user.username}

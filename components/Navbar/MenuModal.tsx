@@ -1,15 +1,13 @@
 "use client";
-import { SetStateAction } from "react";
-import { User } from "@prisma/client";
+import { UserClientSide } from "@/types/UserClientSide";
 import Link from "next/link";
 import Image from "next/image";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { signOut } from "next-auth/react";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
-import { CgScreen } from "react-icons/cg";
 
 type MenuModalProps = {
-  currentUser?: User | null;
+  currentUser?: UserClientSide | null;
   toggleModal: () => void;
 };
 

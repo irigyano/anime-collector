@@ -1,12 +1,12 @@
 "use client";
 
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import MenuModal from "./MenuModal";
-import { User } from "@prisma/client";
+import { UserClientSide } from "@/types/UserClientSide";
 
 type MenuProps = {
-  currentUser?: User | null;
+  currentUser?: UserClientSide | null;
 };
 
 const Menu = ({ currentUser }: MenuProps) => {

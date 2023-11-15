@@ -1,13 +1,13 @@
 "use client";
 import { SetStateAction } from "react";
-import { User } from "@prisma/client";
+import { UserClientSide } from "@/types/UserClientSide";
 import Link from "next/link";
 import Image from "next/image";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { signOut } from "next-auth/react";
 
 type ProfileModalProps = {
-  currentUser: User;
+  currentUser: UserClientSide;
   showProfileModal: boolean;
   setShowProfileModal: React.Dispatch<SetStateAction<boolean>>;
 };
@@ -28,7 +28,12 @@ const ProfileModal = ({
         <div className="fixed w-40 top-16 right-20 shadow-lg bg-gray-100 dark:bg-zinc-800 rounded-lg overflow-hidden flex flex-col justify-center px-3 py-1">
           <div className="flex flex-col items-center">
             <div className="relative h-20 w-20">
-              <Image className="rounded-full" alt="avatar" src="/images/default_avatar.png" fill />
+              <Image
+                className="rounded-full"
+                alt="avatar"
+                src="/images/default_avatar.png"
+                fill
+              />
             </div>
             <Link href={`/community/${currentUser.username}`}>
               <div className="hover:text-blue-500 hover:bg-slate-200 rounded-md duration-200 m-1">

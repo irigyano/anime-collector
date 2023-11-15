@@ -10,7 +10,7 @@ type reqAction = {
   annictId: number;
 };
 
-export async function getCurrentUser() {
+async function getCurrentUser() {
   try {
     const session = await getServerSession(authOptions);
 
@@ -70,24 +70,31 @@ export async function POST(request: Request) {
       break;
   }
 
-  const filteredArray_1 = removeCollectionState([...currentUser[staleCategory_1]], annictId);
-  const filteredArray_2 = removeCollectionState([...currentUser[staleCategory_2]], annictId);
+  const filteredArray_1 = removeCollectionState(
+    [...currentUser[staleCategory_1]],
+    annictId
+  );
+  const filteredArray_2 = removeCollectionState(
+    [...currentUser[staleCategory_2]],
+    annictId
+  );
 
   const updatedWorks = [...currentUser[category]];
   updatedWorks.push(Number(annictId));
 
-  const { watchedWorks, watchingWorks, followingWorks } = await prisma.user.update({
-    where: {
-      id: currentUser.id,
-    },
-    data: {
-      // https://stackoverflow.com/questions/33194138/template-string-as-object-property-name
-      // Wrapped in an array so coercion evaluate it to a string.
-      [category]: updatedWorks,
-      [staleCategory_1]: filteredArray_1,
-      [staleCategory_2]: filteredArray_2,
-    },
-  });
+  const { watchedWorks, watchingWorks, followingWorks } =
+    await prisma.user.update({
+      where: {
+        id: currentUser.id,
+      },
+      data: {
+        // https://stackoverflow.com/questions/33194138/template-string-as-object-property-name
+        // Wrapped in an array so coercion evaluate it to a string.
+        [category]: updatedWorks,
+        [staleCategory_1]: filteredArray_1,
+        [staleCategory_2]: filteredArray_2,
+      },
+    });
 
   return NextResponse.json({ watchedWorks, watchingWorks, followingWorks });
 }
@@ -113,5 +120,8 @@ export async function PUT(request: Request) {
     },
   });
 
-  return NextResponse.json({ message: `DELETE to ${annictId} success!` }, { status: 200 });
+  return NextResponse.json(
+    { message: `DELETE to ${annictId} success!` },
+    { status: 200 }
+  );
 }

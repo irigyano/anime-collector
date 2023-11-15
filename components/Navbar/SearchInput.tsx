@@ -11,6 +11,7 @@ const SearchInput = () => {
     event.preventDefault();
     if (!searchQuery) return null;
     router.push(`/?title=${searchQuery}`);
+    setSearchQuery("");
   };
 
   return (
@@ -23,7 +24,7 @@ const SearchInput = () => {
         type="text"
         placeholder="搜尋作品"
         maxLength={12}
-        // value={searchQuery}
+        value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
       <button

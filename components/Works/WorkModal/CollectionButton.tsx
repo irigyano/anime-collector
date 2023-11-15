@@ -1,7 +1,7 @@
 "use client";
 
 import toast from "react-hot-toast";
-import { User } from "@prisma/client";
+import { UserClientSide } from "@/types/UserClientSide";
 import { ReactNode } from "react";
 import { addCollection } from "@/app/redux/features/user/userSlice";
 import { removeCollection } from "@/app/redux/features/user/userSlice";
@@ -13,7 +13,7 @@ type CollectionButtonProp = {
   category: "watchedWorks" | "watchingWorks" | "followingWorks";
   color: string;
   icon: ReactNode;
-  currentUser: User | null;
+  currentUser: UserClientSide | null;
   text: string;
 };
 

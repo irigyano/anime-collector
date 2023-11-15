@@ -1,9 +1,7 @@
 "use client";
-
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { User } from "@prisma/client";
 import SearchInput from "./SearchInput";
 import Menu from "./Menu";
 import ProfileModal from "./ProfileModal";
@@ -11,14 +9,15 @@ import LogInButton from "../LogInButton";
 import SignUpButton from "../SignUpButton";
 import { BsGithub } from "react-icons/bs";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
+import { TypedUseSelectorHook, useSelector } from "react-redux";
+import { RootState } from "@/app/redux/store";
 
-type NavbarProps = {
-  currentUser?: User | null;
-};
-
-const Navbar = ({ currentUser }: NavbarProps) => {
+const Navbar = () => {
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+
+  const currentUser = useAppSelector((state) => state.user.user);
 
   return (
     <>

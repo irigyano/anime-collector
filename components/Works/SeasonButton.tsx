@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-const seasonMap: any = {
+const seasonMap: Record<string, string> = {
   winter: "冬",
   spring: "春",
   summer: "夏",
