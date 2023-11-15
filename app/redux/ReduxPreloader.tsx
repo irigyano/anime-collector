@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { store } from "./store";
 import { userAuthenticated } from "./features/user/userSlice";
-import { UserClientSide } from "@/types/UserClientSide";
+import { UserClientSide } from "@/types/types";
 
 const ReduxPreloader = ({
   currentUser,

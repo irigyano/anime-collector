@@ -1,5 +1,5 @@
 "use client";
-import { WorkData } from "@/components/Works/WorkCard";
+import { WorkData } from "@/types/types";
 import { useState } from "react";
 import WorkCard from "@/components/Works/WorkCard";
 

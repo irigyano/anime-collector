@@ -1,6 +1,6 @@
 "use client";
 import { SetStateAction } from "react";
-import { UserClientSide } from "@/types/UserClientSide";
+import { UserClientSide } from "@/types/types";
 import Link from "next/link";
 import Image from "next/image";
 import { RiLogoutBoxLine } from "react-icons/ri";

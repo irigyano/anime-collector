@@ -1,5 +1,5 @@
 import WorkCard from "@/components/Works/WorkCard";
-import { WorkData } from "@/components/Works/WorkCard";
+import { WorkData } from "@/types/types";
 import prisma from "@/lib/prisma";
 import Image from "next/image";
 import { Metadata } from "next";
@@ -16,7 +16,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-function findMatchingId(arrayA: WorkData[], arrayB: number[], arrayC: number[], arrayD: number[]) {
+function findMatchingId(
+  arrayA: WorkData[],
+  arrayB: number[],
+  arrayC: number[],
+  arrayD: number[]
+) {
   const matchingObjectsB = [];
   const matchingObjectsC = [];
   const matchingObjectsD = [];
@@ -38,7 +43,9 @@ function findMatchingId(arrayA: WorkData[], arrayB: number[], arrayC: number[], 
 }
 
 const UserPage = async ({ params }: { params: { username: string } }) => {
-  const user = await prisma.user.findUnique({ where: { username: `${params.username}` } });
+  const user = await prisma.user.findUnique({
+    where: { username: `${params.username}` },
+  });
 
   if (!user) {
     return <div>找不到使用者</div>;

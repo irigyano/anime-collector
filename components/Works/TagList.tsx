@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { WorkData } from "./WorkCard";
+import { WorkData } from "@/types/types";
 
 const TagList = ({ work }: { work: WorkData }) => {
   return (

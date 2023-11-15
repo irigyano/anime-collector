@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import MenuModal from "./MenuModal";
-import { UserClientSide } from "@/types/UserClientSide";
+import { UserClientSide } from "@/types/types";
 
 type MenuProps = {
   currentUser?: UserClientSide | null;

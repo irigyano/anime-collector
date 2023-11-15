@@ -1,6 +1,6 @@
 import Link from "next/link";
 import prisma from "@/lib/prisma";
-import { UserClientSide } from "@/types/UserClientSide";
+import { UserClientSide } from "@/types/types";
 
 import Image from "next/image";
 
