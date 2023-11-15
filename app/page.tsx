@@ -1,32 +1,43 @@
+"use client";
+
+import LoadingSpinner from "@/components/LoadingSpinner";
 import MiniPage from "@/components/Works/MiniPage";
+import { WorkData } from "@/components/Works/WorkCard";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
-const apiQuery = `query{searchWorks(seasons:["2024-winter"] orderBy:{field:WATCHERS_COUNT,direction:DESC}){nodes{annictId title titleKana seasonName seasonYear media twitterHashtag episodesCount image{facebookOgImageUrl recommendedImageUrl}casts(first:5){nodes{name person{annictId}character{name annictId}}}}}}`;
+const HomePage = () => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const workYear = searchParams.get("year") || "2023";
+  const workSeason = searchParams.get("season") || "autumn";
+  const workTitle = searchParams.get("title");
 
-// fetching external directly due to how Next builds.
-async function fetchData() {
-  const { data } = await (
-    await fetch("https://api.annict.com/graphql", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.ANNICT_TOKEN}`,
-      },
-      body: JSON.stringify({
-        query: apiQuery,
-      }),
-      cache: "force-cache",
-    })
-  ).json();
-  const results = data.searchWorks.nodes;
-  return results;
-}
+  const [workData, setWorkData] = useState<WorkData[] | null>(null);
 
-const HomePage = async () => {
-  const worksData = await fetchData();
+  useEffect(() => {
+    if (workTitle) {
+      fetch(`/api/search/titles?title=${workTitle}`)
+        .then((res) => res.json())
+        .then((res) => {
+          setWorkData(res);
+          router.push(`?title=${workTitle}`);
+        });
+    } else {
+      fetch(`/api/search/seasons?season=${workYear}-${workSeason}`)
+        .then((res) => res.json())
+        .then((res) => {
+          setWorkData(res);
+          router.push(`?year=${workYear}&season=${workSeason}`);
+        });
+    }
+
+    return setWorkData(null);
+  }, [workYear, workSeason, workTitle]);
 
   return (
     <main>
-      <MiniPage worksData={worksData} mode="view" />
+      {!workData ? <LoadingSpinner /> : <MiniPage workData={workData} />}
     </main>
   );
 };

@@ -1,21 +1,16 @@
 "use client";
-import { Base64 } from "js-base64";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 
 const SearchInput = () => {
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
 
   const onSearch = (event: React.FormEvent) => {
     event.preventDefault();
-
-    if (!searchQuery) {
-      return;
-    }
-
-    router.push(`/search?title=${Base64.encode(searchQuery)}`);
+    if (!searchQuery) return null;
+    router.push(`/?title=${searchQuery}`);
   };
 
   return (

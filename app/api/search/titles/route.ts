@@ -1,11 +1,7 @@
 import { NextResponse } from "next/server";
-import { Base64 } from "js-base64";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  // const title = searchParams.get("title")
-  //   ? `titles:["${Base64.decode(searchParams.get("title") ? `${searchParams.get("title")}` : "")}"]`
-  //   : null;
 
   const searchTitle = searchParams.get("title");
 
@@ -13,7 +9,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ message: "Missing Title" }, { status: 400 });
   }
 
-  const title = `titles:["${Base64.decode(searchTitle)}"]`;
+  const title = `titles:["${searchTitle}"]`;
 
   const { data } = await (
     await fetch("https://api.annict.com/graphql", {
