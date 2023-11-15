@@ -42,10 +42,8 @@ export default async function ContentsLayout({
         followingWorks: true,
       },
     });
-    if (currentUser) {
-      store.dispatch(userAuthenticated(currentUser));
-    }
-  }
+    if (currentUser) store.dispatch(userAuthenticated(currentUser));
+  } else store.dispatch(userAuthenticated(null));
 
   return (
     <html lang="zh-tw">
