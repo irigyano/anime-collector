@@ -3,13 +3,9 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
-  const searchTitle = searchParams.get("title");
+  const title = searchParams.get("title");
 
-  if (!searchTitle) {
-    return NextResponse.json({ message: "Missing Title" }, { status: 400 });
-  }
-
-  const title = `titles:["${searchTitle}"]`;
+  if (!title) return NextResponse.json([]);
 
   const { data } = await (
     await fetch("https://api.annict.com/graphql", {
@@ -21,7 +17,7 @@ export async function GET(request: Request) {
       body: JSON.stringify({
         query: `query {
             searchWorks(
-              ${title}
+              titles:["${title}"]
               orderBy: { field: WATCHERS_COUNT, direction: DESC }
             ) {
               nodes {
@@ -39,6 +35,7 @@ export async function GET(request: Request) {
             }
           }`,
       }),
+      cache: "force-cache",
     })
   ).json();
   const results = data.searchWorks.nodes;

@@ -3,11 +3,10 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
-  const season = searchParams.get("season")
-    ? `seasons:["${searchParams.get("season")}"]`
-    : `seasons:["2023-spring"]`;
+  const workYear = searchParams.get("year");
+  const workSeason = searchParams.get("season");
 
-  console.log("api/search/seasons", season);
+  if (!workYear || !workSeason) return NextResponse.json([]);
 
   const { data } = await (
     await fetch("https://api.annict.com/graphql", {
@@ -19,7 +18,7 @@ export async function GET(request: Request) {
       body: JSON.stringify({
         query: `query {
             searchWorks(
-              ${season}
+              seasons:["${workYear}-${workSeason}"]
               orderBy: { field: WATCHERS_COUNT, direction: DESC }
             ) {
               nodes {
@@ -37,6 +36,7 @@ export async function GET(request: Request) {
             }
           }`,
       }),
+      cache: "force-cache",
     })
   ).json();
   const results = data.searchWorks.nodes;

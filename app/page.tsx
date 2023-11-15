@@ -25,7 +25,7 @@ const HomePage = () => {
           router.push(`?title=${workTitle}`);
         });
     } else {
-      fetch(`/api/search/seasons?season=${workYear}-${workSeason}`)
+      fetch(`/api/search/seasons?year=${workYear}&season=${workSeason}`)
         .then((res) => res.json())
         .then((res) => {
           setWorkData(res);
