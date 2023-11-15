@@ -1,9 +1,9 @@
 "use client";
 
-import LoadingSpinner from "@/components/LoadingSpinner";
-import MiniPage from "@/components/Works/MiniPage";
-import SeasonSelector from "@/components/Works/SeasonSelector";
-import { WorkData } from "@/types/types";
+import LoadingSpinner from "@/app/components/LoadingSpinner";
+import BrowseGrid from "@/app/components/BrowseGrid/BrowseGrid";
+import SeasonSelector from "@/app/components/BrowseGrid/SeasonSelector";
+import { WorkData } from "@/app/types/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -45,7 +45,7 @@ const HomePage = () => {
           {!workTitle && (
             <SeasonSelector workYear={workYear} workSeason={workSeason} />
           )}
-          <MiniPage workData={workData} />
+          <BrowseGrid workData={workData} />
         </main>
       )}
     </>

@@ -1,7 +1,7 @@
 "use client";
 
 import toast from "react-hot-toast";
-import { UserClientSide } from "@/types/types";
+import { UserClientSide } from "@/app/types/types";
 import { ReactNode } from "react";
 import { addCollection } from "@/app/redux/features/user/userSlice";
 import { removeCollection } from "@/app/redux/features/user/userSlice";

@@ -1,5 +1,5 @@
-import WorkCard from "@/components/Works/WorkCard";
-import { WorkData } from "@/types/types";
+import WorkCard from "@/app/components/Work/WorkCard";
+import { WorkData } from "@/app/types/types";
 import prisma from "@/lib/prisma";
 import Image from "next/image";
 import { Metadata } from "next";

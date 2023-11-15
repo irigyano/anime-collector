@@ -1,9 +1,9 @@
 "use client";
-import { WorkData } from "@/types/types";
+import { WorkData } from "@/app/types/types";
 import { useState } from "react";
-import WorkCard from "@/components/Works/WorkCard";
+import WorkCard from "@/app/components/Work/WorkCard";
 
-const MiniPage = ({ workData }: { workData: WorkData[] }) => {
+const BrowseGrid = ({ workData }: { workData: WorkData[] }) => {
   const [miniPageIndex, setMiniPageIndex] = useState<number>(0);
 
   // divide data from Annict into pages
@@ -61,4 +61,4 @@ const MiniPage = ({ workData }: { workData: WorkData[] }) => {
     </>
   );
 };
-export default MiniPage;
+export default BrowseGrid;

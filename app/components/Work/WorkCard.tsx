@@ -3,9 +3,9 @@
 import Image from "next/image";
 import { useState } from "react";
 import WorkModal from "./WorkModal/WorkModal";
-import cover_replacement from "../../public/images/cover_replacement.webp";
+import cover_replacement from "../../../public/images/cover_replacement.webp";
 import TagList from "./TagList";
-import { WorkData } from "@/types/types";
+import { WorkData } from "@/app/types/types";
 
 const WorkCard = ({ work }: { work: WorkData }) => {
   const [showModal, setShowModal] = useState(false);

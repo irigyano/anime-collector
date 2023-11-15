@@ -5,8 +5,8 @@ import Image from "next/image";
 import SearchInput from "./SearchInput";
 import Menu from "./Menu";
 import ProfileModal from "./ProfileModal";
-import LogInButton from "../LogInButton";
-import SignUpButton from "../SignUpButton";
+import LogInButton from "./LogInButton";
+import SignUpButton from "./SignUpButton";
 import { BsGithub } from "react-icons/bs";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
@@ -92,7 +92,7 @@ const Navbar = () => {
                   <Image
                     className="rounded-full"
                     alt="avatar"
-                    src="/images/default_avatar.png"
+                    src="/images/KEKW.webp"
                     width={40}
                     height={40}
                   />

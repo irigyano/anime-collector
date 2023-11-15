@@ -1,6 +1,6 @@
 import "./globals.css";
-import SessionProvider from "@/components/NextAuthSessionProvider";
-import Navbar from "@/components/Navbar/Navbar";
+import SessionProvider from "@/app/components/NextAuthSessionProvider";
+import Navbar from "@/app/components/Navbar/Navbar";
 import { ReduxProvider } from "@/app/redux/ReduxProvider";
 import ReduxPreloader from "@/app/redux/ReduxPreloader";
 import { store } from "./redux/store";

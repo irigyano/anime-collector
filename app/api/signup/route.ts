@@ -12,7 +12,7 @@ export async function POST(req: Request) {
       data: {
         username,
         password: hashedPassword,
-        avatar: "/images/default_avatar.png",
+        avatar: "/images/KEKW.webp",
         watchedWorks: [],
         watchingWorks: [],
         followingWorks: [],
@@ -26,11 +26,16 @@ export async function POST(req: Request) {
     });
   } catch (err: any) {
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
-      return new NextResponse(JSON.stringify({ error: "The username has been used" }), {
-        status: 409,
-      });
+      return new NextResponse(
+        JSON.stringify({ error: "The username has been used" }),
+        {
+          status: 409,
+        }
+      );
     }
     console.log("error!!!!!", err.message);
-    return new NextResponse(JSON.stringify({ error: err.message }), { status: 500 });
+    return new NextResponse(JSON.stringify({ error: err.message }), {
+      status: 500,
+    });
   }
 }

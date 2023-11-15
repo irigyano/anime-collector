@@ -1,5 +1,5 @@
 "use client";
-import { UserClientSide } from "@/types/types";
+import { UserClientSide } from "@/app/types/types";
 import Link from "next/link";
 import Image from "next/image";
 import { RiLogoutBoxLine } from "react-icons/ri";
@@ -25,7 +25,7 @@ const MenuModal = ({ currentUser, toggleModal }: MenuModalProps) => {
                 <Image
                   className="rounded-full"
                   alt="avatar"
-                  src="/images/default_avatar.png"
+                  src="/images/KEKW.webp"
                   fill
                 />
               </div>

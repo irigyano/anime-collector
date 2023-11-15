@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { WorkData } from "@/types/types";
+import { WorkData } from "@/app/types/types";
 import Link from "next/link";
 import {
   HiOutlineCheckCircle,

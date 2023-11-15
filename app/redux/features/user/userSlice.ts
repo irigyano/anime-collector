@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { UserClientSide } from "@/types/types";
+import { UserClientSide } from "@/app/types/types";
 
 const initialState: { user: null | UserClientSide } = { user: null };
 
