@@ -1,39 +1,39 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const seasonMap: any = {
-  冬: "winter",
-  春: "spring",
-  夏: "summer",
-  秋: "autumn",
+  winter: "冬",
+  spring: "春",
+  summer: "夏",
+  autumn: "秋",
 };
 
 const SeasonButton = ({
-  season,
   selectedYear,
+  season,
+  workSeason,
+  hoverColor,
+  backgroundColor,
 }: {
-  season: string;
   selectedYear: string;
+  season: string;
+  workSeason: string;
+  hoverColor: string;
+  backgroundColor: string;
 }) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const workSeason = searchParams.get("season");
-
-  const buttonSeason = seasonMap[season];
-
-  console.log(buttonSeason, buttonSeason === workSeason);
-
   return (
     <button
       onClick={() => {
-        router.push(`?year=${selectedYear}&season=${buttonSeason}`);
+        router.push(`?year=${selectedYear}&season=${season}`);
       }}
-      className={`border-2 rounded-full w-7 h-7 duration-500 hover:bg-${buttonSeason} border-${buttonSeason} ${
-        buttonSeason === `${workSeason}` ? `bg-${buttonSeason}` : ""
+      className={`border-2 rounded-full w-7 h-7 duration-500  border-${season} ${hoverColor} ${
+        workSeason === season && backgroundColor
+      }
       }`}
     >
-      {season}
+      {seasonMap[season]}
     </button>
   );
 };

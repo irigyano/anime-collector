@@ -1,23 +1,49 @@
 "use client";
 
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
 import SeasonButton from "./SeasonButton";
 import YearSelector from "./YearSelector";
 
-const SeasonSelector = () => {
-  const searchParams = useSearchParams();
-  const workYear = searchParams.get("year") || "2024";
-
+const SeasonSelector = ({
+  workYear,
+  workSeason,
+}: {
+  workYear: string;
+  workSeason: string;
+}) => {
   const [selectedYear, setSelectedYear] = useState(workYear);
 
   return (
     <nav className="flex justify-center gap-4 m-2">
-      <YearSelector setSelectedYear={setSelectedYear} workYear={workYear} />
-      <SeasonButton season="冬" selectedYear={selectedYear} />
-      <SeasonButton season="春" selectedYear={selectedYear} />
-      <SeasonButton season="夏" selectedYear={selectedYear} />
-      <SeasonButton season="秋" selectedYear={selectedYear} />
+      <YearSelector setSelectedYear={setSelectedYear} workYear={selectedYear} />
+      <SeasonButton
+        selectedYear={selectedYear}
+        season="winter"
+        workSeason={workSeason}
+        hoverColor="hover:bg-winter"
+        backgroundColor="bg-winter"
+      />
+      <SeasonButton
+        selectedYear={selectedYear}
+        season="spring"
+        workSeason={workSeason}
+        hoverColor="hover:bg-spring"
+        backgroundColor="bg-spring"
+      />
+      <SeasonButton
+        selectedYear={selectedYear}
+        season="summer"
+        workSeason={workSeason}
+        hoverColor="hover:bg-summer"
+        backgroundColor="bg-summer"
+      />
+      <SeasonButton
+        selectedYear={selectedYear}
+        season="autumn"
+        workSeason={workSeason}
+        hoverColor="hover:bg-autumn"
+        backgroundColor="bg-autumn"
+      />
     </nav>
   );
 };

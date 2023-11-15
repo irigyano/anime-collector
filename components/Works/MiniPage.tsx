@@ -2,7 +2,6 @@
 import { WorkData } from "@/components/Works/WorkCard";
 import { useState } from "react";
 import WorkCard from "@/components/Works/WorkCard";
-import SeasonSelector from "@/components/Works/SeasonSelector";
 
 const MiniPage = ({ workData }: { workData: WorkData[] }) => {
   const [miniPageIndex, setMiniPageIndex] = useState<number>(0);
@@ -27,8 +26,7 @@ const MiniPage = ({ workData }: { workData: WorkData[] }) => {
           <div>例えば、「進撃の巨人」または「ソードアート・オンライン」。</div>
         </div>
       ) : (
-        <main>
-          <SeasonSelector />
+        <>
           <section className="flex flex-wrap justify-center">
             {worksMiniPages[miniPageIndex].map((work) => {
               return <WorkCard key={work.annictId} work={work} />;
@@ -58,7 +56,7 @@ const MiniPage = ({ workData }: { workData: WorkData[] }) => {
             </div>
           </div>
           <div className="w-full h-10" />
-        </main>
+        </>
       )}
     </>
   );

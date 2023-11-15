@@ -2,6 +2,7 @@
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import MiniPage from "@/components/Works/MiniPage";
+import SeasonSelector from "@/components/Works/SeasonSelector";
 import { WorkData } from "@/components/Works/WorkCard";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -36,9 +37,18 @@ const HomePage = () => {
   }, [workYear, workSeason, workTitle]);
 
   return (
-    <main>
-      {!workData ? <LoadingSpinner /> : <MiniPage workData={workData} />}
-    </main>
+    <>
+      {!workData ? (
+        <LoadingSpinner />
+      ) : (
+        <main>
+          {!workTitle && (
+            <SeasonSelector workYear={workYear} workSeason={workSeason} />
+          )}
+          <MiniPage workData={workData} />
+        </main>
+      )}
+    </>
   );
 };
 
