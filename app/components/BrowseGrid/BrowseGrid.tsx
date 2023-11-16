@@ -1,19 +1,34 @@
 "use client";
 import { WorkData } from "@/app/types/types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import WorkCard from "@/app/components/Work/WorkCard";
+import { useRouter } from "next/navigation";
 
-const BrowseGrid = ({ workData }: { workData: WorkData[] }) => {
+const BrowseGrid = ({
+  workData,
+  workYear,
+  workSeason,
+  workTitle,
+}: {
+  workData: WorkData[];
+  workYear: string;
+  workSeason: string;
+  workTitle: string;
+}) => {
   const [miniPageIndex, setMiniPageIndex] = useState<number>(0);
-
+  const router = useRouter();
+  useEffect(() => {
+    if (workTitle) router.replace(`?title=${workTitle}`);
+    else router.replace(`?year=${workYear}&season=${workSeason}`);
+  }, []);
   // divide data from Annict into pages
-  const worksMiniPages: WorkData[][] = [];
+  const pagination: WorkData[][] = [];
   for (let i = 0; i < workData.length; i += 12) {
-    worksMiniPages.push(workData.slice(i, i + 12));
+    pagination.push(workData.slice(i, i + 12));
   }
   // create index based on pages
   const miniPageIndexes = [];
-  for (let page = 0; page < worksMiniPages.length; page++) {
+  for (let page = 0; page < pagination.length; page++) {
     miniPageIndexes.push(page);
   }
 
@@ -21,14 +36,14 @@ const BrowseGrid = ({ workData }: { workData: WorkData[] }) => {
     <>
       {workData.length === 0 ? (
         <div className="flex flex-col justify-center items-center h-screen pb-40 text-xl lg:text-3xl text-center">
-          <div>結果が見つかりませんでした。</div>
+          <div>{workTitle} の結果が見つかりませんでした。</div>
           <div>かなを使って検索してみてください。</div>
           <div>例えば、「進撃の巨人」または「ソードアート・オンライン」。</div>
         </div>
       ) : (
         <>
           <section className="flex flex-wrap justify-center">
-            {worksMiniPages[miniPageIndex].map((work) => {
+            {pagination[miniPageIndex].map((work) => {
               return <WorkCard key={work.annictId} work={work} />;
             })}
           </section>

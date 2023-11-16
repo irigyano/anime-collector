@@ -1,21 +1,14 @@
 import Link from "next/link";
 import prisma from "@/lib/prisma";
 import { UserClientSide } from "@/app/types/types";
-
 import Image from "next/image";
 
 export const metadata = {
   title: "社群",
 };
 
-export const dynamic = "force-dynamic";
-
 const CommunityPage = async () => {
   const users = await prisma.user.findMany();
-
-  if (users.length === 0) {
-    return <h1>no user</h1>;
-  }
 
   return (
     <div className="flex flex-wrap justify-center">

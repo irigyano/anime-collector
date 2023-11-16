@@ -1,6 +1,5 @@
 "use client";
-
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const seasonMap: Record<string, string> = {
   winter: "冬",
@@ -22,18 +21,16 @@ const SeasonButton = ({
   hoverColor: string;
   backgroundColor: string;
 }) => {
-  const router = useRouter();
   return (
     <button
-      onClick={() => {
-        router.push(`?year=${selectedYear}&season=${season}`);
-      }}
       className={`border-2 rounded-full w-7 h-7 duration-500  border-${season} ${hoverColor} ${
         workSeason === season && backgroundColor
       }
-      }`}
+    }`}
     >
-      {seasonMap[season]}
+      <Link href={`/?year=${selectedYear}&season=${season}`} prefetch={false}>
+        {seasonMap[season]}
+      </Link>
     </button>
   );
 };
