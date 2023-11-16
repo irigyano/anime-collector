@@ -22,14 +22,14 @@ const HomePage = () => {
         .then((res) => res.json())
         .then((res) => {
           setWorkData(res);
-          router.push(`?title=${workTitle}`);
+          router.replace(`?title=${workTitle}`);
         });
     } else if (workYear && workSeason) {
       fetch(`/api/search/seasons?year=${workYear}&season=${workSeason}`)
         .then((res) => res.json())
         .then((res) => {
           setWorkData(res);
-          router.push(`?year=${workYear}&season=${workSeason}`);
+          router.replace(`?year=${workYear}&season=${workSeason}`);
         });
     }
 

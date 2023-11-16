@@ -2,13 +2,11 @@ import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-
   const title = searchParams.get("title");
-
   if (!title) return NextResponse.json([]);
 
-  const { data } = await (
-    await fetch("https://api.annict.com/graphql", {
+  try {
+    const res = await fetch("https://api.annict.com/graphql", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,8 +34,11 @@ export async function GET(request: Request) {
           }`,
       }),
       cache: "force-cache",
-    })
-  ).json();
-  const results = data.searchWorks.nodes;
-  return NextResponse.json(results);
+    });
+
+    const { data } = await res.json();
+    return NextResponse.json(data.searchWorks.nodes);
+  } catch (error) {
+    return NextResponse.json([]);
+  }
 }
