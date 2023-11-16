@@ -1,42 +1,22 @@
-import prisma from "@/lib/prisma";
 import NextAuth, { type NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { compare } from "bcrypt";
+import GithubProvider from "next-auth/providers/github";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import prisma from "@/lib/prisma";
 
 export const authOptions: NextAuthOptions = {
-  pages: { signIn: "/", error: "/" },
-  session: {
-    strategy: "jwt",
-  },
+  adapter: PrismaAdapter(prisma),
   providers: [
-    CredentialsProvider({
-      name: "Sign In",
-      credentials: {
-        username: { label: "Username", type: "text", placeholder: "JaMorant" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        if (!credentials?.username || !credentials.password) {
-          return null;
-        }
-
-        const user = await prisma.user.findUnique({
-          where: { username: credentials.username },
-        });
-
-        if (!user) return null;
-
-        const isPasswordValid = await compare(
-          credentials.password,
-          user.password
-        );
-
-        if (!isPasswordValid) return null;
-
-        return { id: user.id, name: user.username };
-      },
+    GithubProvider({
+      clientId: process.env.GITHUB_ID!,
+      clientSecret: process.env.GITHUB_SECRET!,
     }),
   ],
+  callbacks: {
+    async session({ session, user }) {
+      session.user.id = user.id;
+      return session;
+    },
+  },
 };
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

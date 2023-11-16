@@ -8,6 +8,7 @@ import { userAuthenticated } from "./redux/features/user/userSlice";
 import { Zen_Maru_Gothic } from "next/font/google";
 import { getServerSession } from "next-auth/next";
 import prisma from "@/lib/prisma";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 
 const font = Zen_Maru_Gothic({
   weight: "700",
@@ -27,19 +28,12 @@ export default async function ContentsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   if (session?.user) {
     const currentUser = await prisma.user.findUnique({
       where: {
-        username: session.user.name as string,
-      },
-      select: {
-        username: true,
-        avatar: true,
-        watchedWorks: true,
-        watchingWorks: true,
-        followingWorks: true,
+        id: session.user.id,
       },
     });
     if (currentUser) store.dispatch(userAuthenticated(currentUser));

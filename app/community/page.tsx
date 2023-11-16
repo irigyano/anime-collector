@@ -15,16 +15,21 @@ const CommunityPage = async () => {
       {users.map((user: UserClientSide) => {
         return (
           <Link
-            key={user.username}
+            key={user.id}
             className="flex m-2 border-gray-400 border rounded-lg shadow-md dark:shadow-white hover:bg-gray-100 dark:hover:bg-zinc-700 duration-300 h-32 w-60"
-            href={`/community/${user.username}`}
+            href={`/community/${user.id}`}
           >
             <div className="m-2">
               <div className="relative h-20 w-20 rounded-full overflow-hidden">
-                <Image alt="avatar" src={user.avatar} fill></Image>
+                <Image
+                  alt="avatar"
+                  src={user.image || "/images/KEKW.webp"}
+                  width={80}
+                  height={80}
+                ></Image>
               </div>
               <div className="w-20 truncate my-1">
-                <div className="text-center">@{user.username}</div>
+                <div className="text-center">@{user.name}</div>
               </div>
             </div>
             <div className="flex flex-col justify-end m-2">

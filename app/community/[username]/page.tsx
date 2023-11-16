@@ -43,8 +43,9 @@ function findMatchingId(
 }
 
 const UserPage = async ({ params }: { params: { username: string } }) => {
+  // potential leak?
   const user = await prisma.user.findUnique({
-    where: { username: `${params.username}` },
+    where: { id: `${params.username}` },
   });
 
   if (!user) {
@@ -106,13 +107,13 @@ const UserPage = async ({ params }: { params: { username: string } }) => {
       <div className="flex flex-col justify-center items-center mt-2 mx-4">
         <Image
           className="rounded-full"
-          src={user.avatar}
+          src={user.image || "/images/KEKW.webp"}
           width={150}
           height={150}
           sizes="150px"
           alt="avatar"
         />
-        <div>@{user.username}</div>
+        <div>@{user.name}</div>
       </div>
       <div className="my-3">
         <div className="flex justify-center items-center text-center">

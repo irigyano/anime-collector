@@ -7,7 +7,6 @@ import { signOut } from "next-auth/react";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 import FormDialog from "../../FormDialog";
 import LoginForm from "../../LoginForm";
-import SignUpForm from "../../SignUpForm";
 
 type MenuModalProps = {
   currentUser?: UserClientSide | null;
@@ -28,13 +27,14 @@ const MenuModal = ({ currentUser, toggleModal }: MenuModalProps) => {
                 <Image
                   className="rounded-full"
                   alt="avatar"
-                  src="/images/KEKW.webp"
-                  fill
+                  src={currentUser.image || "/images/KEKW.webp"}
+                  width={80}
+                  height={80}
                 />
               </div>
-              <Link href={`/community/${currentUser.username}`}>
+              <Link href={`/community/${currentUser.id}`}>
                 <div className="hover:text-blue-500 hover:bg-slate-200 rounded-md duration-200 m-1">
-                  @{currentUser.username}
+                  @{currentUser.name}
                 </div>
               </Link>
             </div>
@@ -92,9 +92,6 @@ const MenuModal = ({ currentUser, toggleModal }: MenuModalProps) => {
             <div className="flex flex-col items-center">
               <FormDialog action="登入" className="m-0">
                 <LoginForm />
-              </FormDialog>
-              <FormDialog action="註冊" className="m-0">
-                <SignUpForm />
               </FormDialog>
             </div>
             <div className="border m-1"></div>

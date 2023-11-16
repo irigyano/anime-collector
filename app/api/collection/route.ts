@@ -16,7 +16,7 @@ async function getCurrentUser() {
 
   const user = await prisma.user.findUnique({
     where: {
-      username: session.user.name as string,
+      id: session.user.id,
     },
   });
   return user;
@@ -48,8 +48,8 @@ export async function POST(request: Request) {
       followingWorks: currentUser.followingWorks,
     },
     select: {
-      username: true,
-      avatar: true,
+      id: true,
+      image: true,
       watchedWorks: true,
       watchingWorks: true,
       followingWorks: true,
@@ -75,8 +75,8 @@ export async function DELETE(request: Request) {
       ),
     },
     select: {
-      username: true,
-      avatar: true,
+      id: true,
+      image: true,
       watchedWorks: true,
       watchingWorks: true,
       followingWorks: true,

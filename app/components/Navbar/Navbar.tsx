@@ -11,7 +11,6 @@ import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { RootState } from "@/app/redux/store";
 import LoginForm from "../LoginForm";
 import FormDialog from "../FormDialog";
-import SignUpForm from "../SignUpForm";
 
 const Navbar = () => {
   const [showProfileModal, setShowProfileModal] = useState(false);
@@ -92,7 +91,7 @@ const Navbar = () => {
                   <Image
                     className="rounded-full"
                     alt="avatar"
-                    src="/images/KEKW.webp"
+                    src={currentUser.image || "/images/KEKW.webp"}
                     width={40}
                     height={40}
                   />
@@ -113,12 +112,6 @@ const Navbar = () => {
                 action="登入"
               >
                 <LoginForm />
-              </FormDialog>
-              <FormDialog
-                className="bg-pink-200 hover:bg-pink-300 dark:bg-pink-700 dark:hover:bg-pink-500 rounded-lg shadow-md"
-                action="註冊"
-              >
-                <SignUpForm />
               </FormDialog>
             </div>
           )}

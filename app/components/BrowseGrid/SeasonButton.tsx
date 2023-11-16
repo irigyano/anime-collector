@@ -22,16 +22,14 @@ const SeasonButton = ({
   backgroundColor: string;
 }) => {
   return (
-    <button
-      className={`border-2 rounded-full w-7 h-7 duration-500  border-${season} ${hoverColor} ${
-        workSeason === season && backgroundColor
-      }
-    }`}
+    <Link
+      href={`/?year=${selectedYear}&season=${season}`}
+      className={`border-2 rounded-full w-7 h-7 duration-500 border-${season} ${hoverColor} ${
+        workSeason === season ? backgroundColor : ""
+      }`}
     >
-      <Link href={`/?year=${selectedYear}&season=${season}`} prefetch={false}>
-        {seasonMap[season]}
-      </Link>
-    </button>
+      {seasonMap[season]}
+    </Link>
   );
 };
 

@@ -14,7 +14,7 @@ const SeasonSelector = ({
   const [selectedYear, setSelectedYear] = useState(workYear);
 
   return (
-    <nav className="flex justify-center gap-4 m-2">
+    <nav className="flex justify-center gap-4 m-2 text-center">
       <YearSelector setSelectedYear={setSelectedYear} workYear={selectedYear} />
       <SeasonButton
         selectedYear={selectedYear}

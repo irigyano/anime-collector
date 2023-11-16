@@ -31,13 +31,13 @@ const ProfileModal = ({
               <Image
                 className="rounded-full"
                 alt="avatar"
-                src="/images/KEKW.webp"
+                src={currentUser.image || "/images/KEKW.webp"}
                 fill
               />
             </div>
-            <Link href={`/community/${currentUser.username}`}>
+            <Link href={`/community/${currentUser.id}`}>
               <div className="hover:text-blue-500 hover:bg-slate-200 rounded-md duration-200 m-1">
-                @{currentUser.username}
+                @{currentUser.name}
               </div>
             </Link>
           </div>
