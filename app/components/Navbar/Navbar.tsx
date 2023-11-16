@@ -3,22 +3,22 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SearchInput from "./SearchInput";
-import Menu from "./Menu";
+import MobileMenu from "./MobileMenu/MobileMenu";
 import ProfileModal from "./ProfileModal";
-import LogInButton from "./LogInButton";
-import SignUpButton from "./SignUpButton";
 import { BsGithub } from "react-icons/bs";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import { RootState } from "@/app/redux/store";
+import LoginForm from "../LoginForm";
+import FormDialog from "../FormDialog";
+import SignUpForm from "../SignUpForm";
 
 const Navbar = () => {
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+
   const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-
   const currentUser = useAppSelector((state) => state.user.user);
-
   return (
     <>
       <nav className="flex justify-center lg:justify-between lg:px-20 border-b shadow-md items-center w-full z-20 fixed bg-[#f1f1f1] dark:bg-[#0f0f0f] duration-500">
@@ -50,7 +50,7 @@ const Navbar = () => {
         </div>
         <SearchInput />
         {/* mobile */}
-        <Menu currentUser={currentUser} />
+        <MobileMenu currentUser={currentUser} />
         {/* desktop */}
         <div className="hidden lg:flex basis-1/3 justify-end items-center">
           <Link
@@ -108,8 +108,18 @@ const Navbar = () => {
             </>
           ) : (
             <div className="h-10 w-40 flex text-center justify-center items-center">
-              <LogInButton />
-              <SignUpButton />
+              <FormDialog
+                className="bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-500 rounded-lg shadow-md"
+                action="登入"
+              >
+                <LoginForm />
+              </FormDialog>
+              <FormDialog
+                className="bg-pink-200 hover:bg-pink-300 dark:bg-pink-700 dark:hover:bg-pink-500 rounded-lg shadow-md"
+                action="註冊"
+              >
+                <SignUpForm />
+              </FormDialog>
             </div>
           )}
         </div>

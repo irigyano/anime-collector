@@ -5,6 +5,9 @@ import Image from "next/image";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { signOut } from "next-auth/react";
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
+import FormDialog from "../../FormDialog";
+import LoginForm from "../../LoginForm";
+import SignUpForm from "../../SignUpForm";
 
 type MenuModalProps = {
   currentUser?: UserClientSide | null;
@@ -40,9 +43,6 @@ const MenuModal = ({ currentUser, toggleModal }: MenuModalProps) => {
             <div className="flex flex-col items-center">
               <Link href={"/"}>主頁</Link>
               <Link href={"/community"}>社群</Link>
-              <Link target="_blank" href={"https://annict.com/"}>
-                Annict.com
-              </Link>
             </div>
 
             <div className="border m-1"></div>
@@ -85,16 +85,17 @@ const MenuModal = ({ currentUser, toggleModal }: MenuModalProps) => {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex flex-col items-center">
-              <Link href={"/login"}>登入</Link>
-              <Link href={"/signup"}>註冊</Link>
+              <Link href={"/"}>首頁</Link>
+              <Link href={"/community"}>社群</Link>
             </div>
             <div className="border m-1"></div>
             <div className="flex flex-col items-center">
-              <Link href={"/"}>首頁</Link>
-              <Link href={"/community"}>社群</Link>
-              <Link target="_blank" href={"https://annict.com/"}>
-                Annict.com
-              </Link>
+              <FormDialog action="登入" className="m-0">
+                <LoginForm />
+              </FormDialog>
+              <FormDialog action="註冊" className="m-0">
+                <SignUpForm />
+              </FormDialog>
             </div>
             <div className="border m-1"></div>
 
