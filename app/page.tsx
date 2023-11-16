@@ -1,6 +1,6 @@
 import SeasonSelector from "@/app/components/BrowseGrid/SeasonSelector";
 import { Suspense } from "react";
-import BrowseGridDataFetcher from "./components/BrowseGridDataFetcher";
+import BrowseGridDataFetcher from "./components/BrowseGrid/BrowseGridDataFetcher";
 import LoadingPlaceholder from "./components/LoadingPlaceholder";
 
 const HomePage = async ({
