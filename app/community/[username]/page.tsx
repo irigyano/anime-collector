@@ -85,7 +85,7 @@ const UserPage = async ({ params }: { params: { username: string } }) => {
               }
             }`,
         }),
-        cache: "no-store",
+        cache: "force-cache",
       })
     ).json();
     const results = data.searchWorks.nodes;

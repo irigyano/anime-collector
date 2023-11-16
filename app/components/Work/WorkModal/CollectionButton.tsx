@@ -30,35 +30,26 @@ const CollectionButton = ({
   const dispatch = useAppDispatch();
 
   const modifyCollection = async () => {
-    if (!currentUser) {
-      return toast.error("請先登入");
-    }
+    if (!currentUser) return toast.error("請先登入");
 
     if (currentUser[category].includes(workId)) {
-      const data = await fetch("/api/collection", {
-        method: "PUT",
-        body: JSON.stringify({ category: category, annictId: workId }),
+      const res = await fetch("/api/collection", {
+        method: "DELETE",
+        body: JSON.stringify({ category, annictId: workId }),
       });
-
-      if (data.status === 200) {
-        const updatedWorks = [...currentUser[category]];
-        updatedWorks.splice(updatedWorks.indexOf(workId));
-        const updatedUser = { ...currentUser };
-        updatedUser[category] = updatedWorks;
-        dispatch(removeCollection(updatedUser));
-
+      const user = await res.json();
+      if (res.status === 200) {
+        dispatch(removeCollection(user));
         return toast.success("取消收藏");
       }
     } else {
       const res = await fetch("/api/collection", {
         method: "POST",
-        body: JSON.stringify({ category: category, annictId: workId }),
+        body: JSON.stringify({ category, annictId: workId }),
       });
-
+      const user = await res.json();
       if (res.status === 200) {
-        const data = await res.json();
-        const updatedUser = { ...currentUser, ...data };
-        dispatch(addCollection(updatedUser));
+        dispatch(addCollection(user));
         return toast.success("收藏成功");
       }
     }

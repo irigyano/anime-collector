@@ -11,117 +11,76 @@ type reqAction = {
 };
 
 async function getCurrentUser() {
-  try {
-    const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
+  if (!session?.user) return null;
 
-    if (!session?.user) {
-      return null;
-    }
-
-    const currentUser = await prisma.user.findUnique({
-      where: {
-        username: session.user.name as string,
-      },
-    });
-
-    if (!currentUser) {
-      return null;
-    }
-
-    return currentUser;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
+  const user = await prisma.user.findUnique({
+    where: {
+      username: session.user.name as string,
+    },
+  });
+  return user;
 }
 
-function removeCollectionState(staleArray: number[], annictId: number) {
-  const filteredArray = [...staleArray];
-
-  if (filteredArray.indexOf(annictId) !== -1) {
-    filteredArray.splice(filteredArray.indexOf(annictId), 1);
-  }
-  return filteredArray;
+function filterRepeatedCollection(works: number[], workId: number) {
+  if (works.indexOf(workId) !== -1) works.splice(works.indexOf(workId), 1);
 }
 
 export async function POST(request: Request) {
   const { category, annictId }: reqAction = await request.json();
   const currentUser = await getCurrentUser();
-
   if (!currentUser || !annictId || !category) {
     return NextResponse.json({ message: `Missing Info` }, { status: 400 });
   }
 
-  let staleCategory_1: category;
-  let staleCategory_2: category;
+  filterRepeatedCollection(currentUser.watchedWorks, annictId);
+  filterRepeatedCollection(currentUser.watchingWorks, annictId);
+  filterRepeatedCollection(currentUser.followingWorks, annictId);
+  currentUser[category].push(annictId);
 
-  switch (category) {
-    case "watchedWorks":
-      staleCategory_1 = "watchingWorks";
-      staleCategory_2 = "followingWorks";
-      break;
-    case "watchingWorks":
-      staleCategory_1 = "followingWorks";
-      staleCategory_2 = "watchedWorks";
-      break;
-    case "followingWorks":
-      staleCategory_1 = "watchedWorks";
-      staleCategory_2 = "watchingWorks";
-      break;
-  }
-
-  const filteredArray_1 = removeCollectionState(
-    [...currentUser[staleCategory_1]],
-    annictId
-  );
-  const filteredArray_2 = removeCollectionState(
-    [...currentUser[staleCategory_2]],
-    annictId
-  );
-
-  const updatedWorks = [...currentUser[category]];
-  updatedWorks.push(Number(annictId));
-
-  const { watchedWorks, watchingWorks, followingWorks } =
-    await prisma.user.update({
-      where: {
-        id: currentUser.id,
-      },
-      data: {
-        // https://stackoverflow.com/questions/33194138/template-string-as-object-property-name
-        // Wrapped in an array so coercion evaluate it to a string.
-        [category]: updatedWorks,
-        [staleCategory_1]: filteredArray_1,
-        [staleCategory_2]: filteredArray_2,
-      },
-    });
-
-  return NextResponse.json({ watchedWorks, watchingWorks, followingWorks });
-}
-
-export async function PUT(request: Request) {
-  const { category, annictId }: reqAction = await request.json();
-  const currentUser = await getCurrentUser();
-
-  if (!currentUser || !annictId || !category) {
-    return NextResponse.json({ message: `Missing Info` }, { status: 400 });
-  }
-
-  const updatedWorks = [...currentUser[category]].filter((work) => {
-    return work !== Number(annictId);
-  });
-
-  await prisma.user.update({
+  const user = await prisma.user.update({
     where: {
       id: currentUser.id,
     },
     data: {
-      [category]: updatedWorks,
+      watchedWorks: currentUser.watchedWorks,
+      watchingWorks: currentUser.watchingWorks,
+      followingWorks: currentUser.followingWorks,
+    },
+    select: {
+      username: true,
+      avatar: true,
+      watchedWorks: true,
+      watchingWorks: true,
+      followingWorks: true,
     },
   });
+  return NextResponse.json(user);
+}
 
-  return NextResponse.json(
-    { message: `DELETE to ${annictId} success!` },
-    { status: 200 }
-  );
+export async function DELETE(request: Request) {
+  const { category, annictId }: reqAction = await request.json();
+  const currentUser = await getCurrentUser();
+  if (!currentUser || !annictId || !category) {
+    return NextResponse.json({ message: `Missing Info` }, { status: 400 });
+  }
+
+  const user = await prisma.user.update({
+    where: {
+      id: currentUser.id,
+    },
+    data: {
+      [category]: currentUser[category].filter(
+        (work) => work !== Number(annictId)
+      ),
+    },
+    select: {
+      username: true,
+      avatar: true,
+      watchedWorks: true,
+      watchingWorks: true,
+      followingWorks: true,
+    },
+  });
+  return NextResponse.json(user);
 }

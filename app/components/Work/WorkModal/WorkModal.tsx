@@ -106,20 +106,20 @@ const WorkModal = ({ toggleModal, work, srcUrl }: WorkModalProps) => {
 
           <footer className="flex justify-between">
             <CollectionButton
-              text={"看過"}
-              category={"watchedWorks"}
-              workId={work.annictId}
-              color={isWatched ? "text-green-500" : "hover:text-green-500"}
-              currentUser={currentUser}
-              icon={<HiOutlineCheckCircle size={30} />}
-            />
-            <CollectionButton
               text={"正在看"}
               category={"watchingWorks"}
               workId={work.annictId}
               color={isWatching ? "text-blue-500" : "hover:text-blue-500"}
               currentUser={currentUser}
               icon={<HiOutlinePlay size={30} />}
+            />
+            <CollectionButton
+              text={"看過"}
+              category={"watchedWorks"}
+              workId={work.annictId}
+              color={isWatched ? "text-green-500" : "hover:text-green-500"}
+              currentUser={currentUser}
+              icon={<HiOutlineCheckCircle size={30} />}
             />
             <CollectionButton
               text={"關注"}
