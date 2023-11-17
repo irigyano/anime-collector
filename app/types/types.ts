@@ -1,6 +1,6 @@
 import { User } from "@prisma/client";
 
-export type UserClientSide = Omit<User, "email" | "emailVerified">;
+export type UserClientSide = Omit<User, "name" | "email" | "emailVerified">;
 
 export type WorkData = {
   annictId: number;
