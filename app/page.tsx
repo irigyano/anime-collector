@@ -18,7 +18,7 @@ const HomePage = async ({
         <SeasonSelector workYear={workYear} workSeason={workSeason} />
       )}
       <Suspense
-        key={`${workYear}${workSeason}`}
+        key={workTitle || workSeason + workYear}
         fallback={<LoadingPlaceholder />}
       >
         <BrowseGridDataFetcher
