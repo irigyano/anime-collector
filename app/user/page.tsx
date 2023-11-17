@@ -17,7 +17,7 @@ const CommunityPage = async () => {
           <Link
             key={user.id}
             className="flex m-2 border-gray-400 border rounded-lg shadow-md dark:shadow-white hover:bg-gray-100 dark:hover:bg-zinc-700 duration-300 h-32 w-60"
-            href={`/community/${user.id}`}
+            href={`/user/${user.id}`}
           >
             <div className="m-2">
               <div className="relative h-20 w-20 rounded-full overflow-hidden">

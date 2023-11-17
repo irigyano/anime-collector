@@ -43,7 +43,7 @@ const WorkCard = ({ work }: { work: WorkData }) => {
             priority={true}
             onError={() => {
               SetSrcUrl(
-                "https://realsound.jp/wp-content/uploads/2022/11/20221118-botchitherock-00009.jpg"
+                "https://staticg.sportskeeda.com/editor/2023/11/1afbf-16996497660617-1920.jpg?w=840"
               );
             }}
             sizes="540px"

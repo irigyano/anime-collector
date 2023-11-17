@@ -35,7 +35,7 @@ const Navbar = async () => {
             <div className="h-8 w-20 m-1 justify-center items-center flex">
               <Link
                 className="hidden lg:block hover:text-blue-500 duration-300"
-                href={"/community"}
+                href={"/user"}
               >
                 社群
               </Link>

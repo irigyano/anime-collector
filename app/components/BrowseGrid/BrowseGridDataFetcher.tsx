@@ -1,3 +1,7 @@
+import { getServerSession } from "next-auth/next";
+import prisma from "@/lib/prisma";
+import { authOptions } from "../../api/auth/[...nextauth]/route";
+import { WorkData } from "@/app/types/types";
 import BrowseGrid from "@/app/components/BrowseGrid/BrowseGrid";
 
 const BrowseGridDataFetcher = async ({
@@ -9,18 +13,20 @@ const BrowseGridDataFetcher = async ({
   workSeason: string;
   workTitle: string;
 }) => {
-  let workData = null;
+  const endpoint = workTitle
+    ? `${process.env.HOST_URL}/api/search/title?title=${workTitle}`
+    : `${process.env.HOST_URL}/api/search/season?year=${workYear}&season=${workSeason}`;
+  const res = await fetch(endpoint);
+  const workData: WorkData[] = await res.json();
 
-  if (workTitle) {
-    const res = await fetch(
-      `${process.env.HOST_URL}/api/search/titles?title=${workTitle}`
-    );
-    workData = await res.json();
-  } else {
-    const res = await fetch(
-      `${process.env.HOST_URL}/api/search/seasons?year=${workYear}&season=${workSeason}`
-    );
-    workData = await res.json();
+  const session = await getServerSession(authOptions);
+  let currentUser = null;
+  if (session?.user) {
+    currentUser = await prisma.user.findUnique({
+      where: {
+        id: session.user.id,
+      },
+    });
   }
 
   return (
@@ -28,6 +34,7 @@ const BrowseGridDataFetcher = async ({
       {workData && (
         <main>
           <BrowseGrid
+            currentUser={currentUser}
             workData={workData}
             workYear={workYear}
             workSeason={workSeason}

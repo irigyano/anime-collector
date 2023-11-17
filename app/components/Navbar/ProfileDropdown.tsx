@@ -27,7 +27,7 @@ const ProfileDropdown = ({ currentUser }: { currentUser: UserClientSide }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>
-          <Link href={`/community/${currentUser.id}`}>
+          <Link href={`/user/${currentUser.id}`}>
             <div className="hover:text-blue-500 hover:bg-slate-200 rounded-md duration-200 m-1">
               @{currentUser.name}
             </div>

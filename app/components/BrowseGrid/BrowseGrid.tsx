@@ -1,15 +1,19 @@
 "use client";
-import { WorkData } from "@/app/types/types";
 import { useState, useEffect } from "react";
-import WorkCard from "@/app/components/Work/WorkCard";
 import { useRouter } from "next/navigation";
+import { store } from "../../redux/store";
+import { userAuthenticated } from "../../redux/features/user/userSlice";
+import { UserClientSide, WorkData } from "@/app/types/types";
+import WorkCard from "@/app/components/Work/WorkCard";
 
 const BrowseGrid = ({
+  currentUser,
   workData,
   workYear,
   workSeason,
   workTitle,
 }: {
+  currentUser: UserClientSide | null;
   workData: WorkData[];
   workYear: string;
   workSeason: string;
@@ -17,16 +21,17 @@ const BrowseGrid = ({
 }) => {
   const [miniPageIndex, setMiniPageIndex] = useState<number>(0);
   const router = useRouter();
+
   useEffect(() => {
+    store.dispatch(userAuthenticated(currentUser));
     if (workTitle) router.replace(`?title=${workTitle}`);
     else router.replace(`?year=${workYear}&season=${workSeason}`);
   }, []);
-  // divide data from Annict into pages
+
   const pagination: WorkData[][] = [];
   for (let i = 0; i < workData.length; i += 12) {
     pagination.push(workData.slice(i, i + 12));
   }
-  // create index based on pages
   const miniPageIndexes = [];
   for (let page = 0; page < pagination.length; page++) {
     miniPageIndexes.push(page);
