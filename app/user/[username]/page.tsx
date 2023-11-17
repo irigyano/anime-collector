@@ -15,15 +15,7 @@ type ServerProps = {
 export async function generateMetadata({
   params,
 }: ServerProps): Promise<Metadata> {
-  // does prisma fetch twice or cached?
-  try {
-    const user = await prisma.user.findUnique({
-      where: { username: params.username },
-    });
-    return { title: `${user?.username || "WHOMEGALUL"}` };
-  } catch (error) {
-    return {};
-  }
+  return { title: `${params.username}` };
 }
 
 function filterCollection(
