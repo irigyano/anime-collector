@@ -1,23 +1,27 @@
-"use client";
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SearchInput from "./SearchInput";
-import MobileMenu from "./MobileMenu/MobileMenu";
-import ProfileModal from "./ProfileModal";
+import MobileMenu from "./MobileMenu";
 import { BsGithub } from "react-icons/bs";
-import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
-import { TypedUseSelectorHook, useSelector } from "react-redux";
-import { RootState } from "@/app/redux/store";
-import LoginForm from "../LoginForm";
-import FormDialog from "../FormDialog";
+import LoginDialog from "../LoginDialog";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../api/auth/[...nextauth]/route";
+import prisma from "@/lib/prisma";
+import ProfileDropdown from "./ProfileDropdown";
 
-const Navbar = () => {
-  const [showProfileModal, setShowProfileModal] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+const Navbar = async () => {
+  const session = await getServerSession(authOptions);
 
-  const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-  const currentUser = useAppSelector((state) => state.user.user);
+  let currentUser = null;
+
+  if (session?.user) {
+    currentUser = await prisma.user.findUnique({
+      where: {
+        id: session.user.id,
+      },
+    });
+  }
+
   return (
     <>
       <nav className="flex justify-center lg:justify-between lg:px-20 border-b shadow-md items-center w-full z-20 fixed bg-[#f1f1f1] dark:bg-[#0f0f0f] duration-500">
@@ -48,9 +52,6 @@ const Navbar = () => {
           </div>
         </div>
         <SearchInput />
-        {/* mobile */}
-        <MobileMenu currentUser={currentUser} />
-        {/* desktop */}
         <div className="hidden lg:flex basis-1/3 justify-end items-center">
           <Link
             href={"https://github.com/irigyano/Banngumi-View"}
@@ -59,63 +60,23 @@ const Navbar = () => {
           >
             <BsGithub size={36} />
           </Link>
-
-          <div className="h-10 w-10 m-1 flex justify-center items-center">
-            {isDarkMode ? (
-              <MdOutlineDarkMode
-                size={36}
-                onClick={() => {
-                  setIsDarkMode(!isDarkMode);
-                  document.documentElement.classList.remove("dark");
-                }}
-              />
-            ) : (
-              <MdOutlineLightMode
-                size={36}
-                onClick={() => {
-                  setIsDarkMode(!isDarkMode);
-                  document.documentElement.classList.add("dark");
-                }}
-              />
-            )}
-          </div>
-
           {currentUser ? (
-            <>
-              <div className="relative h-10 w-10 m-1 flex justify-center items-center">
-                <button
-                  onClick={() => {
-                    setShowProfileModal(!showProfileModal);
-                  }}
-                >
-                  <Image
-                    className="rounded-full"
-                    alt="avatar"
-                    src={currentUser.image || "/images/KEKW.webp"}
-                    width={40}
-                    height={40}
-                  />
-                </button>
-                {showProfileModal && (
-                  <ProfileModal
-                    currentUser={currentUser}
-                    showProfileModal={showProfileModal}
-                    setShowProfileModal={setShowProfileModal}
-                  />
-                )}
-              </div>
-            </>
+            <ProfileDropdown currentUser={currentUser} />
           ) : (
-            <div className="h-10 w-40 flex text-center justify-center items-center">
-              <FormDialog
-                className="bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-500 rounded-lg shadow-md"
-                action="登入"
-              >
-                <LoginForm />
-              </FormDialog>
-            </div>
+            <LoginDialog>
+              <div className="h-10 w-40 flex text-center justify-center items-center">
+                <div
+                  className={
+                    "flex basis-1/2 justify-center items-center h-8 m-2 duration-300 bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-500 rounded-lg shadow-md"
+                  }
+                >
+                  登入
+                </div>
+              </div>
+            </LoginDialog>
           )}
         </div>
+        <MobileMenu currentUser={currentUser} />
       </nav>
       <div className="h-16"></div>
     </>
