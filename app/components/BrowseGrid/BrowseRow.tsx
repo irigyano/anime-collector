@@ -1,22 +1,7 @@
-"use client";
-import { useEffect } from "react";
-import { store } from "../../redux/store";
-import { userAuthenticated } from "../../redux/features/user/userSlice";
-import { UserClientSide, WorkData } from "@/app/types/types";
+import { WorkData } from "@/app/types/types";
 import WorkCard from "../Work/WorkCard";
 
-const BrowseRow = ({
-  works,
-  title,
-  currentUser,
-}: {
-  works: WorkData[];
-  title: string;
-  currentUser: UserClientSide;
-}) => {
-  useEffect(() => {
-    store.dispatch(userAuthenticated(currentUser));
-  }, []);
+const BrowseRow = ({ works, title }: { works: WorkData[]; title: string }) => {
   return (
     <>
       {works.length !== 0 && (

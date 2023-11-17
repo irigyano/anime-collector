@@ -11,9 +11,7 @@ import ProfileDropdown from "./ProfileDropdown";
 
 const Navbar = async () => {
   const session = await getServerSession(authOptions);
-
   let currentUser = null;
-
   if (session?.user) {
     currentUser = await prisma.user.findUnique({
       where: {
@@ -21,7 +19,6 @@ const Navbar = async () => {
       },
     });
   }
-
   return (
     <>
       <nav className="flex justify-center lg:justify-between lg:px-20 border-b shadow-md items-center w-full z-20 fixed bg-[#f1f1f1] dark:bg-[#0f0f0f] duration-500">
