@@ -8,22 +8,22 @@ import { AppDispatch, RootState } from "@/app/redux/store";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 type CollectionButtonProp = {
+  children: React.ReactNode;
   work: WorkData;
   category: "followingWorks" | "watchingWorks" | "finishedWorks";
   color: string;
-  icon: ReactNode;
-  text: string;
+  hoverColor: string;
 };
 
 const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 const useAppDispatch: () => AppDispatch = useDispatch;
 
 const CollectionButton = ({
+  children,
   work,
-  icon,
   category,
   color,
-  text,
+  hoverColor,
 }: CollectionButtonProp) => {
   const currentUser = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
@@ -70,13 +70,12 @@ const CollectionButton = ({
   return (
     <div className="basis-1/3 flex flex-col justify-center items-center m-2">
       <button
-        className={`duration-300 ${isPressed ? color : `hover:${color}`}`}
+        className={`duration-300 flex flex-col items-center ${
+          isPressed ? color : hoverColor
+        }`}
         onClick={modifyCollection}
       >
-        <div className="flex justify-center">
-          <div>{icon}</div>
-        </div>
-        <div>{text}</div>
+        {children}
       </button>
     </div>
   );

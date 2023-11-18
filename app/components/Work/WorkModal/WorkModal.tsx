@@ -94,26 +94,32 @@ const WorkModal = ({ toggleModal, work, srcUrl }: WorkModalProps) => {
 
           <footer className="flex justify-between">
             <CollectionButton
-              text={"關注"}
+              work={work}
               category={"followingWorks"}
-              work={work}
               color={"text-yellow-500"}
-              icon={<HiOutlineStar size={30} />}
-            />
+              hoverColor={"hover:text-yellow-500"}
+            >
+              <HiOutlineStar size={30} />
+              <span>關注</span>
+            </CollectionButton>
             <CollectionButton
-              text={"正在看"}
+              work={work}
               category={"watchingWorks"}
-              work={work}
               color={"text-blue-500"}
-              icon={<HiOutlinePlay size={30} />}
-            />
+              hoverColor={"hover:text-blue-500"}
+            >
+              <HiOutlinePlay size={30} />
+              <span>正在看</span>
+            </CollectionButton>
             <CollectionButton
-              text={"看過"}
-              category={"finishedWorks"}
               work={work}
+              category={"finishedWorks"}
               color={"text-green-500"}
-              icon={<HiOutlineCheckCircle size={30} />}
-            />
+              hoverColor={"hover:text-green-500"}
+            >
+              <HiOutlineCheckCircle size={30} />
+              <span>看過</span>
+            </CollectionButton>
           </footer>
         </div>
       </div>
