@@ -33,24 +33,41 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model User {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
-  name           String?
-  username       String?   @unique
-  email          String?   @unique
-  emailVerified  DateTime?
-  image          String
-  accounts       Account[]
-  sessions       Session[]
-  watchedWorks   Int[]
-  watchingWorks  Int[]
-  followingWorks Int[]
-}
-
 model VerificationToken {
   identifier String   @id @default(cuid()) @map("_id")
   token      String   @unique
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model User {
+  id             String     @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  username       String?    @unique
+  email          String?    @unique
+  emailVerified  DateTime?
+  image          String
+  accounts       Account[]
+  sessions       Session[]
+  Activity       Activity[]
+  followingWorks Int[]
+  watchingWorks  Int[]
+  finishedWorks  Int[]
+}
+
+enum Action {
+  FOLLOW
+  WATCH
+  FINISH
+}
+
+model Activity {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  workId    Int
+  workTitle String
+  action    Action
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

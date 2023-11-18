@@ -38,10 +38,10 @@ const Navbar = async () => {
             <Image alt="logo" src="/favicon.ico" width={40} height={40} />
           </Link>
           <Link
-            href={"/user"}
+            href={"/activity"}
             className="hover:text-blue-500 duration-300 hidden lg:block text-center m-1"
           >
-            社群
+            社群動態
           </Link>
           <Link
             className="hover:text-blue-500 duration-300 hidden lg:block text-center m-1"

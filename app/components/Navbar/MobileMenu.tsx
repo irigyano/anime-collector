@@ -56,7 +56,7 @@ const MobileMenu = ({
               <Link href={"/"}>主頁</Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="justify-center">
-              <Link href={"/user"}>社群</Link>
+              <Link href={"/activity"}>社群動態</Link>
             </DropdownMenuItem>
             {currentUser ? (
               <DropdownMenuItem className="justify-center">

@@ -9,8 +9,6 @@ import {
 } from "react-icons/hi";
 import { Toaster } from "react-hot-toast";
 import CollectionButton from "./CollectionButton";
-import { RootState } from "@/app/redux/store";
-import { TypedUseSelectorHook, useSelector } from "react-redux";
 import type { StaticImageData } from "next/image";
 import TagList from "../TagList";
 import toast from "react-hot-toast";
@@ -21,21 +19,7 @@ type WorkModalProps = {
   srcUrl: string | StaticImageData;
 };
 
-const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-
 const WorkModal = ({ toggleModal, work, srcUrl }: WorkModalProps) => {
-  const currentUser = useAppSelector((state) => state.user.user);
-
-  const isWatched = currentUser
-    ? currentUser.watchedWorks.includes(work.annictId)
-    : false;
-  const isWatching = currentUser
-    ? currentUser.watchingWorks.includes(work.annictId)
-    : false;
-  const isFollowing = currentUser
-    ? currentUser.followingWorks.includes(work.annictId)
-    : false;
-
   return (
     <div
       className="fixed inset-0 w-full h-full z-20 bg-black bg-opacity-50"
@@ -50,7 +34,7 @@ const WorkModal = ({ toggleModal, work, srcUrl }: WorkModalProps) => {
           className="relative bg-[#fff] dark:bg-[#0f0f0f] dark:text-[#f1f1f1] rounded-md z-20 overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="relative h-60 drop-shadow overflow-hidden md:h-72">
+          <div className="relative h-60 drop-shadow overf low-hidden md:h-72">
             <Image
               src={srcUrl}
               alt="cover_photo"
@@ -110,28 +94,25 @@ const WorkModal = ({ toggleModal, work, srcUrl }: WorkModalProps) => {
 
           <footer className="flex justify-between">
             <CollectionButton
+              text={"關注"}
+              category={"followingWorks"}
+              work={work}
+              color={"text-yellow-500"}
+              icon={<HiOutlineStar size={30} />}
+            />
+            <CollectionButton
               text={"正在看"}
               category={"watchingWorks"}
-              workId={work.annictId}
-              color={isWatching ? "text-blue-500" : "hover:text-blue-500"}
-              currentUser={currentUser}
+              work={work}
+              color={"text-blue-500"}
               icon={<HiOutlinePlay size={30} />}
             />
             <CollectionButton
               text={"看過"}
-              category={"watchedWorks"}
-              workId={work.annictId}
-              color={isWatched ? "text-green-500" : "hover:text-green-500"}
-              currentUser={currentUser}
+              category={"finishedWorks"}
+              work={work}
+              color={"text-green-500"}
               icon={<HiOutlineCheckCircle size={30} />}
-            />
-            <CollectionButton
-              text={"關注"}
-              category={"followingWorks"}
-              workId={work.annictId}
-              color={isFollowing ? "text-yellow-500" : "hover:text-yellow-500"}
-              currentUser={currentUser}
-              icon={<HiOutlineStar size={30} />}
             />
           </footer>
         </div>

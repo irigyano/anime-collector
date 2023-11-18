@@ -3,9 +3,9 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
 
-type category = "watchedWorks" | "watchingWorks" | "followingWorks";
+type category = "followingWorks" | "watchingWorks" | "finishedWorks";
 
-type reqAction = {
+type RequestBody = {
   category: category;
   annictId: number;
 };
@@ -27,15 +27,15 @@ function filterRepeatedCollection(works: number[], workId: number) {
 }
 
 export async function POST(request: Request) {
-  const { category, annictId }: reqAction = await request.json();
+  const { category, annictId }: RequestBody = await request.json();
   const currentUser = await getCurrentUser();
   if (!currentUser || !annictId || !category) {
     return NextResponse.json({ message: `Missing Info` }, { status: 400 });
   }
 
-  filterRepeatedCollection(currentUser.watchedWorks, annictId);
-  filterRepeatedCollection(currentUser.watchingWorks, annictId);
   filterRepeatedCollection(currentUser.followingWorks, annictId);
+  filterRepeatedCollection(currentUser.watchingWorks, annictId);
+  filterRepeatedCollection(currentUser.finishedWorks, annictId);
   currentUser[category].push(annictId);
 
   const user = await prisma.user.update({
@@ -43,23 +43,23 @@ export async function POST(request: Request) {
       id: currentUser.id,
     },
     data: {
-      watchedWorks: currentUser.watchedWorks,
-      watchingWorks: currentUser.watchingWorks,
       followingWorks: currentUser.followingWorks,
+      watchingWorks: currentUser.watchingWorks,
+      finishedWorks: currentUser.finishedWorks,
     },
     select: {
       id: true,
       image: true,
-      watchedWorks: true,
-      watchingWorks: true,
       followingWorks: true,
+      watchingWorks: true,
+      finishedWorks: true,
     },
   });
   return NextResponse.json(user);
 }
 
 export async function DELETE(request: Request) {
-  const { category, annictId }: reqAction = await request.json();
+  const { category, annictId }: RequestBody = await request.json();
   const currentUser = await getCurrentUser();
   if (!currentUser || !annictId || !category) {
     return NextResponse.json({ message: `Missing Info` }, { status: 400 });
@@ -70,16 +70,14 @@ export async function DELETE(request: Request) {
       id: currentUser.id,
     },
     data: {
-      [category]: currentUser[category].filter(
-        (work) => work !== Number(annictId)
-      ),
+      [category]: currentUser[category].filter((workId) => workId !== annictId),
     },
     select: {
       id: true,
       image: true,
-      watchedWorks: true,
-      watchingWorks: true,
       followingWorks: true,
+      watchingWorks: true,
+      finishedWorks: true,
     },
   });
   return NextResponse.json(user);

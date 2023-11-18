@@ -36,10 +36,10 @@ const UserPage = async ({ params }: ServerProps) => {
     user = await prisma.user.findUnique({
       where: { username: params.username },
     });
-    if (!user) return redirect("/user");
+    if (!user) return redirect("/activity");
   } catch (error) {
     console.log(error);
-    return redirect("/user");
+    return redirect("/activity");
   }
 
   const session = await getServerSession(authOptions);
@@ -52,7 +52,7 @@ const UserPage = async ({ params }: ServerProps) => {
     });
   }
 
-  const requestingWorks = user.watchedWorks
+  const requestingWorks = user.finishedWorks
     .concat(user.watchingWorks, user.followingWorks)
     .join(",");
   const res = await fetch(
@@ -60,9 +60,9 @@ const UserPage = async ({ params }: ServerProps) => {
   );
   const works: WorkData[] = await res.json();
 
-  const userWatchingCollection = filterCollection(works, user.watchingWorks);
-  const userWatchedCollection = filterCollection(works, user.watchedWorks);
   const userFollowingCollection = filterCollection(works, user.followingWorks);
+  const userWatchingCollection = filterCollection(works, user.watchingWorks);
+  const userFinishedCollection = filterCollection(works, user.finishedWorks);
 
   return (
     <>
@@ -78,9 +78,9 @@ const UserPage = async ({ params }: ServerProps) => {
         <div>@{user.username}</div>
       </div>
       <ReduxBroadcaster currentUser={currentUser}>
-        <BrowseRow works={userWatchingCollection} title="正在追" />
-        <BrowseRow works={userWatchedCollection} title="看過" />
         <BrowseRow works={userFollowingCollection} title="關注" />
+        <BrowseRow works={userWatchingCollection} title="正在追" />
+        <BrowseRow works={userFinishedCollection} title="看過" />
       </ReduxBroadcaster>
     </>
   );
