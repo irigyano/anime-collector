@@ -30,7 +30,7 @@ const CollectionButton = ({
   const dispatch = useAppDispatch();
 
   const modifyCollection = async () => {
-    if (!currentUser) return toast.error("請先登入");
+    if (!currentUser) return toast.error("請先登入", { id: "error" });
 
     if (currentUser[category].includes(workId)) {
       const res = await fetch("/api/collection", {

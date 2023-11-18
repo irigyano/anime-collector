@@ -2,14 +2,20 @@ import Link from "next/link";
 import Image from "next/image";
 import SearchInput from "./SearchInput";
 import MobileMenu from "./MobileMenu";
-import LoginDialog from "../LoginDialog";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
 import ProfileDropdown from "./ProfileDropdown";
-import { ThemeToggleButton } from "./ThemeToggleButton";
-import { Github } from "lucide-react";
+import { ThemeSwitch } from "./ThemeSwitch";
+import { Github, LogIn } from "lucide-react";
 import { Button } from "../ui/button";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/app/components/ui/dialog";
+import SignInPanel from "../SignInPanel";
 
 const Navbar = async () => {
   const session = await getServerSession(authOptions);
@@ -24,55 +30,49 @@ const Navbar = async () => {
   return (
     <>
       <nav className="flex justify-center lg:justify-between lg:px-20 border-b shadow-md items-center w-full z-20 fixed bg-[#f1f1f1] dark:bg-[#0f0f0f] duration-500">
-        <div className="h-10 flex items-center justify-start basis-1/3">
-          <div className="hidden lg:block m-1 hover:border-b-2 border-transparent duration-100">
-            <Link href={"/"} className="lg:block">
-              <Image alt="logo" src="/favicon.ico" width={40} height={40} />
-            </Link>
-          </div>
-          <div className="hidden lg:block">
-            <div className="h-8 w-20 m-1 justify-center items-center flex">
-              <Link
-                className="hidden lg:block hover:text-blue-500 duration-300"
-                href={"/user"}
-              >
-                社群
-              </Link>
-            </div>
-          </div>
-          <div className="h-8 w-20 m-1 justify-center items-center flex">
-            <Link
-              className="hidden lg:block hover:text-blue-500 duration-300"
-              target="_blank"
-              href={"https://annict.com/"}
-            >
-              Annict.com
-            </Link>
-          </div>
+        <div className="h-10 flex items-center justify-start gap-4 basis-1/3">
+          <Link
+            href={"/"}
+            className="hidden lg:block m-1 hover:border-b-2 border-transparent duration-100"
+          >
+            <Image alt="logo" src="/favicon.ico" width={40} height={40} />
+          </Link>
+          <Link
+            href={"/user"}
+            className="hover:text-blue-500 duration-300 hidden lg:block text-center m-1"
+          >
+            社群
+          </Link>
+          <Link
+            className="hover:text-blue-500 duration-300 hidden lg:block text-center m-1"
+            target="_blank"
+            href={"https://annict.com/"}
+          >
+            Annict.com
+          </Link>
         </div>
         <SearchInput />
-        <div className="hidden lg:flex basis-1/3 justify-end items-center">
-          <Button variant="ghost" size="icon">
-            <Link
-              href={"https://github.com/irigyano/Banngumi-View"}
-              target="_blank"
-            >
-              <Github className="h-[1.2rem] w-[1.2rem] transition-all" />
-            </Link>
-          </Button>
-          <ThemeToggleButton />
+        <div className="hidden basis-1/3 lg:flex gap-2 justify-end items-center">
+          <Link
+            href={"https://github.com/irigyano/Banngumi-View"}
+            target="_blank"
+          >
+            <Button variant="outline" size="icon">
+              <Github className="h-[1.2rem] w-[1.2rem]" />
+            </Button>
+          </Link>
+          <ThemeSwitch />
           {currentUser ? (
             <ProfileDropdown currentUser={currentUser} />
           ) : (
-            <LoginDialog>
-              <div
-                className={
-                  "w-20 flex basis-1/2 justify-center items-center h-8 m-2 duration-300 bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-500 rounded-lg shadow-md"
-                }
-              >
-                登入
-              </div>
-            </LoginDialog>
+            <Dialog>
+              <DialogTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
+                <LogIn className="h-[1.2rem] w-[1.2rem]" />
+              </DialogTrigger>
+              <DialogContent>
+                <SignInPanel />
+              </DialogContent>
+            </Dialog>
           )}
         </div>
         <MobileMenu currentUser={currentUser} />

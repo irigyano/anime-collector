@@ -13,6 +13,7 @@ import { RootState } from "@/app/redux/store";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import type { StaticImageData } from "next/image";
 import TagList from "../TagList";
+import toast from "react-hot-toast";
 
 type WorkModalProps = {
   toggleModal: () => void;
@@ -38,7 +39,10 @@ const WorkModal = ({ toggleModal, work, srcUrl }: WorkModalProps) => {
   return (
     <div
       className="fixed inset-0 w-full h-full z-20 bg-black bg-opacity-50"
-      onClick={toggleModal}
+      onClick={() => {
+        toggleModal();
+        toast.remove();
+      }}
     >
       <Toaster />
       <div className="relative w-4/5 mx-auto md:w-1/2 xl:w-1/3 my-6">

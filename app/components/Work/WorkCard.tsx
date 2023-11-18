@@ -42,9 +42,7 @@ const WorkCard = ({ work }: { work: WorkData }) => {
             fill
             priority={true}
             onError={() => {
-              SetSrcUrl(
-                "https://staticg.sportskeeda.com/editor/2023/11/1afbf-16996497660617-1920.jpg?w=840"
-              );
+              SetSrcUrl(cover_replacement);
             }}
             sizes="540px"
           />

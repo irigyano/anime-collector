@@ -41,9 +41,7 @@ const BrowseGrid = ({
     <>
       {workData.length === 0 ? (
         <div className="flex flex-col justify-center items-center h-screen pb-40 text-xl lg:text-3xl text-center">
-          <div>{workTitle} の結果が見つかりませんでした。</div>
-          <div>かなを使って検索してみてください。</div>
-          <div>例えば、「進撃の巨人」または「ソードアート・オンライン」。</div>
+          找不到符合搜尋字詞「{workTitle}」的作品。
         </div>
       ) : (
         <>
