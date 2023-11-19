@@ -46,7 +46,7 @@ const MobileMenu = ({
                   />
                 </DropdownMenuLabel>
                 <DropdownMenuItem className="justify-center">
-                  <Link href={`/user/${currentUser.id}`}>
+                  <Link href={`/user/${currentUser.username}`}>
                     @{currentUser.username}
                   </Link>
                 </DropdownMenuItem>
