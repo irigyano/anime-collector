@@ -50,7 +50,7 @@ const BrowseGrid = ({
               return <WorkCard key={work.annictId} work={work} />;
             })}
           </section>
-          <div className="w-full fixed bottom-1 2xl:bottom-14 flex justify-center">
+          <footer className="sticky bottom-1 flex justify-center py-6">
             <div
               className={`bg-gray-100 dark:bg-gray-800 opacity-80 rounded-lg w-max flex justify-center shadow-lg ${
                 miniPageIndexes.length === 1 ? "hidden" : null
@@ -60,7 +60,7 @@ const BrowseGrid = ({
                 return (
                   <button
                     className={`m-1 h-6 w-6 rounded-full hover:bg-blue-500 duration-300 ${
-                      index === miniPageIndex ? "bg-blue-500" : null
+                      index === miniPageIndex && "bg-blue-500"
                     }`}
                     key={index}
                     onClick={() => {
@@ -72,8 +72,7 @@ const BrowseGrid = ({
                 );
               })}
             </div>
-          </div>
-          <div className="w-full h-10" />
+          </footer>
         </>
       )}
     </>
