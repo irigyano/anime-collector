@@ -1,25 +1,48 @@
 import SeasonSelector from "@/app/components/BrowseGrid/SeasonSelector";
 import { Suspense } from "react";
-import BrowseGridDataFetcher from "./components/BrowseGrid/BrowseGridDataFetcher";
+import WorkRenderer from "./components/BrowseGrid/WorkRenderer";
 import LoadingPlaceholder from "./components/LoadingPlaceholder";
+import Redirector from "./components/Redirector";
+import type { Metadata } from "next";
+import { ServerProps } from "./types/types";
+import { seasonMap } from "@/lib/utils";
 
-const HomePage = async ({
+export async function generateMetadata({
   searchParams,
-}: {
-  searchParams: { [key: string]: string | undefined };
-}) => {
-  const workYear = searchParams.year || "2023";
-  const workSeason = searchParams.season || "autumn";
-  const workTitle = searchParams.title || "";
+}: ServerProps): Promise<Metadata> {
+  const workYear = searchParams.year;
+  const workSeason = searchParams.season;
+  const workTitle = searchParams.title;
+
+  let title = "Banngumi View";
+  if (workTitle) title = `${workTitle} | ${title}`;
+  else if (workYear && workSeason) {
+    const validSeasonCht = seasonMap[workSeason];
+    title = `${workYear} ${
+      validSeasonCht ? `${validSeasonCht}季番` : workSeason
+    } | ${title}`;
+  }
+  return {
+    title,
+  };
+}
+
+const HomePage = async ({ searchParams }: ServerProps) => {
+  const workYear = searchParams.year;
+  const workSeason = searchParams.season;
+  const workTitle = searchParams.title;
+
+  const hasYearAndSeason = !!(workYear && workSeason);
+  if (!workTitle && !hasYearAndSeason) return <Redirector />;
 
   return (
     <>
-      <SeasonSelector workYear={workYear} workSeason={workSeason} />
+      <SeasonSelector />
       <Suspense
-        key={workTitle || workSeason + workYear}
+        key={workTitle || (hasYearAndSeason ? workYear + workSeason : "")}
         fallback={<LoadingPlaceholder />}
       >
-        <BrowseGridDataFetcher
+        <WorkRenderer
           workYear={workYear}
           workSeason={workSeason}
           workTitle={workTitle}

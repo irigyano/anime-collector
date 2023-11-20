@@ -20,3 +20,10 @@ export async function getUserFromSession() {
   });
   return currentUser;
 }
+
+export const seasonMap: Record<string, string> = {
+  winter: "冬",
+  spring: "春",
+  summer: "夏",
+  autumn: "秋",
+};

@@ -1,12 +1,6 @@
 "use client";
+import { seasonMap } from "@/lib/utils";
 import Link from "next/link";
-
-const seasonMap: Record<string, string> = {
-  winter: "冬",
-  spring: "春",
-  summer: "夏",
-  autumn: "秋",
-};
 
 const SeasonButton = ({
   selectedYear,

@@ -2,14 +2,9 @@ import Image from "next/image";
 import prisma from "@/lib/prisma";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { WorkData } from "@/app/types/types";
-import BrowseRow from "@/app/components/BrowseGrid/BrowseRow";
-import ReduxBroadcaster from "@/app/components/ReduxBroadcaster";
+import { ServerProps, WorkData } from "@/app/types/types";
 import { getUserFromSession } from "@/lib/utils";
-
-type ServerProps = {
-  params: { username: string };
-};
+import WorkGrid from "@/app/components/BrowseGrid/WorkGrid";
 
 export async function generateMetadata({
   params,
@@ -67,11 +62,14 @@ const UserPage = async ({ params }: ServerProps) => {
         />
         <div>@{user.username}</div>
       </div>
-      <ReduxBroadcaster currentUser={currentUser}>
-        <BrowseRow works={userFollowingCollection} title="關注" />
-        <BrowseRow works={userWatchingCollection} title="正在追" />
-        <BrowseRow works={userFinishedCollection} title="看過" />
-      </ReduxBroadcaster>
+      <div className="flex justify-center items-center text-center">
+        <div className="text-xl rounded-lg bg-gray-100 dark:bg-zinc-800 w-48 opacity-70 my-2">
+          正在看：{works.length}
+        </div>
+      </div>
+      <WorkGrid workData={userFollowingCollection} currentUser={currentUser} />
+      <WorkGrid workData={userWatchingCollection} currentUser={currentUser} />
+      <WorkGrid workData={userFinishedCollection} currentUser={currentUser} />
     </>
   );
 };

@@ -1,21 +1,22 @@
 "use client";
-
 import { useState } from "react";
 import SeasonButton from "./SeasonButton";
 import YearSelector from "./YearSelector";
+import { useSearchParams } from "next/navigation";
 
-const SeasonSelector = ({
-  workYear,
-  workSeason,
-}: {
-  workYear: string;
-  workSeason: string;
-}) => {
+const SeasonSelector = () => {
+  const searchParams = useSearchParams();
+  // default to current season
+  const workYear = searchParams.get("year") || "2024";
+  const workSeason = searchParams.get("season") || "winter";
   const [selectedYear, setSelectedYear] = useState(workYear);
-
   return (
     <nav className="flex justify-center gap-4 p-4 text-center">
-      <YearSelector setSelectedYear={setSelectedYear} workYear={selectedYear} />
+      <YearSelector
+        setSelectedYear={setSelectedYear}
+        workYear={selectedYear}
+        key={workYear}
+      />
       <SeasonButton
         selectedYear={selectedYear}
         season="winter"
