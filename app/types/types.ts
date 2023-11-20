@@ -6,10 +6,10 @@ export type WorkData = {
   annictId: number;
   title: string;
   titleKana: string;
-  seasonName: string;
-  seasonYear: number;
+  seasonName?: string;
+  seasonYear?: number;
   media: string;
-  twitterHashtag: string;
+  twitterHashtag?: string;
   episodesCount: number;
   image: {
     facebookOgImageUrl: string;
