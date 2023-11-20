@@ -20,6 +20,7 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 import { signOut } from "next-auth/react";
 import SignInPanel from "../SignInPanel";
 import ThemeToggle from "./ThemeToggle";
+import HomeLink from "./HomeLink";
 
 const MobileMenu = ({
   currentUser,
@@ -53,7 +54,9 @@ const MobileMenu = ({
               </>
             )}
             <DropdownMenuItem className="justify-center">
-              <Link href={"/"}>主頁</Link>
+              <HomeLink>
+                <span>主頁</span>
+              </HomeLink>
             </DropdownMenuItem>
             <DropdownMenuItem className="justify-center">
               <Link href={"/activity"}>社群動態</Link>
