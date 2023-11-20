@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import { useState } from "react";
 import WorkModal from "./WorkModal/WorkModal";
@@ -7,30 +6,29 @@ import cover_replacement from "../../../public/images/cover_replacement.webp";
 import TagList from "./TagList";
 import { WorkData } from "@/app/types/types";
 
+function filterUrl(url: any): string | undefined {
+  if (typeof url !== "string") return;
+
+  const result = url.match(
+    /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+  );
+  if (result) return url;
+}
+
 const WorkCard = ({ work }: { work: WorkData }) => {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
 
   // filling empty image src
   let workUrl =
-    work.image?.facebookOgImageUrl ||
-    work.image?.recommendedImageUrl ||
+    filterUrl(work.image?.facebookOgImageUrl) ||
+    filterUrl(work.image?.recommendedImageUrl) ||
     cover_replacement;
-  // Validate if workUrl starts with http/https
-  if (
-    workUrl === "string" &&
-    !workUrl.match(
-      /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
-    )
-  ) {
-    workUrl = cover_replacement;
-  }
-
   const [srcUrl, SetSrcUrl] = useState(workUrl);
 
   return (
     <>
-      <figure key={work.annictId} className="mx-4 my-1 w-96 overflow-hidden">
+      <figure key={work.annictId} className="mx-4 my-1 overflow-hidden">
         <div
           onClick={toggleModal}
           className="relative h-40 drop-shadow-lg rounded-lg cursor-pointer overflow-hidden mb-1"
@@ -44,14 +42,13 @@ const WorkCard = ({ work }: { work: WorkData }) => {
             onError={() => {
               SetSrcUrl(cover_replacement);
             }}
-            sizes="540px"
+            sizes="(min-width: 640px) 50vw, (min-width: 1024px) 33vw, (min-width: 1536px) 25vw, 100vw"
           />
         </div>
         <div className="flex">
           <TagList work={work} />
         </div>
-
-        <h1 className="truncate mx-1">{work.title}</h1>
+        <h3 className="truncate mx-1">{work.title}</h3>
       </figure>
       {showModal && (
         <WorkModal toggleModal={toggleModal} work={work} srcUrl={srcUrl} />

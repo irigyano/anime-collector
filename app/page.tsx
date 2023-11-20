@@ -6,11 +6,11 @@ import LoadingPlaceholder from "./components/LoadingPlaceholder";
 const HomePage = async ({
   searchParams,
 }: {
-  searchParams?: { [key: string]: string | undefined };
+  searchParams: { [key: string]: string | undefined };
 }) => {
-  const workYear = searchParams?.year || "2023";
-  const workSeason = searchParams?.season || "autumn";
-  const workTitle = searchParams?.title || "";
+  const workYear = searchParams.year || "2023";
+  const workSeason = searchParams.season || "autumn";
+  const workTitle = searchParams.title || "";
 
   return (
     <>

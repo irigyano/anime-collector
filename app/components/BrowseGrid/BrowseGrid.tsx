@@ -45,7 +45,7 @@ const BrowseGrid = ({
         </div>
       ) : (
         <>
-          <section className="flex flex-wrap justify-center">
+          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
             {pagination[miniPageIndex].map((work) => {
               return <WorkCard key={work.annictId} work={work} />;
             })}

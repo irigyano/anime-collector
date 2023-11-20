@@ -21,13 +21,31 @@ const actionMap: Record<Action, string> = {
 dayjs.locale("zh-tw");
 dayjs.extend(relativeTime);
 
+function filterAndReverse(activities: Activity[]) {
+  // in place action
+  for (let i = activities.length - 1; i >= 0; i--) {
+    for (let j = i - 1; j >= 0; j--) {
+      const current = activities[i];
+      const compare = activities[j];
+      if (
+        current.userId === compare.userId &&
+        current.workId === compare.workId &&
+        current.action === compare.action
+      ) {
+        activities.splice(j, 1);
+        break;
+      }
+    }
+  }
+  activities.reverse();
+}
+
 const ActivityPage = async () => {
-  // filter repeated action
   const activities = await prisma.activity.findMany({
-    orderBy: [{ createdAt: "desc" }],
-    take: 20,
+    orderBy: [{ createdAt: "asc" }],
     include: { user: true },
   });
+  filterAndReverse(activities);
 
   return (
     <div className="flex justify-center">
@@ -53,28 +71,29 @@ const ActivityPage = async () => {
                   />
                 </Link>
               </span>
-              <div className="flex flex-col flex-1 gap-0">
-                <div>
+              <div className="flex gap-2">
+                <div className="">
                   <Link
-                    className="hover:text-blue-500 duration-300"
+                    className="hover:text-blue-500 duration-300 text-green-500"
                     href={`/user/${user.username}`}
                   >
-                    {user.username}&nbsp;
+                    @{user.username}
                   </Link>
-                  <span className="">{actionMap[action]}&nbsp;</span>
-                  {/* consider opening a modal? */}
+                  <div className="text-sm text-slate-500">
+                    {dayjs(createdAt).fromNow()}
+                  </div>
+                </div>
+                <span className="break-keep">{actionMap[action]}</span>
+                <div>
                   <Link
-                    className="hover:text-blue-500 duration-300"
+                    className="hover:text-blue-500 duration-300 text-red-500"
                     href={`https://annict.com/works/${workId}`}
                     target="_blank"
                   >
                     {workTitle}
                   </Link>
-                  {action === "FINISH" && <span>&nbsp;了！</span>}
+                  {action === "FINISH" && <span className="pl-1">了！</span>}
                 </div>
-                <p className="text-sm text-slate-500">
-                  {dayjs(createdAt).fromNow()}
-                </p>
               </div>
             </li>
           )

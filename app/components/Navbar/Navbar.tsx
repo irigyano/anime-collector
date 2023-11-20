@@ -30,8 +30,8 @@ const Navbar = async () => {
   return (
     <>
       {/* hacky stuff due to radix ui overlay hiding scrollbar by default. */}
-      <div className="h-16 fixed w-screen bg-white dark:bg-black duration-500 -z-20 border-b shadow-md " />
-      <nav className="flex justify-center lg:justify-between lg:px-20 border-b shadow-md items-center h-16 z-20 sticky top-0  bg-white dark:bg-black duration-500">
+      <div className="h-16 fixed w-screen bg-white dark:bg-black -z-20 border-b shadow-md " />
+      <nav className="flex justify-center lg:justify-between lg:px-20 border-b shadow-md items-center h-16 z-20 sticky top-0  bg-white dark:bg-black">
         <div className="h-10 flex items-center justify-start gap-4 basis-1/3">
           <Link
             href={"/"}

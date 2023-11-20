@@ -11,13 +11,9 @@ const BrowseRow = ({ works, title }: { works: WorkData[]; title: string }) => {
               {title}：{works.length}
             </div>
           </div>
-          <section className="flex lg:flex-wrap lg:overflow-visible lg:justify-center overflow-x-auto">
+          <section className="px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
             {works.map((work: WorkData) => {
-              return (
-                <div key={work.annictId}>
-                  <WorkCard work={work} />
-                </div>
-              );
+              return <WorkCard key={work.annictId} work={work} />;
             })}
           </section>
         </div>
