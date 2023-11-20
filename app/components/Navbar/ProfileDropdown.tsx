@@ -26,13 +26,11 @@ const ProfileDropdown = ({ currentUser }: { currentUser: UserClientSide }) => {
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>
+        <DropdownMenuItem className="justify-center">
           <Link href={`/user/${currentUser.username}`}>
-            <div className="hover:text-blue-500 hover:bg-slate-200 rounded-md duration-200 m-1 text-center">
-              @{currentUser.username}
-            </div>
+            @{currentUser.username}
           </Link>
-        </DropdownMenuLabel>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <button className="w-full text-start" onClick={() => signOut()}>

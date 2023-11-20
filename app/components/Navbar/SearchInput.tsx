@@ -11,7 +11,6 @@ const SearchInput = () => {
     event.preventDefault();
     if (!searchQuery) return null;
     router.push(`/?title=${searchQuery}`);
-    setSearchQuery("");
   };
 
   return (
