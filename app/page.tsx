@@ -27,7 +27,7 @@ export async function generateMetadata({
   };
 }
 
-const HomePage = async ({ searchParams }: ServerProps) => {
+const HomePage = ({ searchParams }: ServerProps) => {
   const workYear = searchParams.year;
   const workSeason = searchParams.season;
   const workTitle = searchParams.title;
