@@ -1,7 +1,6 @@
 "use client";
 import toast from "react-hot-toast";
 import { WorkData } from "@/app/types/types";
-import { ReactNode } from "react";
 import { addCollection } from "@/app/redux/features/user/userSlice";
 import { removeCollection } from "@/app/redux/features/user/userSlice";
 import { AppDispatch, RootState } from "@/app/redux/store";
@@ -49,7 +48,7 @@ const CollectionButton = ({
       const user = await res.json();
       if (res.status === 200) {
         dispatch(addCollection(user));
-        const tmp = await fetch("/api/activity", {
+        fetch("/api/activity", {
           method: "POST",
           body: JSON.stringify({
             category,
@@ -57,7 +56,6 @@ const CollectionButton = ({
             workTitle: work.title,
           }),
         });
-        console.log(tmp);
         return toast.success("收藏成功");
       }
     }

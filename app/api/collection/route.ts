@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
+import { getUserFromSession } from "@/lib/utils";
 
 type category = "followingWorks" | "watchingWorks" | "finishedWorks";
 
@@ -10,25 +9,13 @@ type RequestBody = {
   annictId: number;
 };
 
-async function getCurrentUser() {
-  const session = await getServerSession(authOptions);
-  if (!session?.user) return null;
-
-  const user = await prisma.user.findUnique({
-    where: {
-      id: session.user.id,
-    },
-  });
-  return user;
-}
-
 function filterRepeatedCollection(works: number[], workId: number) {
   if (works.indexOf(workId) !== -1) works.splice(works.indexOf(workId), 1);
 }
 
 export async function POST(request: Request) {
   const { category, annictId }: RequestBody = await request.json();
-  const currentUser = await getCurrentUser();
+  const currentUser = await getUserFromSession();
   if (!currentUser || !annictId || !category) {
     return NextResponse.json({ message: `Missing Info` }, { status: 400 });
   }
@@ -60,7 +47,7 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   const { category, annictId }: RequestBody = await request.json();
-  const currentUser = await getCurrentUser();
+  const currentUser = await getUserFromSession();
   if (!currentUser || !annictId || !category) {
     return NextResponse.json({ message: `Missing Info` }, { status: 400 });
   }

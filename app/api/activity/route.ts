@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "@/lib/prisma";
 import { Action } from "@prisma/client";
+import { getUserFromSession } from "@/lib/utils";
 
 const actionMap: Record<string, Action> = {
   followingWorks: "FOLLOW",
@@ -17,21 +16,9 @@ type RequestBody = {
   workTitle: string;
 };
 
-async function getCurrentUser() {
-  const session = await getServerSession(authOptions);
-  if (!session?.user) return null;
-
-  const user = await prisma.user.findUnique({
-    where: {
-      id: session.user.id,
-    },
-  });
-  return user;
-}
-
 export async function POST(request: Request) {
   const { category, annictId, workTitle }: RequestBody = await request.json();
-  const currentUser = await getCurrentUser();
+  const currentUser = await getUserFromSession();
   if (!currentUser || !annictId || !workTitle)
     return NextResponse.json({ message: `Missing Info` }, { status: 400 });
 

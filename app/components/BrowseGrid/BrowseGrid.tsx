@@ -1,19 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { store } from "../../redux/store";
-import { userAuthenticated } from "../../redux/features/user/userSlice";
-import { UserClientSide, WorkData } from "@/app/types/types";
+import { WorkData } from "@/app/types/types";
 import WorkCard from "@/app/components/Work/WorkCard";
 
 const BrowseGrid = ({
-  currentUser,
   workData,
   workYear,
   workSeason,
   workTitle,
 }: {
-  currentUser: UserClientSide | null;
   workData: WorkData[];
   workYear: string;
   workSeason: string;
@@ -23,7 +19,6 @@ const BrowseGrid = ({
   const router = useRouter();
 
   useEffect(() => {
-    store.dispatch(userAuthenticated(currentUser));
     if (workTitle) router.replace(`?title=${workTitle}`);
     else router.replace(`?year=${workYear}&season=${workSeason}`);
   }, []);

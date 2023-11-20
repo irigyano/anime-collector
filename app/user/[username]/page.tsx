@@ -4,9 +4,8 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { WorkData } from "@/app/types/types";
 import BrowseRow from "@/app/components/BrowseGrid/BrowseRow";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import ReduxBroadcaster from "@/app/components/ReduxBroadcaster";
+import { getUserFromSession } from "@/lib/utils";
 
 type ServerProps = {
   params: { username: string };
@@ -30,7 +29,6 @@ function filterCollection(
 }
 
 const UserPage = async ({ params }: ServerProps) => {
-  // check if page valid/user exist
   let user = null;
   try {
     user = await prisma.user.findUnique({
@@ -42,15 +40,7 @@ const UserPage = async ({ params }: ServerProps) => {
     return redirect("/activity");
   }
 
-  const session = await getServerSession(authOptions);
-  let currentUser = null;
-  if (session?.user) {
-    currentUser = await prisma.user.findUnique({
-      where: {
-        id: session.user.id,
-      },
-    });
-  }
+  const currentUser = await getUserFromSession();
 
   const requestingWorks = user.finishedWorks
     .concat(user.watchingWorks, user.followingWorks)

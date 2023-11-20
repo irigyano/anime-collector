@@ -2,31 +2,20 @@ import Link from "next/link";
 import Image from "next/image";
 import SearchInput from "./SearchInput";
 import MobileMenu from "./MobileMenu";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../api/auth/[...nextauth]/route";
-import prisma from "@/lib/prisma";
 import ProfileDropdown from "./ProfileDropdown";
 import { ThemeSwitch } from "./ThemeSwitch";
 import { Github, LogIn } from "lucide-react";
 import { Button } from "../ui/button";
-
 import {
   Dialog,
   DialogContent,
   DialogTrigger,
 } from "@/app/components/ui/dialog";
 import SignInPanel from "../SignInPanel";
+import { getUserFromSession } from "@/lib/utils";
 
 const Navbar = async () => {
-  const session = await getServerSession(authOptions);
-  let currentUser = null;
-  if (session?.user) {
-    currentUser = await prisma.user.findUnique({
-      where: {
-        id: session.user.id,
-      },
-    });
-  }
+  const currentUser = await getUserFromSession();
   return (
     <>
       {/* hacky stuff due to radix ui overlay hiding scrollbar by default. */}

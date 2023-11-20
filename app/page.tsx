@@ -14,9 +14,7 @@ const HomePage = async ({
 
   return (
     <>
-      {!workTitle && (
-        <SeasonSelector workYear={workYear} workSeason={workSeason} />
-      )}
+      <SeasonSelector workYear={workYear} workSeason={workSeason} />
       <Suspense
         key={workTitle || workSeason + workYear}
         fallback={<LoadingPlaceholder />}
