@@ -50,8 +50,8 @@ const UserPage = async ({ params }: ServerProps) => {
   const userFinishedCollection = filterCollection(works, user.finishedWorks);
 
   return (
-    <>
-      <div className="flex flex-col justify-center items-center mt-2 mx-4">
+    <div className="">
+      <div className="flex flex-col justify-center items-center mt-2">
         <Image
           className="rounded-full"
           src={user.image || "/images/KEKW.webp"}
@@ -62,15 +62,35 @@ const UserPage = async ({ params }: ServerProps) => {
         />
         <div>@{user.username}</div>
       </div>
-      <div className="flex justify-center items-center text-center">
-        <div className="text-xl rounded-lg bg-gray-100 dark:bg-zinc-800 w-48 opacity-70 my-2">
-          正在看：{works.length}
-        </div>
-      </div>
-      <WorkGrid workData={userFollowingCollection} currentUser={currentUser} />
-      <WorkGrid workData={userWatchingCollection} currentUser={currentUser} />
-      <WorkGrid workData={userFinishedCollection} currentUser={currentUser} />
-    </>
+
+      {userFollowingCollection.length !== 0 && (
+        <>
+          <div className="text-2xl pl-4 py-2">追蹤的作品</div>
+          <WorkGrid
+            workData={userFollowingCollection}
+            currentUser={currentUser}
+          />
+        </>
+      )}
+      {userWatchingCollection.length !== 0 && (
+        <>
+          <div className="text-2xl pl-4 py-2">正在看的作品</div>
+          <WorkGrid
+            workData={userWatchingCollection}
+            currentUser={currentUser}
+          />
+        </>
+      )}
+      {userFinishedCollection.length !== 0 && (
+        <>
+          <div className="text-2xl pl-4 py-2">看完的作品</div>
+          <WorkGrid
+            workData={userFinishedCollection}
+            currentUser={currentUser}
+          />
+        </>
+      )}
+    </div>
   );
 };
 export default UserPage;

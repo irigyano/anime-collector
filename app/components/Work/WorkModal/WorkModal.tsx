@@ -100,7 +100,7 @@ const WorkModal = ({ toggleModal, work, srcUrl }: WorkModalProps) => {
               hoverColor={"hover:text-yellow-500"}
             >
               <HiOutlineStar size={30} />
-              <span>關注</span>
+              <span>追蹤</span>
             </CollectionButton>
             <CollectionButton
               work={work}
@@ -118,7 +118,7 @@ const WorkModal = ({ toggleModal, work, srcUrl }: WorkModalProps) => {
               hoverColor={"hover:text-green-500"}
             >
               <HiOutlineCheckCircle size={30} />
-              <span>看過</span>
+              <span>看完</span>
             </CollectionButton>
           </footer>
         </div>
