@@ -3,9 +3,12 @@ import kyaru from "../../public/images/kyaru.gif";
 
 const LoadingPlaceholder = () => {
   return (
-    <div className="flex justify-center items-center h-screen pb-40 w-screen fixed">
-      <Image src={kyaru} alt="Deadge" priority />
-    </div>
+    <Image
+      src={kyaru}
+      alt="Deadge"
+      priority
+      className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+    />
   );
 };
 
