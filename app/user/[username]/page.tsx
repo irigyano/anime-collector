@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { ServerProps, WorkData } from "@/app/types/types";
 import { getUserFromSession } from "@/lib/utils";
-import WorkGrid from "@/app/components/BrowseGrid/WorkGrid";
+import WorkGrid from "@/app/components/WorkGrid/WorkGrid";
 
 export async function generateMetadata({
   params,

@@ -1,6 +1,6 @@
-import SeasonSelector from "@/app/components/BrowseGrid/SeasonSelector";
+import SeasonSelector from "@/app/components/WorkGrid/SeasonSelector";
 import { Suspense } from "react";
-import WorkRenderer from "./components/BrowseGrid/WorkRenderer";
+import WorkRenderer from "./components/WorkGrid/WorkRenderer";
 import LoadingPlaceholder from "./components/LoadingPlaceholder";
 import Redirector from "./components/Redirector";
 import type { Metadata } from "next";
