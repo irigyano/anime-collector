@@ -37,11 +37,11 @@ const HomePage = ({ searchParams }: ServerProps) => {
 
   return (
     <>
-      <SeasonSelector />
       <Suspense
         key={workTitle || (hasYearAndSeason ? workYear + workSeason : "")}
         fallback={<LoadingPlaceholder />}
       >
+        <SeasonSelector />
         <WorkRenderer
           workYear={workYear}
           workSeason={workSeason}

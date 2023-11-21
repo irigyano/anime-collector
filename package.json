@@ -23,6 +23,7 @@
     "next": "14.0.0",
     "next-auth": "^4.24.5",
     "next-themes": "^0.2.1",
+    "next-usequerystate": "^1.12.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.1",

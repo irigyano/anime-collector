@@ -1,6 +1,6 @@
 import { WorkData } from "@/app/types/types";
 import { getUserFromSession } from "@/lib/utils";
-import WorkGrid from "./WorkGrid";
+import WorkGridPagination from "./WorkGridPagination";
 
 const WorkRenderer = async ({
   workYear,
@@ -29,7 +29,7 @@ const WorkRenderer = async ({
           」的作品。
         </div>
       ) : (
-        <WorkGrid workData={workData} currentUser={currentUser} />
+        <WorkGridPagination workData={workData} currentUser={currentUser} />
       )}
     </>
   );

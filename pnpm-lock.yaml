@@ -47,6 +47,9 @@ dependencies:
   next-themes:
     specifier: ^0.2.1
     version: 0.2.1(next@14.0.0)(react-dom@18.2.0)(react@18.2.0)
+  next-usequerystate:
+    specifier: ^1.12.2
+    version: 1.12.2(next@14.0.0)
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -1351,6 +1354,10 @@ packages:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
     dev: false
 
+  /mitt@3.0.1:
+    resolution: {integrity: sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==}
+    dev: false
+
   /mkdirp-classic@0.5.3:
     resolution: {integrity: sha512-gKLcREMhtuZRwRAfqP3RFW+TK4JqApVBtOIftVgjuABpAtpxhPGaDcfvbhNvD0B8iD1oUr/txX35NjcaY6Ns/A==}
     dev: false
@@ -1406,6 +1413,15 @@ packages:
       next: 14.0.0(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /next-usequerystate@1.12.2(next@14.0.0):
+    resolution: {integrity: sha512-CkXN7vE0AeoytrwYsjtDT7IgKKU/fT6ebVG+5b6l5wVzWAt/jAoWjwWneA++xE5oTZnR8kgXYiqonXh0sJb7zA==}
+    peerDependencies:
+      next: '>=13.4 <14.0.2 || ^14.0.3'
+    dependencies:
+      mitt: 3.0.1
+      next: 14.0.0(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
   /next@14.0.0(react-dom@18.2.0)(react@18.2.0):
