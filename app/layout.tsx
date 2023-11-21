@@ -3,6 +3,7 @@ import { Zen_Maru_Gothic } from "next/font/google";
 import { ReduxProvider } from "@/app/redux/ReduxProvider";
 import Navbar from "@/app/components/Navbar/Navbar";
 import { ThemeProvider } from "./components/ThemeProvider";
+import { Analytics } from "@vercel/analytics/react";
 
 const font = Zen_Maru_Gothic({
   weight: "700",
@@ -36,6 +37,7 @@ export default function MainLayout({
           >
             <Navbar />
             {children}
+            <Analytics />
           </ThemeProvider>
         </body>
       </html>
