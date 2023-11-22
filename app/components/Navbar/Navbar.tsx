@@ -13,7 +13,6 @@ import {
 } from "@/app/components/ui/dialog";
 import SignInPanel from "../SignInPanel";
 import { getUserFromSession } from "@/lib/utils";
-import HomeLink from "./HomeLink";
 
 const Navbar = async () => {
   const currentUser = await getUserFromSession();
@@ -23,7 +22,7 @@ const Navbar = async () => {
       <div className="h-16 fixed w-screen bg-white dark:bg-black -z-20 border-b shadow-md " />
       <nav className="flex justify-center lg:justify-between lg:px-20 border-b shadow-md items-center h-16 z-20 sticky top-0  bg-white dark:bg-black">
         <div className="h-10 flex items-center justify-start gap-3 basis-1/3">
-          <HomeLink>
+          <Link href={"/"}>
             <Image
               className="rounded-full hidden lg:block hover:border-b-2 border-transparent"
               alt="logo"
@@ -31,7 +30,7 @@ const Navbar = async () => {
               width={40}
               height={40}
             />
-          </HomeLink>
+          </Link>
           <Link
             href={"/activity"}
             className="hover:text-blue-500 duration-300 hidden lg:block text-center m-1"

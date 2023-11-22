@@ -1,16 +1,20 @@
 import { WorkData } from "@/app/types/types";
-import { getUserFromSession } from "@/lib/utils";
+import { DEFAULT_SEASON, DEFAULT_YEAR, getUserFromSession } from "@/lib/utils";
 import WorkGridPagination from "./WorkGridPagination";
+import SeasonSelector from "./SeasonSelector";
 
 const WorkRenderer = async ({
   workYear,
   workSeason,
   workTitle,
 }: {
-  workYear?: string;
-  workSeason?: string;
-  workTitle?: string;
+  workYear: string | undefined;
+  workSeason: string | undefined;
+  workTitle: string | undefined;
 }) => {
+  if (!workYear) workYear = DEFAULT_YEAR;
+  if (!workSeason) workSeason = DEFAULT_SEASON;
+
   const endpoint = workTitle
     ? `${process.env.HOST_URL}/api/search/title?title=${workTitle}`
     : `${process.env.HOST_URL}/api/search/season?year=${workYear}&season=${workSeason}`;
@@ -29,7 +33,15 @@ const WorkRenderer = async ({
           」的作品。
         </div>
       ) : (
-        <WorkGridPagination workData={workData} currentUser={currentUser} />
+        <>
+          <SeasonSelector workYear={workYear} workSeason={workSeason} />
+          <WorkGridPagination
+            workData={workData}
+            currentUser={currentUser}
+            workYear={workYear}
+            workSeason={workSeason}
+          />
+        </>
       )}
     </>
   );

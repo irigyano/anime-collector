@@ -2,7 +2,7 @@
 import { UserClientSide, WorkData } from "@/app/types/types";
 import WorkCard from "../Work/WorkCard";
 import ReduxBroadcaster from "../ReduxBroadcaster";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { parseAsInteger, useQueryState } from "next-usequerystate";
 
 function paginateArray<T>(
@@ -18,17 +18,29 @@ function paginateArray<T>(
 const WorkGrid = ({
   workData,
   currentUser,
+  workYear,
+  workSeason,
 }: {
   workData: WorkData[];
   currentUser: UserClientSide | null;
+  workYear: string;
+  workSeason: string;
 }) => {
   const [pageParam, setPageParam] = useQueryState("page", parseAsInteger);
+  const [yearParam, setYearParam] = useQueryState("year");
+  const [seasonParam, setSeasonParam] = useQueryState("season");
+
   let pageState = Math.max(Number(pageParam) - 1, 0);
   const workPerPage = 12;
   const maxPagination = Math.ceil(workData.length / workPerPage) - 1;
   if (pageState > maxPagination) pageState = maxPagination;
-
   const [pagination, setPagination] = useState(pageState);
+
+  useEffect(() => {
+    setYearParam(workYear);
+    setSeasonParam(workSeason);
+  }, []);
+
   return (
     <ReduxBroadcaster currentUser={currentUser}>
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 pb-16">

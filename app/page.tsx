@@ -1,26 +1,21 @@
-import SeasonSelector from "@/app/components/WorkGrid/SeasonSelector";
 import { Suspense } from "react";
 import WorkRenderer from "./components/WorkGrid/WorkRenderer";
 import LoadingPlaceholder from "./components/LoadingPlaceholder";
-import Redirector from "./components/Redirector";
 import type { Metadata } from "next";
 import { ServerProps } from "./types/types";
-import { seasonMap } from "@/lib/utils";
+import { DEFAULT_SEASON, DEFAULT_YEAR, seasonMap } from "@/lib/utils";
 
 export async function generateMetadata({
   searchParams,
 }: ServerProps): Promise<Metadata> {
-  const workYear = searchParams.year;
-  const workSeason = searchParams.season;
+  const workYear = searchParams.year || DEFAULT_YEAR;
+  const workSeason = searchParams.season || DEFAULT_SEASON;
   const workTitle = searchParams.title;
 
   let title = "Banngumi View";
   if (workTitle) title = `${workTitle} | ${title}`;
-  else if (workYear && workSeason) {
-    const validSeasonCht = seasonMap[workSeason];
-    title = `${workYear} ${
-      validSeasonCht ? `${validSeasonCht}季番` : workSeason
-    } | ${title}`;
+  else if (workYear && workSeason && seasonMap[workSeason]) {
+    title = `${workYear} ${seasonMap[workSeason]}季番 | ${title}`;
   }
   return {
     title,
@@ -32,16 +27,16 @@ const HomePage = ({ searchParams }: ServerProps) => {
   const workSeason = searchParams.season;
   const workTitle = searchParams.title;
 
-  const hasYearAndSeason = !!(workYear && workSeason);
-  if (!workTitle && !hasYearAndSeason) return <Redirector />;
-
   return (
     <>
       <Suspense
-        key={workTitle || (hasYearAndSeason ? workYear + workSeason : "")}
+        key={
+          workTitle || (workYear && workSeason)
+            ? `${workYear}${workSeason}`
+            : ""
+        }
         fallback={<LoadingPlaceholder />}
       >
-        <SeasonSelector />
         <WorkRenderer
           workYear={workYear}
           workSeason={workSeason}
