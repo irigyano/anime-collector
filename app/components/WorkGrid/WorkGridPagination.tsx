@@ -31,36 +31,38 @@ const WorkGrid = ({
   const [pagination, setPagination] = useState(pageState);
   return (
     <ReduxBroadcaster currentUser={currentUser}>
-      <div className="flex justify-center gap-2">
-        <button
-          className={`${pagination === 0 && "text-gray-500"}`}
-          onClick={() => {
-            if (pagination === 0) return;
-            setPageParam(String(pagination));
-            setPagination((prev) => prev - 1);
-          }}
-        >
-          上一頁
-        </button>
-        <h1>
-          第{pagination + 1}/{maxPagination + 1}頁
-        </h1>
-        <button
-          className={`${pagination === maxPagination && "text-gray-500"}`}
-          onClick={() => {
-            if (pagination === maxPagination) return;
-            setPageParam(String(pagination + 2));
-            setPagination((prev) => prev + 1);
-          }}
-        >
-          下一頁
-        </button>
-      </div>
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 pb-16">
         {paginateArray(workData, pagination, workPerPage).map((work) => {
           return <WorkCard key={work.annictId} work={work} />;
         })}
       </section>
+      <div className="p-4 fixed bottom-0 2xl:bottom-8 left-1/2 -translate-x-1/2 flex justify-center">
+        <div className="py-1 px-4 flex justify-center gap-2 bg-white/80 dark:bg-black/80 rounded-lg w-max">
+          <button
+            className={`${pagination === 0 && "text-gray-500"}`}
+            onClick={() => {
+              if (pagination === 0) return;
+              setPageParam(String(pagination));
+              setPagination((prev) => prev - 1);
+            }}
+          >
+            上一頁
+          </button>
+          <h1>
+            第 {pagination + 1} / {maxPagination + 1} 頁
+          </h1>
+          <button
+            className={`${pagination === maxPagination && "text-gray-500"}`}
+            onClick={() => {
+              if (pagination === maxPagination) return;
+              setPageParam(String(pagination + 2));
+              setPagination((prev) => prev + 1);
+            }}
+          >
+            下一頁
+          </button>
+        </div>
+      </div>
     </ReduxBroadcaster>
   );
 };
