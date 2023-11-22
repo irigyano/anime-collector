@@ -3,7 +3,7 @@ import { UserClientSide, WorkData } from "@/app/types/types";
 import WorkCard from "../Work/WorkCard";
 import ReduxBroadcaster from "../ReduxBroadcaster";
 import { useState } from "react";
-import { useQueryState } from "next-usequerystate";
+import { parseAsInteger, useQueryState } from "next-usequerystate";
 
 function paginateArray<T>(
   inputArray: T[],
@@ -22,7 +22,7 @@ const WorkGrid = ({
   workData: WorkData[];
   currentUser: UserClientSide | null;
 }) => {
-  const [pageParam, setPageParam] = useQueryState("page");
+  const [pageParam, setPageParam] = useQueryState("page", parseAsInteger);
   let pageState = Math.max(Number(pageParam) - 1, 0);
   const workPerPage = 12;
   const maxPagination = Math.ceil(workData.length / workPerPage) - 1;
@@ -42,7 +42,7 @@ const WorkGrid = ({
             className={`${pagination === 0 && "text-gray-500"}`}
             onClick={() => {
               if (pagination === 0) return;
-              setPageParam(String(pagination));
+              setPageParam(pagination);
               setPagination((prev) => prev - 1);
             }}
           >
@@ -55,7 +55,7 @@ const WorkGrid = ({
             className={`${pagination === maxPagination && "text-gray-500"}`}
             onClick={() => {
               if (pagination === maxPagination) return;
-              setPageParam(String(pagination + 2));
+              setPageParam(pagination + 2);
               setPagination((prev) => prev + 1);
             }}
           >

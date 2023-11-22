@@ -5,6 +5,7 @@ import WorkModal from "./WorkModal/WorkModal";
 import cover_replacement from "../../../public/images/cover_replacement.webp";
 import TagList from "./TagList";
 import { WorkData } from "@/app/types/types";
+import { parseAsInteger, useQueryState } from "next-usequerystate";
 
 function filterUrl(url: any): string | undefined {
   if (typeof url !== "string") return;
@@ -16,7 +17,8 @@ function filterUrl(url: any): string | undefined {
 }
 
 const WorkCard = ({ work }: { work: WorkData }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [modalParam, setModalParam] = useQueryState("modal", parseAsInteger);
+  const [showModal, setShowModal] = useState(modalParam === work.annictId);
   const toggleModal = () => setShowModal(!showModal);
 
   // filling empty image src
@@ -30,7 +32,10 @@ const WorkCard = ({ work }: { work: WorkData }) => {
     <>
       <figure key={work.annictId} className="mx-4 my-1 overflow-hidden">
         <div
-          onClick={toggleModal}
+          onClick={() => {
+            toggleModal();
+            setModalParam(work.annictId);
+          }}
           className="relative h-40 drop-shadow-lg rounded-lg cursor-pointer overflow-hidden mb-1"
         >
           <Image

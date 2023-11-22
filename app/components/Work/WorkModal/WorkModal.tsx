@@ -12,6 +12,7 @@ import CollectionButton from "./CollectionButton";
 import type { StaticImageData } from "next/image";
 import TagList from "../TagList";
 import toast from "react-hot-toast";
+import { useQueryState } from "next-usequerystate";
 
 type WorkModalProps = {
   toggleModal: () => void;
@@ -20,11 +21,13 @@ type WorkModalProps = {
 };
 
 const WorkModal = ({ toggleModal, work, srcUrl }: WorkModalProps) => {
+  const [modalParam, setModalParam] = useQueryState("modal");
   return (
     <div
       className="fixed inset-0 w-full h-full z-20 bg-black bg-opacity-50"
       onClick={() => {
         toggleModal();
+        setModalParam(null);
         toast.remove();
       }}
     >
