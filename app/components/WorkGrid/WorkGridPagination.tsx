@@ -30,16 +30,23 @@ const WorkGrid = ({
   const [yearParam, setYearParam] = useQueryState("year");
   const [seasonParam, setSeasonParam] = useQueryState("season");
 
-  let pageState = Math.max(Number(pageParam) - 1, 0);
   const workPerPage = 12;
   const maxPagination = Math.ceil(workData.length / workPerPage) - 1;
-  if (pageState > maxPagination) pageState = maxPagination;
-  const [pagination, setPagination] = useState(pageState);
+
+  let paginationIndex = Math.max(Number(pageParam) - 1, 0);
+  if (paginationIndex > maxPagination) paginationIndex = maxPagination;
+
+  const [pagination, setPagination] = useState(paginationIndex);
 
   useEffect(() => {
     setYearParam(workYear);
     setSeasonParam(workSeason);
+    setPageParam(paginationIndex + 1);
   }, []);
+
+  useEffect(() => {
+    setPagination(paginationIndex);
+  }, [paginationIndex]);
 
   return (
     <ReduxBroadcaster currentUser={currentUser}>
@@ -54,7 +61,7 @@ const WorkGrid = ({
             className={`${pagination === 0 && "text-gray-500"}`}
             onClick={() => {
               if (pagination === 0) return;
-              setPageParam(pagination);
+              setPageParam(pagination, { history: "push" });
               setPagination((prev) => prev - 1);
             }}
           >
@@ -67,7 +74,7 @@ const WorkGrid = ({
             className={`${pagination === maxPagination && "text-gray-500"}`}
             onClick={() => {
               if (pagination === maxPagination) return;
-              setPageParam(pagination + 2);
+              setPageParam(pagination + 2, { history: "push" });
               setPagination((prev) => prev + 1);
             }}
           >
