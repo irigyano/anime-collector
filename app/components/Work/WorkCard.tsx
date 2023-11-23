@@ -6,12 +6,13 @@ import cover_replacement from "../../../public/images/cover_replacement.webp";
 import TagList from "./TagList";
 import { WorkData } from "@/app/types/types";
 import { parseAsInteger, useQueryState } from "next-usequerystate";
+import { IMAGE_PLACEHOLDER } from "@/lib/utils";
 
 function filterUrl(url: any): string | undefined {
   if (typeof url !== "string") return;
 
   const result = url.match(
-    /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/g
+    /^https:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/g
   );
   if (result) return url;
 }
@@ -47,6 +48,7 @@ const WorkCard = ({ work }: { work: WorkData }) => {
             onError={() => {
               SetSrcUrl(cover_replacement);
             }}
+            placeholder={IMAGE_PLACEHOLDER}
             sizes="(min-width: 640px) 50vw, (min-width: 1024px) 33vw, (min-width: 1536px) 25vw, 100vw"
           />
         </div>
