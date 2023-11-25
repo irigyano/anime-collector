@@ -16,6 +16,7 @@ const actionMap: Record<Action, string> = {
   FOLLOW: "追蹤了",
   WATCH: "正在看",
   FINISH: "看完",
+  COMMENT: "在",
 };
 
 dayjs.locale("zh-tw");
@@ -93,6 +94,9 @@ const ActivityPage = async () => {
                     {workTitle}
                   </Link>
                   {action === "FINISH" && <span className="pl-1">了！</span>}
+                  {action === "COMMENT" && (
+                    <span className="pl-1">新增了留言！</span>
+                  )}
                 </div>
               </div>
             </li>

@@ -11,13 +11,15 @@ const actionMap: Record<string, Action> = {
 type category = "followingWorks" | "watchingWorks" | "finishedWorks";
 
 type RequestBody = {
-  category: category;
+  action?: "COMMENT";
+  category?: category;
   annictId: number;
   workTitle: string;
 };
 
 export async function POST(request: Request) {
-  const { category, annictId, workTitle }: RequestBody = await request.json();
+  const { action, category, annictId, workTitle }: RequestBody =
+    await request.json();
   const currentUser = await getUserFromSession();
   if (!currentUser || !annictId || !workTitle)
     return NextResponse.json({ message: `Missing Info` }, { status: 400 });
@@ -27,7 +29,7 @@ export async function POST(request: Request) {
       userId: currentUser.id,
       workId: annictId,
       workTitle,
-      action: actionMap[category],
+      action: action || actionMap[category!],
     },
   });
 

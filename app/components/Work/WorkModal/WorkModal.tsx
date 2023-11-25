@@ -33,9 +33,9 @@ const WorkModal = ({ toggleModal, work, srcUrl }: WorkModalProps) => {
       }}
     >
       <Toaster />
-      <div className="relative mx-4 md:mx-auto md:w-2/3 2xl:w-1/3 my-20">
+      <div className="relative mx-4 md:mx-auto md:w-2/3 2xl:w-1/3 my-10">
         <div
-          className="relative bg-[#fff] dark:bg-[#0f0f0f] dark:text-[#f1f1f1] rounded-md z-20 overflow-hidden"
+          className="relative bg-[#fff] dark:bg-[#0f0f0f] dark:text-[#f1f1f1] rounded-md z-20 h-[85vh] overflow-y-scroll"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="relative h-60 drop-shadow overf low-hidden md:h-72">
@@ -125,7 +125,7 @@ const WorkModal = ({ toggleModal, work, srcUrl }: WorkModalProps) => {
               <span>看完</span>
             </CollectionButton>
           </footer>
-          <CommentTextarea />
+          <CommentTextarea work={work} />
         </div>
       </div>
     </div>

@@ -51,6 +51,7 @@ model User {
   accounts       Account[]
   sessions       Session[]
   Activity       Activity[]
+  Comment        Comment[]
   followingWorks Int[]
   watchingWorks  Int[]
   finishedWorks  Int[]
@@ -60,6 +61,7 @@ enum Action {
   FOLLOW
   WATCH
   FINISH
+  COMMENT
 }
 
 model Activity {
@@ -68,6 +70,15 @@ model Activity {
   workId    Int
   workTitle String
   action    Action
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Comment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  workId    Int
+  comment   String
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
