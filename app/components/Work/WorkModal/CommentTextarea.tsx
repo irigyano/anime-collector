@@ -13,13 +13,9 @@ import {
 } from "@/app/components/ui/form";
 import { Textarea } from "@/app/components/ui/textarea";
 import toast from "react-hot-toast";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { WorkData } from "@/app/types/types";
-import { Prisma } from "@prisma/client";
-import Image from "next/image";
-import Link from "next/link";
-
-type CommentWithUser = Prisma.CommentGetPayload<{ include: { user: true } }>;
+import UserComments from "./UserComments";
 
 const FormSchema = z.object({
   comment: z.string().min(1),
@@ -28,7 +24,6 @@ const FormSchema = z.object({
 function TextareaForm({ work }: { work: WorkData }) {
   const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
   const currentUser = useAppSelector((state) => state.user.user);
-  const [comments, setComments] = useState<CommentWithUser[]>();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
@@ -60,14 +55,8 @@ function TextareaForm({ work }: { work: WorkData }) {
     if (form.formState.isSubmitSuccessful) form.reset({ comment: "" });
   }, [form.formState.isSubmitSuccessful]);
 
-  useEffect(() => {
-    fetch(`/api/comment?work=${work.annictId}`)
-      .then((res) => res.json())
-      .then((data) => setComments(data));
-  }, [form.formState.isSubmitSuccessful]);
-
   return (
-    <div className="p-2">
+    <div className="px-6">
       <Form {...form}>
         <form
           // triggered when mouse click on button
@@ -105,26 +94,7 @@ function TextareaForm({ work }: { work: WorkData }) {
           </Button>
         </form>
       </Form>
-      <div className="flex flex-col gap-2 pt-2">
-        {comments &&
-          comments.map((comment) => (
-            <div key={comment.id} className="flex items-center">
-              <Image
-                className="rounded-full"
-                src={comment.user.image}
-                alt="avatar"
-                width={60}
-                height={60}
-              />
-              <div>
-                <Link href={`/user/${comment.user.username}`}>
-                  @{comment.user.username}
-                </Link>
-                <div className="break-all">{comment.comment}</div>
-              </div>
-            </div>
-          ))}
-      </div>
+      <UserComments form={form} workId={work.annictId} />
     </div>
   );
 }

@@ -7,6 +7,7 @@ import TagList from "./TagList";
 import { WorkData } from "@/app/types/types";
 import { parseAsInteger, useQueryState } from "next-usequerystate";
 import { IMAGE_PLACEHOLDER } from "@/lib/utils";
+import ModalOverlay from "./WorkModal/ModalOverlay";
 
 function filterUrl(url: any): string | undefined {
   if (typeof url !== "string") return;
@@ -58,7 +59,9 @@ const WorkCard = ({ work }: { work: WorkData }) => {
         <h3 className="truncate mx-1">{work.title}</h3>
       </figure>
       {showModal && (
-        <WorkModal toggleModal={toggleModal} work={work} srcUrl={srcUrl} />
+        <ModalOverlay toggleModal={toggleModal}>
+          <WorkModal work={work} srcUrl={srcUrl} />
+        </ModalOverlay>
       )}
     </>
   );
