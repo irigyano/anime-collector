@@ -13,6 +13,7 @@ import type { StaticImageData } from "next/image";
 import TagList from "../TagList";
 import toast from "react-hot-toast";
 import { useQueryState } from "next-usequerystate";
+import CommentTextarea from "./CommentTextarea";
 
 type WorkModalProps = {
   toggleModal: () => void;
@@ -32,7 +33,7 @@ const WorkModal = ({ toggleModal, work, srcUrl }: WorkModalProps) => {
       }}
     >
       <Toaster />
-      <div className="relative w-4/5 mx-auto md:w-1/2 xl:w-1/3 my-6">
+      <div className="relative mx-4 md:mx-auto md:w-2/3 2xl:w-1/3 my-20">
         <div
           className="relative bg-[#fff] dark:bg-[#0f0f0f] dark:text-[#f1f1f1] rounded-md z-20 overflow-hidden"
           onClick={(e) => e.stopPropagation()}
@@ -124,6 +125,7 @@ const WorkModal = ({ toggleModal, work, srcUrl }: WorkModalProps) => {
               <span>看完</span>
             </CollectionButton>
           </footer>
+          <CommentTextarea />
         </div>
       </div>
     </div>
