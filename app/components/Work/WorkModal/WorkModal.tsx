@@ -13,20 +13,29 @@ import type { StaticImageData } from "next/image";
 import TagList from "../TagList";
 import CommentTextarea from "./CommentTextarea";
 import { RemoveScroll } from "react-remove-scroll";
+import { RxCross2 } from "react-icons/rx";
 
 const WorkModal = ({
   work,
   srcUrl,
+  toggleModal,
 }: {
   work: WorkData;
   srcUrl: string | StaticImageData;
+  toggleModal: () => void;
 }) => {
   return (
     <RemoveScroll>
-      <div className="mx-4 md:mx-auto md:w-2/3 2xl:w-1/3 my-10">
-        <Toaster />
+      <Toaster position="bottom-center" />
+      <div className="mx-4 md:mx-auto md:w-2/3 2xl:w-1/3 my-10 relative">
+        <button
+          onClick={toggleModal}
+          className="absolute top-2 right-2 flex justify-end z-20"
+        >
+          <RxCross2 size={25} />
+        </button>
         <div
-          className="bg-white dark:bg-zinc-900 rounded-md z-20 h-[85vh] overflow-y-scroll scrollbar-none"
+          className="bg-white dark:bg-zinc-900 rounded-md z-20 h-[85svh] overflow-y-scroll scrollbar-none overscroll-none "
           onMouseDown={(e) => e.stopPropagation()}
         >
           <div className="relative h-40 lg:h-80">

@@ -4,6 +4,7 @@ import { ReduxProvider } from "@/app/redux/ReduxProvider";
 import Navbar from "@/app/components/Navbar/Navbar";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { Analytics } from "@vercel/analytics/react";
+import { Viewport } from "next";
 
 const font = Zen_Maru_Gothic({
   weight: "700",
@@ -16,6 +17,12 @@ export const metadata = {
     template: "%s | Banngumi View",
   },
   description: "AYAYA Clap",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function MainLayout({

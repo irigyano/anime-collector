@@ -60,7 +60,7 @@ const WorkCard = ({ work }: { work: WorkData }) => {
       </figure>
       {showModal && (
         <ModalOverlay toggleModal={toggleModal}>
-          <WorkModal work={work} srcUrl={srcUrl} />
+          <WorkModal work={work} srcUrl={srcUrl} toggleModal={toggleModal} />
         </ModalOverlay>
       )}
     </>
