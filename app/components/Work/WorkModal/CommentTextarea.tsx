@@ -29,9 +29,6 @@ function TextareaForm({ work }: { work: WorkData }) {
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    // is closure problematic?
-    if (!currentUser) return toast.error("請先登入", { id: "error" });
-
     const res = await fetch("/api/comment", {
       method: "POST",
       body: JSON.stringify({ comment: data.comment, workId: work.annictId }),
@@ -50,6 +47,12 @@ function TextareaForm({ work }: { work: WorkData }) {
     } else toast.error("something went wrong");
   }
 
+  function checkUserBeforeSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!currentUser) return toast.error("請先登入", { id: "error" });
+    form.handleSubmit(onSubmit)();
+  }
+
   // clean up after submit
   useEffect(() => {
     if (form.formState.isSubmitSuccessful) form.reset({ comment: "" });
@@ -60,12 +63,11 @@ function TextareaForm({ work }: { work: WorkData }) {
       <Form {...form}>
         <form
           // triggered when mouse click on button
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={checkUserBeforeSubmit}
           // triggered when pressing enter without shift on keyboard
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault();
-              form.handleSubmit(onSubmit)();
+              checkUserBeforeSubmit(e);
             }
           }}
           className="flex flex-col gap-2"
