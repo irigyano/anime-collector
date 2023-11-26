@@ -26,7 +26,7 @@ const WorkRenderer = async ({
   return (
     <>
       {workData.length === 0 ? (
-        <div className="pt-[25vh] text-xl lg:text-3xl text-center">
+        <div className="pt-[25vh] text-center text-xl lg:text-3xl">
           {/* @ts-ignore: checked already */}
           找不到符合搜尋字詞「
           {workTitle ? workTitle : `${workYear} 年 ${workSeason}`}

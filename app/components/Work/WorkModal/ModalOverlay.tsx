@@ -22,7 +22,7 @@ const ModalOverlay = ({
   return (
     <div
       ref={modalOverlay}
-      className="fixed inset-0 w-full h-full z-20 bg-black bg-opacity-50 outline-none"
+      className="fixed inset-0 z-20 h-full w-full bg-black bg-opacity-50 outline-none"
       onMouseDown={onModalClose}
       onKeyDown={(e) => {
         if (e.code === "Escape") onModalClose();

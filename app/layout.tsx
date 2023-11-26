@@ -34,7 +34,7 @@ export default function MainLayout({
     <ReduxProvider>
       <html lang="zh-tw" suppressHydrationWarning>
         <body
-          className={`${font.className} text-zinc-900 dark:text-zinc-300 bg-zinc-300 dark:bg-zinc-900`}
+          className={`${font.className} bg-zinc-300 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-300`}
         >
           <ThemeProvider
             attribute="class"

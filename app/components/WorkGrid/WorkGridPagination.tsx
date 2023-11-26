@@ -8,7 +8,7 @@ import { parseAsInteger, useQueryState } from "next-usequerystate";
 function paginateArray<T>(
   inputArray: T[],
   pageIndex: number,
-  pageSize: number
+  pageSize: number,
 ): T[] {
   const startIndex = pageIndex * pageSize;
   const endIndex = startIndex + pageSize;
@@ -50,13 +50,13 @@ const WorkGrid = ({
 
   return (
     <ReduxBroadcaster currentUser={currentUser}>
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 pb-16">
+      <section className="grid grid-cols-1 pb-16 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
         {paginateArray(workData, pagination, workPerPage).map((work) => {
           return <WorkCard key={work.annictId} work={work} />;
         })}
       </section>
-      <div className="p-4 fixed bottom-0 2xl:bottom-8 left-1/2 -translate-x-1/2 flex justify-center">
-        <div className="py-1 px-4 flex justify-center gap-2 bg-white/80 dark:bg-black/80 rounded-lg w-max">
+      <div className="fixed bottom-0 left-1/2 flex -translate-x-1/2 justify-center p-4 2xl:bottom-8">
+        <div className="flex w-max justify-center gap-2 rounded-lg bg-white/80 px-4 py-1 dark:bg-black/80">
           <button
             className={`${pagination === 0 && "text-gray-500"}`}
             onClick={() => {

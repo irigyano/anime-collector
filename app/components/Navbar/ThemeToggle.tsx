@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
   return (
-    <div className="flex justify-around h-8">
+    <div className="flex h-8 justify-around">
       <button
         onClick={(e) => {
           setTheme("light");

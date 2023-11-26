@@ -27,15 +27,15 @@ const WorkModal = ({
   return (
     <RemoveScroll>
       <Toaster position="bottom-center" />
-      <div className="mx-4 md:mx-auto md:w-2/3 2xl:w-1/3 my-10 relative">
+      <div className="relative mx-4 my-10 md:mx-auto md:w-2/3 2xl:w-1/3">
         <button
           onClick={toggleModal}
-          className="absolute top-2 right-2 flex justify-end z-20"
+          className="absolute right-2 top-2 z-20 flex justify-end"
         >
           <RxCross2 size={25} />
         </button>
         <div
-          className="bg-white dark:bg-zinc-900 rounded-md z-20 h-[85svh] overflow-y-scroll scrollbar-none overscroll-none "
+          className="z-20 h-[85svh] overflow-y-scroll overscroll-none rounded-md bg-white scrollbar-none dark:bg-zinc-900 "
           onMouseDown={(e) => e.stopPropagation()}
         >
           <div className="relative h-40 lg:h-80">
@@ -47,14 +47,14 @@ const WorkModal = ({
               sizes="640px"
             />
           </div>
-          <div className="flex justify-center m-1">
+          <div className="m-1 flex justify-center">
             <TagList work={work} />
           </div>
           <main className="mb-1 text-center">
             {/* title */}
-            <div className="flex flex-col justify-center items-center">
+            <div className="flex flex-col items-center justify-center">
               <Link
-                className="hover:text-blue-500 duration-300"
+                className="duration-300 hover:text-blue-500"
                 target="_blank"
                 href={`https://annict.com/works/${work.annictId}`}
               >
@@ -68,18 +68,18 @@ const WorkModal = ({
             {work.casts.nodes.map((cast, index) => {
               return (
                 <div key={index} className="flex justify-between">
-                  <div className="basis-1/2 flex justify-center truncate">
+                  <div className="flex basis-1/2 justify-center truncate">
                     <Link
-                      className="hover:text-blue-500 duration-300"
+                      className="duration-300 hover:text-blue-500"
                       target="_blank"
                       href={`https://annict.com/characters/${cast.character.annictId}`}
                     >
                       <div>{cast.character.name}</div>
                     </Link>
                   </div>
-                  <div className="basis-1/2 flex justify-center">
+                  <div className="flex basis-1/2 justify-center">
                     <Link
-                      className="hover:text-blue-500 duration-300"
+                      className="duration-300 hover:text-blue-500"
                       target="_blank"
                       href={`https://annict.com/people/${cast.person.annictId}`}
                     >

@@ -14,7 +14,7 @@ export async function generateMetadata({
 
 function filterCollection(
   apiCollection: WorkData[],
-  userCollectionIds: number[]
+  userCollectionIds: number[],
 ) {
   const userCollection: WorkData[] = [];
   for (let work of apiCollection) {
@@ -41,7 +41,7 @@ const UserPage = async ({ params }: ServerProps) => {
     .concat(user.watchingWorks, user.followingWorks)
     .join(",");
   const res = await fetch(
-    `${process.env.HOST_URL}/api/search/id?id=${requestingWorks}`
+    `${process.env.HOST_URL}/api/search/id?id=${requestingWorks}`,
   );
   const works: WorkData[] = await res.json();
 
@@ -51,7 +51,7 @@ const UserPage = async ({ params }: ServerProps) => {
 
   return (
     <div className="">
-      <div className="flex flex-col justify-center items-center mt-2">
+      <div className="mt-2 flex flex-col items-center justify-center">
         <Image
           className="rounded-full"
           src={user.image || "/images/KEKW.webp"}
@@ -65,7 +65,7 @@ const UserPage = async ({ params }: ServerProps) => {
 
       {userFollowingCollection.length !== 0 && (
         <>
-          <div className="text-2xl pl-4 py-2">追蹤的作品</div>
+          <div className="py-2 pl-4 text-2xl">追蹤的作品</div>
           <WorkGrid
             workData={userFollowingCollection}
             currentUser={currentUser}
@@ -74,7 +74,7 @@ const UserPage = async ({ params }: ServerProps) => {
       )}
       {userWatchingCollection.length !== 0 && (
         <>
-          <div className="text-2xl pl-4 py-2">正在看的作品</div>
+          <div className="py-2 pl-4 text-2xl">正在看的作品</div>
           <WorkGrid
             workData={userWatchingCollection}
             currentUser={currentUser}
@@ -83,7 +83,7 @@ const UserPage = async ({ params }: ServerProps) => {
       )}
       {userFinishedCollection.length !== 0 && (
         <>
-          <div className="text-2xl pl-4 py-2">看完的作品</div>
+          <div className="py-2 pl-4 text-2xl">看完的作品</div>
           <WorkGrid
             workData={userFinishedCollection}
             currentUser={currentUser}

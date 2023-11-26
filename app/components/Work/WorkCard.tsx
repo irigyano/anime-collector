@@ -13,7 +13,7 @@ function filterUrl(url: any): string | undefined {
   if (typeof url !== "string") return;
 
   const result = url.match(
-    /^https:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/g
+    /^https:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/g,
   );
   if (result) return url;
 }
@@ -38,10 +38,10 @@ const WorkCard = ({ work }: { work: WorkData }) => {
             toggleModal();
             setModalParam(work.annictId);
           }}
-          className="relative h-40 drop-shadow-lg rounded-lg cursor-pointer overflow-hidden mb-1"
+          className="relative mb-1 h-40 cursor-pointer overflow-hidden rounded-lg drop-shadow-lg"
         >
           <Image
-            className="object-cover hover:scale-110 hover:blur-sm duration-300"
+            className="object-cover duration-300 hover:scale-110 hover:blur-sm"
             alt="cover_photo"
             src={srcUrl}
             fill
@@ -56,7 +56,7 @@ const WorkCard = ({ work }: { work: WorkData }) => {
         <div className="flex">
           <TagList work={work} />
         </div>
-        <h3 className="truncate mx-1">{work.title}</h3>
+        <h3 className="mx-1 truncate">{work.title}</h3>
       </figure>
       {showModal && (
         <ModalOverlay toggleModal={toggleModal}>

@@ -5,7 +5,7 @@ const TagList = ({ work }: { work: WorkData }) => {
   return (
     <>
       {work.seasonYear && (
-        <div className="border-2 border-rose-400 text-rose-400 rounded-2xl px-2 m-1 text-sm">
+        <div className="m-1 rounded-2xl border-2 border-rose-400 px-2 text-sm text-rose-400">
           {work.seasonYear}
         </div>
       )}
@@ -15,18 +15,18 @@ const TagList = ({ work }: { work: WorkData }) => {
             work.seasonName === "WINTER"
               ? "border-winter text-winter"
               : work.seasonName === "SPRING"
-              ? "border-spring text-spring"
-              : work.seasonName === "SUMMER"
-              ? "border-summer text-summer"
-              : work.seasonName === "AUTUMN"
-              ? "border-autumn text-autumn"
-              : null
-          } rounded-2xl px-2 m-1 text-sm`}
+                ? "border-spring text-spring"
+                : work.seasonName === "SUMMER"
+                  ? "border-summer text-summer"
+                  : work.seasonName === "AUTUMN"
+                    ? "border-autumn text-autumn"
+                    : null
+          } m-1 rounded-2xl px-2 text-sm`}
         >
           {work.seasonName}
         </div>
       )}
-      <div className="border-2 border-yellow-500 text-yellow-500 rounded-2xl px-2 m-1 text-sm">
+      <div className="m-1 rounded-2xl border-2 border-yellow-500 px-2 text-sm text-yellow-500">
         {work.media}
       </div>
       {work.twitterHashtag && (
@@ -35,7 +35,7 @@ const TagList = ({ work }: { work: WorkData }) => {
           target="_blank"
           className="truncate"
         >
-          <div className="border-2 border-[#1d9bf0] text-[#1d9bf0] rounded-2xl px-2 m-1 text-sm truncate hover:bg-[#1d9bf0] hover:text-[#fff] duration-300">
+          <div className="m-1 truncate rounded-2xl border-2 border-[#1d9bf0] px-2 text-sm text-[#1d9bf0] duration-300 hover:bg-[#1d9bf0] hover:text-[#fff]">
             {"#" + work.twitterHashtag}
           </div>
         </Link>

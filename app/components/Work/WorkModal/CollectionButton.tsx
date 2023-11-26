@@ -66,9 +66,9 @@ const CollectionButton = ({
     : false;
 
   return (
-    <div className="basis-1/3 flex flex-col justify-center items-center m-2">
+    <div className="m-2 flex basis-1/3 flex-col items-center justify-center">
       <button
-        className={`duration-300 flex flex-col items-center ${
+        className={`flex flex-col items-center duration-300 ${
           isPressed ? color : hoverColor
         }`}
         onClick={modifyCollection}

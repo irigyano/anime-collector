@@ -18,7 +18,7 @@ const SeasonButton = ({
   return (
     <Link
       href={`/?year=${selectedYear}&season=${season}`}
-      className={`border-2 rounded-full w-7 h-7 duration-500 border-${season} ${hoverColor} ${
+      className={`h-7 w-7 rounded-full border-2 duration-500 border-${season} ${hoverColor} ${
         workSeason === season ? backgroundColor : ""
       }`}
     >

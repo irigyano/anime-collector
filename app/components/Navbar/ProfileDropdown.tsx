@@ -34,7 +34,7 @@ const ProfileDropdown = ({ currentUser }: { currentUser: UserClientSide }) => {
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <button className="w-full text-start" onClick={() => signOut()}>
-            <div className="flex justify-center items-center">
+            <div className="flex items-center justify-center">
               <RiLogoutBoxLine size={20} />
               <div className="mx-2">登出</div>
             </div>

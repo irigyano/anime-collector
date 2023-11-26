@@ -27,7 +27,7 @@ const MobileMenu = ({
   currentUser: UserClientSide | null;
 }) => {
   return (
-    <div className="relative flex justify-end basis-1/3 lg:hidden pr-4">
+    <div className="relative flex basis-1/3 justify-end pr-4 lg:hidden">
       <Dialog>
         <DropdownMenu>
           <DropdownMenuTrigger>
@@ -63,7 +63,7 @@ const MobileMenu = ({
             {currentUser ? (
               <DropdownMenuItem className="justify-center">
                 <button className="w-full" onClick={() => signOut()}>
-                  <div className="flex justify-center items-center">
+                  <div className="flex items-center justify-center">
                     <RiLogoutBoxLine size={20} />
                     <div className="mx-2">登出</div>
                   </div>

@@ -19,7 +19,7 @@ const YearSelector = ({
         setSelectedYear(e.target.value);
       }}
       size={1}
-      className="border rounded-xl px-1 bg-[#fff] dark:bg-[#0f0f0f]"
+      className="rounded-xl border bg-[#fff] px-1 dark:bg-[#0f0f0f]"
       defaultValue={workYear}
     >
       {yearSelection.map((year) => {

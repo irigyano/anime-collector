@@ -23,9 +23,9 @@ const ActivityCard = ({ activity }: { activity: ActivityWithUser }) => {
 
   return (
     <li role="article" className="relative pl-8">
-      <span className="absolute left-0 z-10 flex items-center justify-center -translate-x-1/2">
+      <span className="absolute left-0 z-10 flex -translate-x-1/2 items-center justify-center">
         <Link
-          className="hover:text-blue-500 duration-300"
+          className="duration-300 hover:text-blue-500"
           href={`/user/${user.username}`}
         >
           <Image
@@ -40,7 +40,7 @@ const ActivityCard = ({ activity }: { activity: ActivityWithUser }) => {
       <div className="flex gap-2">
         <div className="">
           <Link
-            className="hover:text-blue-500 duration-300 text-green-500"
+            className="text-green-500 duration-300 hover:text-blue-500"
             href={`/user/${user.username}`}
           >
             @{user.username}
@@ -52,7 +52,7 @@ const ActivityCard = ({ activity }: { activity: ActivityWithUser }) => {
         <span className="break-keep">{actionMap[action]}</span>
         <div>
           <Link
-            className="hover:text-blue-500 duration-300 text-red-500"
+            className="text-red-500 duration-300 hover:text-blue-500"
             href={`https://annict.com/works/${workId}`}
             target="_blank"
           >

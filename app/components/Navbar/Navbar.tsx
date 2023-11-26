@@ -19,12 +19,12 @@ const Navbar = async () => {
   return (
     <>
       {/* hacky stuff due to radix ui overlay hiding scrollbar by default. */}
-      <div className="h-16 fixed w-screen bg-white dark:bg-black -z-20 border-b shadow-md " />
-      <nav className="flex justify-center lg:justify-between lg:px-20 border-b shadow-md items-center h-16 z-20 sticky top-0  bg-white dark:bg-black">
-        <div className="h-10 flex items-center justify-start gap-3 basis-1/3">
+      <div className="fixed -z-20 h-16 w-screen border-b bg-white shadow-md dark:bg-black " />
+      <nav className="sticky top-0 z-20 flex h-16 items-center justify-center border-b bg-white shadow-md dark:bg-black  lg:justify-between lg:px-20">
+        <div className="flex h-10 basis-1/3 items-center justify-start gap-3">
           <Link href={"/"}>
             <Image
-              className="rounded-full hidden lg:block hover:border-b-2 border-transparent"
+              className="hidden rounded-full border-transparent hover:border-b-2 lg:block"
               alt="logo"
               src={"/images/GWEN.webp"}
               width={40}
@@ -33,12 +33,12 @@ const Navbar = async () => {
           </Link>
           <Link
             href={"/activity"}
-            className="hover:text-blue-500 duration-300 hidden lg:block text-center m-1"
+            className="m-1 hidden text-center duration-300 hover:text-blue-500 lg:block"
           >
             社群動態
           </Link>
           <Link
-            className="hover:text-blue-500 duration-300 hidden lg:block text-center m-1"
+            className="m-1 hidden text-center duration-300 hover:text-blue-500 lg:block"
             target="_blank"
             href={"https://annict.com/"}
           >
@@ -46,7 +46,7 @@ const Navbar = async () => {
           </Link>
         </div>
         <SearchInput />
-        <div className="hidden basis-1/3 lg:flex gap-2 justify-end items-center">
+        <div className="hidden basis-1/3 items-center justify-end gap-2 lg:flex">
           <Link
             href={"https://github.com/irigyano/Banngumi-View"}
             target="_blank"
@@ -60,7 +60,7 @@ const Navbar = async () => {
             <ProfileDropdown currentUser={currentUser} />
           ) : (
             <Dialog>
-              <DialogTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
+              <DialogTrigger className="inline-flex h-10 w-10 items-center justify-center whitespace-nowrap rounded-md border border-input bg-background text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
                 <LogIn className="h-[1.2rem] w-[1.2rem]" />
               </DialogTrigger>
               <DialogContent>
