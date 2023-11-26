@@ -1,28 +1,16 @@
-import Link from "next/link";
 import prisma from "@/lib/prisma";
-import Image from "next/image";
-import { Action, Activity } from "@prisma/client";
-import dayjs from "dayjs";
-import "dayjs/locale/zh-tw";
-import relativeTime from "dayjs/plugin/relativeTime";
+import { Prisma } from "@prisma/client";
 import { Metadata } from "next";
+import ActivityCard from "../components/ActivityCard";
 
 export const metadata: Metadata = {
   title: "社群動態",
   description: "check out the weebs",
 };
 
-const actionMap: Record<Action, string> = {
-  FOLLOW: "追蹤了",
-  WATCH: "正在看",
-  FINISH: "看完",
-  COMMENT: "在",
-};
+type ActivityWithUser = Prisma.ActivityGetPayload<{ include: { user: true } }>;
 
-dayjs.locale("zh-tw");
-dayjs.extend(relativeTime);
-
-function filterAndReverse(activities: Activity[]) {
+function filterAndReverse(activities: ActivityWithUser[]) {
   // in place action
   for (let i = activities.length - 1; i >= 0; i--) {
     for (let j = i - 1; j >= 0; j--) {
@@ -53,55 +41,11 @@ const ActivityPage = async () => {
       <ul
         aria-label="Colored activity feed"
         role="feed"
-        className="relative flex flex-col gap-12 py-12 pl-8 before:absolute before:top-0 before:left-8 before:h-full before:-translate-x-1/2 before:border before:border-dashed before:border-slate-200 after:absolute after:top-6 after:left-8 after:bottom-6 after:-translate-x-1/2 after:border after:border-slate-200 "
+        className="relative flex flex-col gap-12 py-12 pl-8 before:absolute before:top-0 before:left-8 before:h-full before:-translate-x-1/2 before:border before:border-dashed before:border-slate-200 after:absolute after:top-6 after:left-8 after:bottom-6 after:-translate-x-1/2 after:border after:border-slate-200"
       >
-        {activities.map(
-          ({ user, action, workTitle, workId, createdAt, id }) => (
-            <li key={id} role="article" className="relative pl-8">
-              <span className="absolute left-0 z-10 flex items-center justify-center -translate-x-1/2">
-                <Link
-                  className="hover:text-blue-500 duration-300"
-                  href={`/user/${user.username}`}
-                >
-                  <Image
-                    className="rounded-full"
-                    alt="avatar"
-                    src={user.image}
-                    width={48}
-                    height={48}
-                  />
-                </Link>
-              </span>
-              <div className="flex gap-2">
-                <div className="">
-                  <Link
-                    className="hover:text-blue-500 duration-300 text-green-500"
-                    href={`/user/${user.username}`}
-                  >
-                    @{user.username}
-                  </Link>
-                  <div className="text-sm text-slate-500">
-                    {dayjs(createdAt).fromNow()}
-                  </div>
-                </div>
-                <span className="break-keep">{actionMap[action]}</span>
-                <div>
-                  <Link
-                    className="hover:text-blue-500 duration-300 text-red-500"
-                    href={`https://annict.com/works/${workId}`}
-                    target="_blank"
-                  >
-                    {workTitle}
-                  </Link>
-                  {action === "FINISH" && <span className="pl-1">了！</span>}
-                  {action === "COMMENT" && (
-                    <span className="pl-1">新增了留言！</span>
-                  )}
-                </div>
-              </div>
-            </li>
-          )
-        )}
+        {activities.map((activity: ActivityWithUser) => (
+          <ActivityCard activity={activity} key={activity.id} />
+        ))}
       </ul>
     </div>
   );
