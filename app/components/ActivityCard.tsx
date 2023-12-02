@@ -6,6 +6,13 @@ import "dayjs/locale/zh-tw";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Action, Prisma } from "@prisma/client";
 
+import { useState } from "react";
+import ModalOverlay from "./Work/WorkModal/ModalOverlay";
+import WorkModal from "./Work/WorkModal/WorkModal";
+import { WorkData } from "../types/types";
+import { filterUrl } from "@/lib/utils";
+import cover_replacement from "../../public/images/cover_replacement.webp";
+
 dayjs.locale("zh-tw");
 dayjs.extend(relativeTime);
 
@@ -18,16 +25,27 @@ const actionMap: Record<Action, string> = {
   COMMENT: "在",
 };
 
-const ActivityCard = ({ activity }: { activity: ActivityWithUser }) => {
-  const { user, action, workTitle, workId, createdAt } = activity;
+const ActivityCard = ({
+  activity,
+  work,
+}: {
+  activity: ActivityWithUser;
+  work: WorkData;
+}) => {
+  const { user, action, workTitle, createdAt } = activity;
+
+  const [showModal, setShowModal] = useState(false);
+  const toggleModal = () => setShowModal(!showModal);
+
+  let workUrl =
+    filterUrl(work.image?.facebookOgImageUrl) ||
+    filterUrl(work.image?.recommendedImageUrl) ||
+    cover_replacement;
 
   return (
     <li role="article" className="relative pl-8">
       <span className="absolute left-0 z-10 flex -translate-x-1/2 items-center justify-center">
-        <Link
-          className="duration-300 hover:text-blue-500"
-          href={`/user/${user.username}`}
-        >
+        <Link href={`/user/${user.username}`}>
           <Image
             className="rounded-full"
             alt="avatar"
@@ -38,9 +56,9 @@ const ActivityCard = ({ activity }: { activity: ActivityWithUser }) => {
         </Link>
       </span>
       <div className="flex gap-2">
-        <div className="">
+        <div>
           <Link
-            className="text-green-500 duration-300 hover:text-blue-500"
+            className="hover:text-blue-600 hover:underline"
             href={`/user/${user.username}`}
           >
             @{user.username}
@@ -49,19 +67,23 @@ const ActivityCard = ({ activity }: { activity: ActivityWithUser }) => {
             {dayjs(createdAt).fromNow()}
           </div>
         </div>
-        <span className="break-keep">{actionMap[action]}</span>
-        <div>
-          <Link
-            className="text-red-500 duration-300 hover:text-blue-500"
-            href={`https://annict.com/works/${workId}`}
-            target="_blank"
-          >
-            {workTitle}
-          </Link>
-          {action === "FINISH" && <span className="pl-1">了！</span>}
-          {action === "COMMENT" && <span className="pl-1">新增了留言！</span>}
+        <span className="break-keep text-slate-500">{actionMap[action]}</span>
+        <div
+          onClick={toggleModal}
+          className="cursor-pointer hover:text-blue-600 hover:underline"
+        >
+          {workTitle}
         </div>
+        <span className="text-slate-500">
+          {action === "FINISH" && "了！"}
+          {action === "COMMENT" && "新增了留言！"}
+        </span>
       </div>
+      {showModal && (
+        <ModalOverlay toggleModal={toggleModal}>
+          <WorkModal work={work} srcUrl={workUrl} toggleModal={toggleModal} />
+        </ModalOverlay>
+      )}
     </li>
   );
 };

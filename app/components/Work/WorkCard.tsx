@@ -6,17 +6,8 @@ import cover_replacement from "../../../public/images/cover_replacement.webp";
 import TagList from "./TagList";
 import { WorkData } from "@/app/types/types";
 import { parseAsInteger, useQueryState } from "next-usequerystate";
-import { IMAGE_PLACEHOLDER } from "@/lib/utils";
+import { IMAGE_PLACEHOLDER, filterUrl } from "@/lib/utils";
 import ModalOverlay from "./WorkModal/ModalOverlay";
-
-function filterUrl(url: any): string | undefined {
-  if (typeof url !== "string") return;
-
-  const result = url.match(
-    /^https:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/g,
-  );
-  if (result) return url;
-}
 
 const WorkCard = ({ work }: { work: WorkData }) => {
   const [modalParam, setModalParam] = useQueryState("modal", parseAsInteger);
