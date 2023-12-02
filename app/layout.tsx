@@ -1,14 +1,14 @@
 import "./globals.css";
-import { Zen_Maru_Gothic } from "next/font/google";
+import { Noto_Sans_JP } from "next/font/google";
 import { ReduxProvider } from "@/app/redux/ReduxProvider";
 import Navbar from "@/app/components/Navbar/Navbar";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { Analytics } from "@vercel/analytics/react";
 import { Viewport } from "next";
 
-const font = Zen_Maru_Gothic({
-  weight: "700",
-  subsets: ["cyrillic"],
+const font = Noto_Sans_JP({
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata = {
