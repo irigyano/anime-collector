@@ -48,11 +48,7 @@ const ActivityPage = async () => {
 
   return (
     <div className="flex justify-center">
-      <ul
-        aria-label="Colored activity feed"
-        role="feed"
-        className="relative flex flex-col gap-12 py-12 pl-8 before:absolute before:left-8 before:top-0 before:h-full before:-translate-x-1/2 before:border before:border-dashed before:border-slate-200 after:absolute after:bottom-6 after:left-8 after:top-6 after:-translate-x-1/2 after:border after:border-slate-200"
-      >
+      <ul className="relative flex flex-col gap-12 py-12 pl-8 before:absolute before:left-8 before:top-0 before:h-full before:-translate-x-1/2 before:border before:border-dashed before:border-slate-200 after:absolute after:bottom-6 after:left-8 after:top-6 after:-translate-x-1/2 after:border after:border-slate-200">
         {activities.map((activity) => (
           <ActivityCard
             activity={activity}

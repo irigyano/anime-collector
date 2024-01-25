@@ -43,7 +43,7 @@ const ActivityCard = ({
     cover_replacement;
 
   return (
-    <li role="article" className="relative pl-8">
+    <li className="relative flex gap-2 pl-8">
       <span className="absolute left-0 z-10 flex -translate-x-1/2 items-center justify-center">
         <Link href={`/user/${user.username}`}>
           <Image
@@ -55,28 +55,30 @@ const ActivityCard = ({
           />
         </Link>
       </span>
-      <div className="flex gap-2">
-        <div>
-          <Link
-            className="hover:text-blue-600 hover:underline"
-            href={`/user/${user.username}`}
-          >
-            @{user.username}
-          </Link>
-          <div className="text-sm text-slate-500">
-            {dayjs(createdAt).fromNow()}
-          </div>
+      <div>
+        <Link
+          className="hover:text-blue-600 hover:underline"
+          href={`/user/${user.username}`}
+        >
+          @{user.username}
+        </Link>
+        <div className="text-sm text-slate-500">
+          {dayjs(createdAt).fromNow()}
         </div>
+      </div>
+      <div>
         <span className="break-keep text-slate-500">{actionMap[action]}</span>
-        <div
+        <span
           onClick={toggleModal}
-          className="cursor-pointer hover:text-blue-600 hover:underline"
+          className="cursor-pointer px-1 hover:text-blue-600 hover:underline"
         >
           {workTitle}
-        </div>
+        </span>
         <span className="text-slate-500">
           {action === "FINISH" && "了！"}
           {action === "COMMENT" && "新增了留言！"}
+          {action === "FOLLOW" && "。"}
+          {action === "WATCH" && "。"}
         </span>
       </div>
       {showModal && (
