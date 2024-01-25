@@ -12,8 +12,8 @@ const WorkRenderer = async ({
   workSeason: string | undefined;
   workTitle: string | undefined;
 }) => {
-  if (!workYear) workYear = DEFAULT_YEAR;
-  if (!workSeason) workSeason = DEFAULT_SEASON;
+  workYear = workYear || DEFAULT_YEAR;
+  workSeason = workSeason || DEFAULT_SEASON;
 
   const endpoint = workTitle
     ? `${process.env.HOST_URL}/api/search/title?title=${workTitle}`

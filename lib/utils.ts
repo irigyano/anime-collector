@@ -1,12 +1,37 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { type ClassValue, clsx } from "clsx";
 import { getServerSession } from "next-auth";
 import { twMerge } from "tailwind-merge";
 import prisma from "./prisma";
+import { NextAuthOptions } from "next-auth";
+import GithubProvider from "next-auth/providers/github";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_ID!,
+      clientSecret: process.env.GITHUB_SECRET!,
+      profile(profile) {
+        return {
+          id: profile.id,
+          username: profile.login,
+          image: profile.avatar_url,
+        };
+      },
+    }),
+  ],
+  callbacks: {
+    async session({ session, user }) {
+      session.user.id = user.id;
+      return session;
+    },
+  },
+};
 
 export async function getUserFromSession() {
   const session = await getServerSession(authOptions);

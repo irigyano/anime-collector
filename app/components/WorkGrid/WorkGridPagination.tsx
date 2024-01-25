@@ -49,7 +49,7 @@ const WorkGrid = ({
   }, [paginationIndex]);
 
   return (
-    <ReduxBroadcaster currentUser={currentUser}>
+    <>
       <section className="grid grid-cols-1 pb-16 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
         {paginateArray(workData, pagination, workPerPage).map((work) => {
           return <WorkCard key={work.annictId} work={work} />;
@@ -82,7 +82,7 @@ const WorkGrid = ({
           </button>
         </div>
       </div>
-    </ReduxBroadcaster>
+    </>
   );
 };
 

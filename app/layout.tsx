@@ -5,6 +5,8 @@ import Navbar from "@/app/components/Navbar/Navbar";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { Analytics } from "@vercel/analytics/react";
 import { Viewport } from "next";
+import { getUserFromSession } from "@/lib/utils";
+import ReduxBroadcaster from "./components/ReduxBroadcaster";
 
 const font = Noto_Sans_JP({
   subsets: ["latin"],
@@ -25,11 +27,13 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-export default function MainLayout({
+export default async function MainLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const currentUser = await getUserFromSession();
+
   return (
     <ReduxProvider>
       <html lang="zh-tw" suppressHydrationWarning>
@@ -42,9 +46,11 @@ export default function MainLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Navbar />
-            {children}
-            <Analytics />
+            <ReduxBroadcaster currentUser={currentUser}>
+              <Navbar />
+              {children}
+              <Analytics />
+            </ReduxBroadcaster>
           </ThemeProvider>
         </body>
       </html>
