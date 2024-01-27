@@ -18,7 +18,7 @@ export const metadata = {
     default: "Banngumi View",
     template: "%s | Banngumi View",
   },
-  description: "AYAYA Clap",
+  description: "在 Banngumi View 建立你的動畫收藏清單並追蹤社群的追番動態。",
 };
 
 export const viewport: Viewport = {
