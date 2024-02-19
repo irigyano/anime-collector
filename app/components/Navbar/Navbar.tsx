@@ -26,7 +26,7 @@ const Navbar = async () => {
             <Image
               className="hidden rounded-full border-transparent hover:border-b-2 lg:block"
               alt="logo"
-              src={"/images/GWEN.webp"}
+              src={"/images/YEP.webp"}
               width={40}
               height={40}
             />
