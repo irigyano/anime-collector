@@ -6,7 +6,7 @@ import cover_replacement from "../../../public/images/cover_replacement.webp";
 import TagList from "./TagList";
 import { WorkData } from "@/app/types/types";
 import { parseAsInteger, useQueryState } from "next-usequerystate";
-import { IMAGE_PLACEHOLDER, filterUrl } from "@/lib/utils";
+import { filterUrl } from "@/lib/utils";
 import ModalOverlay from "./WorkModal/ModalOverlay";
 
 const WorkCard = ({ work }: { work: WorkData }) => {
@@ -29,7 +29,7 @@ const WorkCard = ({ work }: { work: WorkData }) => {
             toggleModal();
             setModalParam(work.annictId);
           }}
-          className="relative mb-1 h-40 cursor-pointer overflow-hidden rounded-lg drop-shadow-lg"
+          className="relative mb-1 h-40 cursor-pointer overflow-hidden rounded-lg drop-shadow-lg min-[2560px]:h-[20vh]"
         >
           <Image
             className="object-cover duration-300 hover:scale-110 hover:blur-sm"
@@ -40,7 +40,6 @@ const WorkCard = ({ work }: { work: WorkData }) => {
             onError={() => {
               SetSrcUrl(cover_replacement);
             }}
-            placeholder={IMAGE_PLACEHOLDER}
             sizes="(min-width: 640px) 50vw, (min-width: 1024px) 33vw, (min-width: 1536px) 25vw, 100vw"
           />
         </div>
