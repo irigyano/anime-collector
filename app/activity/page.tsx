@@ -47,8 +47,8 @@ const ActivityPage = async () => {
   const works: WorkData[] = await res.json();
 
   return (
-    <div className="flex justify-center">
-      <ul className="relative flex flex-col gap-12 py-12 pl-8 before:absolute before:left-8 before:top-0 before:h-full before:-translate-x-1/2 before:border before:border-dashed before:border-slate-200 after:absolute after:bottom-6 after:left-8 after:top-6 after:-translate-x-1/2 after:border after:border-slate-200">
+    <div className="flex justify-center py-6">
+      <ul className="flex flex-col gap-6">
         {activities.map((activity) => (
           <ActivityCard
             activity={activity}

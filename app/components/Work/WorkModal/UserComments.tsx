@@ -14,17 +14,25 @@ dayjs.extend(relativeTime);
 
 const UserComments = ({ form, workId }: { form: any; workId: number }) => {
   const [comments, setComments] = useState<CommentWithUser[]>();
+  const [isLoading, setIsLoading] = useState(true);
 
+  // consider tanstack query
   useEffect(() => {
     fetch(`/api/comment?work=${workId}`)
       .then((res) => res.json())
-      .then((data) => setComments(data));
+      .then((data) => {
+        setComments(data);
+        setIsLoading(false);
+      });
   }, [form.formState.isSubmitSuccessful]);
+
+  if (isLoading)
+    return <p className="flex h-[20%] items-center justify-center">讀取中</p>;
 
   return (
     <>
-      {comments && (
-        <div className="flex flex-col gap-4 py-4">
+      {comments?.length ? (
+        <div className="flex flex-col gap-4 p-2">
           {comments.map((comment) => (
             <div key={comment.id} className="flex gap-2">
               <div>
@@ -46,6 +54,10 @@ const UserComments = ({ form, workId }: { form: any; workId: number }) => {
             </div>
           ))}
         </div>
+      ) : (
+        <p className="flex h-[20%] items-center justify-center">
+          成為第一個留言的人！
+        </p>
       )}
     </>
   );

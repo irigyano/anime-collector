@@ -43,9 +43,10 @@ const ActivityCard = ({
     cover_replacement;
 
   return (
-    <li className="relative flex gap-2 pl-8">
-      <span className="absolute left-0 z-10 flex -translate-x-1/2 items-center justify-center">
-        <Link href={`/user/${user.username}`}>
+    <li className="flex w-fit gap-2 rounded-lg bg-gray-400 bg-opacity-20 p-2 hover:bg-opacity-30">
+      {/* User */}
+      <div className="flex gap-2">
+        <Link href={`/user/${user.username}`} className="min-w-[48px]">
           <Image
             className="rounded-full"
             alt="avatar"
@@ -54,23 +55,24 @@ const ActivityCard = ({
             height={48}
           />
         </Link>
-      </span>
-      <div>
-        <Link
-          className="hover:text-blue-600 hover:underline"
-          href={`/user/${user.username}`}
-        >
-          @{user.username}
-        </Link>
-        <div className="text-sm text-slate-500">
-          {dayjs(createdAt).fromNow()}
+        <div>
+          <Link
+            className="block w-20 truncate hover:text-blue-600 hover:underline sm:w-auto"
+            href={`/user/${user.username}`}
+          >
+            @{user.username}
+          </Link>
+          <div className="text-sm text-slate-500">
+            {dayjs(createdAt).fromNow()}
+          </div>
         </div>
       </div>
+      {/* Work */}
       <div>
-        <span className="break-keep text-slate-500">{actionMap[action]}</span>
+        <span className="text-slate-500">{actionMap[action]}</span>
         <span
           onClick={toggleModal}
-          className="cursor-pointer px-1 hover:text-blue-600 hover:underline"
+          className="cursor-pointer break-all px-1 hover:text-blue-600 hover:underline"
         >
           {workTitle}
         </span>

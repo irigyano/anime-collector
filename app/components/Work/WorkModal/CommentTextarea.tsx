@@ -59,7 +59,7 @@ function TextareaForm({ work }: { work: WorkData }) {
   }, [form.formState.isSubmitSuccessful]);
 
   return (
-    <div className="px-6">
+    <>
       <Form {...form}>
         <form
           // triggered when mouse click on button
@@ -70,7 +70,7 @@ function TextareaForm({ work }: { work: WorkData }) {
               checkUserBeforeSubmit(e);
             }
           }}
-          className="flex flex-col gap-2"
+          className="flex flex-col gap-2 p-2"
         >
           <FormField
             control={form.control}
@@ -97,7 +97,7 @@ function TextareaForm({ work }: { work: WorkData }) {
         </form>
       </Form>
       <UserComments form={form} workId={work.annictId} />
-    </div>
+    </>
   );
 }
 
