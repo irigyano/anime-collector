@@ -27,7 +27,7 @@ const ProfileDropdown = ({ currentUser }: { currentUser: UserClientSide }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem className="justify-center">
-          <Link href={`/user/${currentUser.username}`}>
+          <Link href={`/user/?name=${currentUser.username}`}>
             @{currentUser.username}
           </Link>
         </DropdownMenuItem>
