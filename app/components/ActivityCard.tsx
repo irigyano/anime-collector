@@ -46,7 +46,7 @@ const ActivityCard = ({
     <li className="flex w-fit gap-2 rounded-lg bg-gray-400 bg-opacity-20 p-2 hover:bg-opacity-30">
       {/* User */}
       <div className="flex gap-2">
-        <Link href={`/user/${user.username}`} className="min-w-[48px]">
+        <Link href={`/user/?name=${user.username}`} className="min-w-[48px]">
           <Image
             className="rounded-full"
             alt="avatar"
@@ -58,7 +58,7 @@ const ActivityCard = ({
         <div>
           <Link
             className="block w-20 truncate hover:text-blue-600 hover:underline sm:w-auto"
-            href={`/user/${user.username}`}
+            href={`/user/?name=${user.username}`}
           >
             @{user.username}
           </Link>
