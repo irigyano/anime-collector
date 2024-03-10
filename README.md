@@ -2,6 +2,11 @@
 
 Banngumi View is a fullstack web application designed for anime enthusiasts, utilizing data provided by Annict. User can explore an extensive database of anime works, manage watchlist, track viewing progress, and engage with a vibrant community of fellow fans.
 
+
+<p align="center">
+  <a href="https://banngumi-view.vercel.app/">Live Demo</a>
+</p>
+
 <img alt="diagram" src="./.github/diagram.png" />
 
 ## Features
