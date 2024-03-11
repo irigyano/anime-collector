@@ -19,10 +19,10 @@ Banngumi View is a fullstack web application designed for anime enthusiasts, uti
 
 ## Tech Stack
 
-- **[Next.js](https://nextjs.org/)**: Using App Directory, React Server Components, API Route Handlers.
-- **[Tailwind CSS](https://tailwindcss.com)**: Styling, RWD, Dark Mode.
-- **[GraphQL](https://graphql.org/)**: query data from **[Annict.com](https://developers.annict.com/)** with desired data format.
-- **[MongoDB](https://www.mongodb.com/)**,**[Prisma](https://www.prisma.io/)**,: Storing user data in Documents format, and ORM makes interacting with database like a breeze.
+- **[Next.js](https://nextjs.org/)**: Using App Directory, React Server Components, API Routes Handler.
+- **[Tailwind CSS](https://tailwindcss.com)**: Styling, RWD, and dark mode toggle.
+- **[GraphQL](https://graphql.org/)**: Query data from **[Annict.com](https://developers.annict.com/)** with desired data format.
+- **[MongoDB](https://www.mongodb.com/)**, **[Prisma](https://www.prisma.io/)**: Storing user data in **Documents** format, and ORM makes interacting with database like a breeze.
 - **[NextAuth.js](https://next-auth.js.org)**: OAuth sign in with GitHub/Google strategy.
 - **[Redux Toolkit](https://redux-toolkit.js.org/)**: Manage application states on client side.
 
