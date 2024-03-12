@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import WorkGridPagination from "../components/WorkGrid/WorkGridPagination";
 import { WorkData } from "../types/types";
 import WorkGrid from "../components/WorkGrid/WorkGrid";
 
@@ -19,15 +18,19 @@ export async function generateMetadata({
 
 const SearchPage = async ({ searchParams }: SearchPageProps) => {
   const workTitle = searchParams.title;
-
-  if (!workTitle) return <h1>hello?</h1>;
-
   const res = await fetch(
     `${process.env.HOST_URL}/api/search/title?title=${workTitle}`,
   );
   const workData: WorkData[] = await res.json();
 
-  console.log(workData);
+  if (!workData.length)
+    return (
+      <div className="pt-[25vh] text-center text-xl lg:text-3xl">
+        找不到符合搜尋字詞「
+        {`${workTitle}`}
+        」的作品。
+      </div>
+    );
 
   return (
     <div className="pt-3">
