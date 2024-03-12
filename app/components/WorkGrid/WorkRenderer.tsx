@@ -1,5 +1,5 @@
 import { WorkData } from "@/app/types/types";
-import { DEFAULT_SEASON, DEFAULT_YEAR, getUserFromSession } from "@/lib/utils";
+import { DEFAULT_SEASON, DEFAULT_YEAR } from "@/lib/utils";
 import WorkGridPagination from "./WorkGridPagination";
 import SeasonSelector from "./SeasonSelector";
 
@@ -21,8 +21,6 @@ const WorkRenderer = async ({
   const res = await fetch(endpoint);
   const workData: WorkData[] = await res.json();
 
-  const currentUser = await getUserFromSession();
-
   return (
     <>
       {workData.length === 0 ? (
@@ -35,12 +33,7 @@ const WorkRenderer = async ({
       ) : (
         <>
           <SeasonSelector workYear={workYear} workSeason={workSeason} />
-          <WorkGridPagination
-            workData={workData}
-            currentUser={currentUser}
-            workYear={workYear}
-            workSeason={workSeason}
-          />
+          <WorkGridPagination workData={workData} />
         </>
       )}
     </>

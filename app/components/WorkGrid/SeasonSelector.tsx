@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SeasonButton from "./SeasonButton";
 import YearSelector from "./YearSelector";
+import { useQueryState } from "next-usequerystate";
 
 const SeasonSelector = ({
   workYear,
@@ -10,7 +11,15 @@ const SeasonSelector = ({
   workYear: string;
   workSeason: string;
 }) => {
+  const [yearParam, setYearParam] = useQueryState("year");
+  const [seasonParam, setSeasonParam] = useQueryState("season");
   const [selectedYear, setSelectedYear] = useState(workYear);
+
+  useEffect(() => {
+    setYearParam(workYear);
+    setSeasonParam(workSeason);
+  }, []);
+
   return (
     <nav className="flex justify-center gap-4 p-4 text-center">
       <YearSelector
