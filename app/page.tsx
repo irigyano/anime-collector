@@ -10,11 +10,9 @@ export async function generateMetadata({
 }: ServerProps): Promise<Metadata> {
   const workYear = searchParams.year || DEFAULT_YEAR;
   const workSeason = searchParams.season || DEFAULT_SEASON;
-  const workTitle = searchParams.title;
 
   let title = "Banngumi View";
-  if (workTitle) title = `${workTitle} | ${title}`;
-  else if (workYear && workSeason && seasonMap[workSeason]) {
+  if (workYear && workSeason && seasonMap[workSeason]) {
     title = `${workYear} ${seasonMap[workSeason]}季番 | ${title}`;
   }
   return {
@@ -25,23 +23,13 @@ export async function generateMetadata({
 const HomePage = ({ searchParams }: ServerProps) => {
   const workYear = searchParams.year;
   const workSeason = searchParams.season;
-  const workTitle = searchParams.title;
-
   return (
     <>
       <Suspense
-        key={
-          workTitle || (workYear && workSeason)
-            ? `${workYear}${workSeason}`
-            : ""
-        }
+        key={`${workYear}${workSeason}`}
         fallback={<LoadingPlaceholder />}
       >
-        <WorkRenderer
-          workYear={workYear}
-          workSeason={workSeason}
-          workTitle={workTitle}
-        />
+        <WorkRenderer workYear={workYear} workSeason={workSeason} />
       </Suspense>
     </>
   );
