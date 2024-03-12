@@ -3,7 +3,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/app/components/ui/dropdown-menu";
@@ -23,6 +22,10 @@ const ProfileDropdown = ({ currentUser }: { currentUser: UserClientSide }) => {
           src={currentUser.image || "/images/KEKW.webp"}
           width={40}
           height={40}
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null; // prevents looping
+            currentTarget.src = "/images/KEKW.webp";
+          }}
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent>

@@ -43,6 +43,10 @@ const MobileMenu = ({
                     src={currentUser.image || "/images/KEKW.webp"}
                     width={80}
                     height={80}
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null; // prevents looping
+                      currentTarget.src = "/images/KEKW.webp";
+                    }}
                   />
                 </DropdownMenuLabel>
                 <DropdownMenuItem className="justify-center">

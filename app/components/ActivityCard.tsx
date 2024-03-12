@@ -50,9 +50,13 @@ const ActivityCard = ({
           <Image
             className="rounded-full"
             alt="avatar"
-            src={user.image}
+            src={user.image || "/images/KEKW.webp"}
             width={48}
             height={48}
+            onError={({ currentTarget }) => {
+              currentTarget.onerror = null; // prevents looping
+              currentTarget.src = "/images/KEKW.webp";
+            }}
           />
         </Link>
         <div>

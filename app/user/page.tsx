@@ -2,9 +2,10 @@ import Image from "next/image";
 import prisma from "@/lib/prisma";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { ServerProps, WorkData } from "@/app/types/types";
+import { WorkData } from "@/app/types/types";
 import { getUserFromSession } from "@/lib/utils";
 import WorkGrid from "@/app/components/WorkGrid/WorkGrid";
+import ClientAvatar from "./ClientAvatar";
 
 export async function generateMetadata({
   searchParams,
@@ -26,16 +27,11 @@ function filterCollection(
 const UserPage = async ({ searchParams }: any) => {
   const username = searchParams.name;
 
-  let user = null;
-  try {
-    user = await prisma.user.findUnique({
-      where: { username: username },
-    });
-    if (!user) return redirect("/activity");
-  } catch (error) {
-    console.log(error);
-    return redirect("/activity");
-  }
+  const user = await prisma.user.findUnique({
+    where: { username: username },
+  });
+
+  if (!user) redirect("/activity");
 
   const currentUser = await getUserFromSession();
 
@@ -54,14 +50,7 @@ const UserPage = async ({ searchParams }: any) => {
   return (
     <div className="">
       <div className="mt-2 flex flex-col items-center justify-center">
-        <Image
-          className="rounded-full"
-          src={user.image || "/images/KEKW.webp"}
-          width={150}
-          height={150}
-          sizes="150px"
-          alt="avatar"
-        />
+        <ClientAvatar imageSrc={user.image} />
         <div>@{user.username}</div>
       </div>
 
