@@ -1,9 +1,7 @@
-import Image from "next/image";
 import prisma from "@/lib/prisma";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { WorkData } from "@/app/types/types";
-import { getUserFromSession } from "@/lib/utils";
 import WorkGrid from "@/app/components/WorkGrid/WorkGrid";
 import ClientAvatar from "./ClientAvatar";
 
@@ -33,8 +31,6 @@ const UserPage = async ({ searchParams }: any) => {
 
   if (!user) redirect("/activity");
 
-  const currentUser = await getUserFromSession();
-
   const requestingWorks = user.finishedWorks
     .concat(user.watchingWorks, user.followingWorks)
     .join(",");
@@ -57,28 +53,19 @@ const UserPage = async ({ searchParams }: any) => {
       {userFollowingCollection.length !== 0 && (
         <>
           <div className="py-2 pl-4 text-2xl">追蹤的作品</div>
-          <WorkGrid
-            workData={userFollowingCollection}
-            currentUser={currentUser}
-          />
+          <WorkGrid workData={userFollowingCollection} />
         </>
       )}
       {userWatchingCollection.length !== 0 && (
         <>
           <div className="py-2 pl-4 text-2xl">正在看的作品</div>
-          <WorkGrid
-            workData={userWatchingCollection}
-            currentUser={currentUser}
-          />
+          <WorkGrid workData={userWatchingCollection} />
         </>
       )}
       {userFinishedCollection.length !== 0 && (
         <>
           <div className="py-2 pl-4 text-2xl">看完的作品</div>
-          <WorkGrid
-            workData={userFinishedCollection}
-            currentUser={currentUser}
-          />
+          <WorkGrid workData={userFinishedCollection} />
         </>
       )}
     </div>
