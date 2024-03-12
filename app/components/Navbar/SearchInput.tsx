@@ -10,7 +10,7 @@ const SearchInput = () => {
   const onSearch = (event: React.FormEvent) => {
     event.preventDefault();
     if (!searchQuery) return null;
-    router.push(`/?title=${searchQuery}`);
+    router.push(`/search?title=${searchQuery}`);
   };
 
   return (

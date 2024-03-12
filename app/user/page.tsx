@@ -1,10 +1,9 @@
-import Image from "next/image";
 import prisma from "@/lib/prisma";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { ServerProps, WorkData } from "@/app/types/types";
-import { getUserFromSession } from "@/lib/utils";
+import { WorkData } from "@/app/types/types";
 import WorkGrid from "@/app/components/WorkGrid/WorkGrid";
+import ClientAvatar from "./ClientAvatar";
 
 export async function generateMetadata({
   searchParams,
@@ -26,18 +25,11 @@ function filterCollection(
 const UserPage = async ({ searchParams }: any) => {
   const username = searchParams.name;
 
-  let user = null;
-  try {
-    user = await prisma.user.findUnique({
-      where: { username: username },
-    });
-    if (!user) return redirect("/activity");
-  } catch (error) {
-    console.log(error);
-    return redirect("/activity");
-  }
+  const user = await prisma.user.findUnique({
+    where: { username: username },
+  });
 
-  const currentUser = await getUserFromSession();
+  if (!user) redirect("/activity");
 
   const requestingWorks = user.finishedWorks
     .concat(user.watchingWorks, user.followingWorks)
@@ -54,42 +46,26 @@ const UserPage = async ({ searchParams }: any) => {
   return (
     <div className="">
       <div className="mt-2 flex flex-col items-center justify-center">
-        <Image
-          className="rounded-full"
-          src={user.image || "/images/KEKW.webp"}
-          width={150}
-          height={150}
-          sizes="150px"
-          alt="avatar"
-        />
+        <ClientAvatar imageSrc={user.image} />
         <div>@{user.username}</div>
       </div>
 
       {userFollowingCollection.length !== 0 && (
         <>
           <div className="py-2 pl-4 text-2xl">追蹤的作品</div>
-          <WorkGrid
-            workData={userFollowingCollection}
-            currentUser={currentUser}
-          />
+          <WorkGrid workData={userFollowingCollection} />
         </>
       )}
       {userWatchingCollection.length !== 0 && (
         <>
           <div className="py-2 pl-4 text-2xl">正在看的作品</div>
-          <WorkGrid
-            workData={userWatchingCollection}
-            currentUser={currentUser}
-          />
+          <WorkGrid workData={userWatchingCollection} />
         </>
       )}
       {userFinishedCollection.length !== 0 && (
         <>
           <div className="py-2 pl-4 text-2xl">看完的作品</div>
-          <WorkGrid
-            workData={userFinishedCollection}
-            currentUser={currentUser}
-          />
+          <WorkGrid workData={userFinishedCollection} />
         </>
       )}
     </div>

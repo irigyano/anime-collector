@@ -1,7 +1,6 @@
 "use client";
-import { UserClientSide, WorkData } from "@/app/types/types";
+import { WorkData } from "@/app/types/types";
 import WorkCard from "../Work/WorkCard";
-import ReduxBroadcaster from "../ReduxBroadcaster";
 import { useEffect, useState } from "react";
 import { parseAsInteger, useQueryState } from "next-usequerystate";
 
@@ -15,32 +14,20 @@ function paginateArray<T>(
   return inputArray.slice(startIndex, endIndex);
 }
 
-const WorkGrid = ({
-  workData,
-  currentUser,
-  workYear,
-  workSeason,
-}: {
-  workData: WorkData[];
-  currentUser: UserClientSide | null;
-  workYear: string;
-  workSeason: string;
-}) => {
+const WorkGridPagination = ({ workData }: { workData: WorkData[] }) => {
   const [pageParam, setPageParam] = useQueryState("page", parseAsInteger);
-  const [yearParam, setYearParam] = useQueryState("year");
-  const [seasonParam, setSeasonParam] = useQueryState("season");
 
   const workPerPage = 12;
   const maxPagination = Math.ceil(workData.length / workPerPage) - 1;
 
-  let paginationIndex = Math.max(Number(pageParam) - 1, 0);
-  if (paginationIndex > maxPagination) paginationIndex = maxPagination;
+  const paginationIndex = Math.min(
+    Math.max(Number(pageParam) - 1, 0),
+    maxPagination,
+  );
 
   const [pagination, setPagination] = useState(paginationIndex);
 
   useEffect(() => {
-    setYearParam(workYear);
-    setSeasonParam(workSeason);
     setPageParam(paginationIndex + 1);
   }, []);
 
@@ -86,4 +73,4 @@ const WorkGrid = ({
   );
 };
 
-export default WorkGrid;
+export default WorkGridPagination;
