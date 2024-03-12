@@ -2,7 +2,6 @@
 
 Banngumi View is a fullstack web application designed for anime enthusiasts, utilizing data provided by Annict. User can explore an extensive database of anime works, manage watchlist, track viewing progress, and engage with a vibrant community of fellow fans.
 
-
 <p align="center">
   <a href="https://banngumi-view.vercel.app/">Live Demo</a>
 </p>
@@ -31,7 +30,7 @@ Banngumi View is a fullstack web application designed for anime enthusiasts, uti
 Create a `.env` file following `.env.example`
 
 ```bash
-git clone https://github.com/irigyano/Banngumi-View.git
+git clone https://github.com/irigyano/banngumi-view.git
 cd banngumi-view
 pnpm install
 npx prisma generate
