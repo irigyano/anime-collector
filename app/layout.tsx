@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { Viewport } from "next";
 import { getUserFromSession } from "@/lib/utils";
 import ReduxBroadcaster from "./components/ReduxBroadcaster";
+import NextTopLoader from "nextjs-toploader";
 
 const font = Noto_Sans_JP({
   subsets: ["latin"],
@@ -35,25 +36,26 @@ export default async function MainLayout({
   const currentUser = await getUserFromSession();
 
   return (
-    <ReduxProvider>
-      <html lang="zh-tw" suppressHydrationWarning>
-        <body
-          className={`${font.className} bg-zinc-300 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-300`}
+    <html lang="zh-tw" suppressHydrationWarning>
+      <body
+        className={`${font.className} bg-zinc-300 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-300`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
+          <ReduxProvider>
             <ReduxBroadcaster currentUser={currentUser}>
+              <NextTopLoader color="#949494" showSpinner={false} />
               <Navbar />
               {children}
               <Analytics />
             </ReduxBroadcaster>
-          </ThemeProvider>
-        </body>
-      </html>
-    </ReduxProvider>
+          </ReduxProvider>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }
