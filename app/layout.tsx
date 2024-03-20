@@ -1,7 +1,6 @@
 import "./globals.css";
 import { Noto_Sans_JP } from "next/font/google";
 import { ReduxProvider } from "@/app/redux/ReduxProvider";
-import Navbar from "@/app/components/Navbar/Navbar";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { Analytics } from "@vercel/analytics/react";
 import { Viewport } from "next";
@@ -36,7 +35,7 @@ export default async function MainLayout({
   const currentUser = await getUserFromSession();
 
   return (
-    <html lang="zh-tw" suppressHydrationWarning>
+    <html lang="zh-tw">
       <body
         className={`${font.className} bg-zinc-300 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-300`}
       >
@@ -49,7 +48,6 @@ export default async function MainLayout({
           <ReduxProvider>
             <ReduxBroadcaster currentUser={currentUser}>
               <NextTopLoader color="#949494" showSpinner={false} />
-              <Navbar />
               {children}
               <Analytics />
             </ReduxBroadcaster>

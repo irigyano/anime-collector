@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { WorkData } from "../types/types";
-import WorkGrid from "../components/WorkGrid/WorkGrid";
+import { WorkData } from "../../types/types";
+import WorkGrid from "../../components/WorkGrid/WorkGrid";
 
 type SearchPageProps = {
   searchParams: { [key: string]: string | undefined };
@@ -34,7 +34,7 @@ const SearchPage = async ({ searchParams }: SearchPageProps) => {
 
   return (
     <div className="pt-3">
-      <WorkGrid workData={workData} />;
+      <WorkGrid workData={workData} />
     </div>
   );
 };

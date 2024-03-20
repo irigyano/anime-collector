@@ -1,38 +1,49 @@
-import { Suspense } from "react";
-import WorkRenderer from "./components/WorkGrid/WorkRenderer";
-import LoadingPlaceholder from "./components/LoadingPlaceholder";
-import type { Metadata } from "next";
-import { ServerProps } from "./types/types";
-import { DEFAULT_SEASON, DEFAULT_YEAR, seasonMap } from "@/lib/utils";
+import { getUserFromSession } from "@/lib/utils";
+import { redirect } from "next/navigation";
+import { LandingLogin } from "./LandingLogin";
+import Image from "next/image";
 
-export async function generateMetadata({
-  searchParams,
-}: ServerProps): Promise<Metadata> {
-  const workYear = searchParams.year || DEFAULT_YEAR;
-  const workSeason = searchParams.season || DEFAULT_SEASON;
+const LandingPage = async () => {
+  const currentUser = await getUserFromSession();
 
-  let title = "Banngumi View";
-  if (workYear && workSeason && seasonMap[workSeason]) {
-    title = `${workYear} ${seasonMap[workSeason]}季番 | ${title}`;
-  }
-  return {
-    title,
-  };
-}
+  if (currentUser) return redirect("/home");
 
-const HomePage = ({ searchParams }: ServerProps) => {
-  const workYear = searchParams.year;
-  const workSeason = searchParams.season;
   return (
     <>
-      <Suspense
-        key={`${workYear}${workSeason}`}
-        fallback={<LoadingPlaceholder />}
-      >
-        <WorkRenderer workYear={workYear} workSeason={workSeason} />
-      </Suspense>
+      <div className="relative flex h-screen flex-col px-[10%]">
+        <div className="absolute left-0 top-0 -z-30 h-full w-full">
+          <img
+            className="h-full w-full object-cover opacity-5"
+            // Yoink
+            src="https://assets.nflxext.com/ffe/siteui/vlv3/9d3533b2-0e2b-40b2-95e0-ecd7979cc88b/1258f4be-efa5-4738-b470-716bbd93d8ad/TW-zh-20240311-popsignuptwoweeks-perspective_alpha_website_large.jpg"
+          ></img>
+        </div>
+        <div className="flex flex-1 ">
+          <div className="hidden flex-1 flex-col items-center justify-center gap-4 p-4 sm:flex">
+            <div className="text-4xl font-extrabold">Banngumi View</div>
+            <span>
+              Manage your watchlist here so you won't lost in the OTT forest
+              anymore.
+            </span>
+            <Image
+              className="fixed bottom-0 left-0 -z-30 opacity-30"
+              src={"/images/Chad.jpg"}
+              alt="chad"
+              width={800}
+              height={800}
+            ></Image>
+          </div>
+          <div className="flex flex-1 items-center justify-center">
+            <LandingLogin />
+          </div>
+        </div>
+        <footer className="flex justify-center gap-2 pb-1 text-xs text-muted-foreground">
+          <div>© 2024</div>
+          <div>Powered by Annict.com</div>
+        </footer>
+      </div>
     </>
   );
 };
 
-export default HomePage;
+export default LandingPage;
