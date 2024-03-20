@@ -11,12 +11,8 @@ export async function generateMetadata({
   const workYear = searchParams.year || DEFAULT_YEAR;
   const workSeason = searchParams.season || DEFAULT_SEASON;
 
-  let title = "Banngumi View";
-  if (workYear && workSeason && seasonMap[workSeason]) {
-    title = `${workYear} ${seasonMap[workSeason]}季番 | ${title}`;
-  }
   return {
-    title,
+    title: `${workYear} ${seasonMap[workSeason]}`,
   };
 }
 
