@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { Viewport } from "next";
 import { getUserFromSession } from "@/lib/utils";
 import ReduxBroadcaster from "./components/ReduxBroadcaster";
+import NextTopLoader from "nextjs-toploader";
 
 const font = Noto_Sans_JP({
   subsets: ["latin"],
@@ -46,6 +47,7 @@ export default async function MainLayout({
         >
           <ReduxProvider>
             <ReduxBroadcaster currentUser={currentUser}>
+              <NextTopLoader color="#949494" showSpinner={false} />
               {children}
               <Analytics />
             </ReduxBroadcaster>
