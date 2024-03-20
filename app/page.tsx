@@ -1,6 +1,7 @@
 import { getUserFromSession } from "@/lib/utils";
 import { redirect } from "next/navigation";
 import { LandingLogin } from "./LandingLogin";
+import Image from "next/image";
 
 const LandingPage = async () => {
   const currentUser = await getUserFromSession();
@@ -9,7 +10,7 @@ const LandingPage = async () => {
 
   return (
     <>
-      <div className="relative flex h-screen flex-col">
+      <div className="relative flex h-screen flex-col px-[10%]">
         <div className="absolute left-0 top-0 -z-30 h-full w-full">
           <img
             className="h-full w-full object-cover opacity-5"
@@ -18,14 +19,19 @@ const LandingPage = async () => {
           ></img>
         </div>
         <div className="flex flex-1 ">
-          <div className="hidden flex-1 flex-col items-center justify-center sm:flex">
-            <div>Logo and title</div>
+          <div className="hidden flex-1 flex-col items-center justify-center gap-4 p-4 sm:flex">
+            <div className="text-4xl font-extrabold">Banngumi View</div>
             <span>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. In,
-              ullam perspiciatis sed fuga recusandae blanditiis. Quae suscipit,
-              nihil pariatur minima voluptas ipsam officiis, amet delectus
-              voluptatibus perspiciatis, incidunt eos error?
+              Manage your watchlist here so you won't lost in the OTT forest
+              anymore.
             </span>
+            <Image
+              className="fixed bottom-0 left-0 -z-30 opacity-30"
+              src={"/images/Chad.jpg"}
+              alt="chad"
+              width={800}
+              height={800}
+            ></Image>
           </div>
           <div className="flex flex-1 items-center justify-center">
             <LandingLogin />
@@ -33,7 +39,6 @@ const LandingPage = async () => {
         </div>
         <footer className="flex justify-center gap-2 pb-1 text-xs text-muted-foreground">
           <div>© 2024</div>
-          <div>Contact</div>
           <div>Powered by Annict.com</div>
         </footer>
       </div>
