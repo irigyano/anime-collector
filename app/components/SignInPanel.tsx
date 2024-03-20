@@ -8,9 +8,7 @@ const SignInPanel = () => {
   return (
     <>
       <div className="relative flex justify-center text-xs uppercase">
-        <span className="bg-background text-muted-foreground">
-          continue with
-        </span>
+        <span className="text-muted-foreground">立即加入。</span>
       </div>
       <Button
         variant="outline"
