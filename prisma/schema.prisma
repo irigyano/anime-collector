@@ -43,11 +43,8 @@ model VerificationToken {
 
 model User {
   id             String     @id @default(auto()) @map("_id") @db.ObjectId
-  name           String?
-  username       String?    @unique
-  email          String?    
-  emailVerified  DateTime?
-  image          String
+  username       String    @unique
+  image          String?
   accounts       Account[]
   sessions       Session[]
   Activity       Activity[]
@@ -55,6 +52,10 @@ model User {
   followingWorks Int[]
   watchingWorks  Int[]
   finishedWorks  Int[]
+  // NextAuth adapter fields
+  name           String?
+  email          String?    
+  emailVerified  DateTime?
 }
 
 enum Action {
