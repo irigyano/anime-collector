@@ -1,7 +1,42 @@
-const LandingPage = () => {
+import { getUserFromSession } from "@/lib/utils";
+import { redirect } from "next/navigation";
+import { LandingLogin } from "./LandingLogin";
+
+const LandingPage = async () => {
+  const currentUser = await getUserFromSession();
+
+  if (currentUser) return redirect("/home");
+
   return (
     <>
-      <h1>Land</h1>
+      <div className="relative flex h-screen flex-col">
+        <div className="absolute left-0 top-0 -z-30 h-full w-full">
+          <img
+            className="h-full w-full object-cover opacity-5"
+            // Yoink
+            src="https://assets.nflxext.com/ffe/siteui/vlv3/9d3533b2-0e2b-40b2-95e0-ecd7979cc88b/1258f4be-efa5-4738-b470-716bbd93d8ad/TW-zh-20240311-popsignuptwoweeks-perspective_alpha_website_large.jpg"
+          ></img>
+        </div>
+        <div className="flex flex-1 ">
+          <div className="hidden flex-1 flex-col items-center justify-center sm:flex">
+            <div>Logo and title</div>
+            <span>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. In,
+              ullam perspiciatis sed fuga recusandae blanditiis. Quae suscipit,
+              nihil pariatur minima voluptas ipsam officiis, amet delectus
+              voluptatibus perspiciatis, incidunt eos error?
+            </span>
+          </div>
+          <div className="flex flex-1 items-center justify-center">
+            <LandingLogin />
+          </div>
+        </div>
+        <footer className="flex justify-center gap-2 pb-1 text-xs text-muted-foreground">
+          <div>© 2024</div>
+          <div>Contact</div>
+          <div>Powered by Annict.com</div>
+        </footer>
+      </div>
     </>
   );
 };
