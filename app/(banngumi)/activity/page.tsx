@@ -1,8 +1,8 @@
 import prisma from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import { Metadata } from "next";
-import ActivityCard from "../components/ActivityCard";
-import { WorkData } from "../types/types";
+import ActivityCard from "../../components/ActivityCard";
+import { WorkData } from "../../types/types";
 
 export const metadata: Metadata = {
   title: "社群動態",

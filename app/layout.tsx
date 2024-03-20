@@ -1,7 +1,6 @@
 import "./globals.css";
 import { Noto_Sans_JP } from "next/font/google";
 import { ReduxProvider } from "@/app/redux/ReduxProvider";
-import Navbar from "@/app/components/Navbar/Navbar";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { Analytics } from "@vercel/analytics/react";
 import { Viewport } from "next";
@@ -35,25 +34,24 @@ export default async function MainLayout({
   const currentUser = await getUserFromSession();
 
   return (
-    <ReduxProvider>
-      <html lang="zh-tw" suppressHydrationWarning>
-        <body
-          className={`${font.className} bg-zinc-300 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-300`}
+    <html lang="zh-tw">
+      <body
+        className={`${font.className} bg-zinc-300 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-300`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
+          <ReduxProvider>
             <ReduxBroadcaster currentUser={currentUser}>
-              <Navbar />
               {children}
               <Analytics />
             </ReduxBroadcaster>
-          </ThemeProvider>
-        </body>
-      </html>
-    </ReduxProvider>
+          </ReduxProvider>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }
