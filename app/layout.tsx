@@ -35,7 +35,7 @@ export default async function MainLayout({
   const currentUser = await getUserFromSession();
 
   return (
-    <html lang="zh-tw">
+    <html lang="zh-tw" suppressHydrationWarning>
       <body
         className={`${font.className} bg-zinc-300 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-300`}
       >
