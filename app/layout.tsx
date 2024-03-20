@@ -37,7 +37,7 @@ export default async function MainLayout({
   return (
     <html lang="zh-tw" suppressHydrationWarning>
       <body
-        className={`${font.className} bg-zinc-300 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-300`}
+        className={`${font.className} min-h-[100dvh] bg-zinc-300 bg-gradient-to-br from-pink-100 text-zinc-900 dark:bg-zinc-900 dark:from-rose-950 dark:text-zinc-300`}
       >
         <ThemeProvider
           attribute="class"

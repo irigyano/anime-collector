@@ -45,7 +45,10 @@ const UserComments = ({ form, workId }: { form: any; workId: number }) => {
                 />
               </div>
               <div className="flex-1">
-                <Link href={`/user/?name=${comment.user.username}`}>
+                <Link
+                  className="hover:text-blue-500"
+                  href={`/user/?name=${comment.user.username}`}
+                >
                   @{comment.user.username}
                 </Link>
                 <span> · {dayjs(comment.createdAt).fromNow()}</span>

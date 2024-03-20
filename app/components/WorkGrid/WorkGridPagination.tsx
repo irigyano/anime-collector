@@ -45,7 +45,7 @@ const WorkGridPagination = ({ workData }: { workData: WorkData[] }) => {
       <div className="fixed bottom-0 left-1/2 flex -translate-x-1/2 justify-center p-4 2xl:bottom-8">
         <div className="flex w-max justify-center gap-2 rounded-lg bg-white/80 px-4 py-1 dark:bg-black/80">
           <button
-            className={`${pagination === 0 && "text-gray-500"}`}
+            className={`${pagination === 0 ? "pointer-events-none text-gray-500" : "hover:text-blue-500"}`}
             onClick={() => {
               if (pagination === 0) return;
               setPageParam(pagination, { history: "push" });
@@ -58,7 +58,7 @@ const WorkGridPagination = ({ workData }: { workData: WorkData[] }) => {
             第 {pagination + 1} / {maxPagination + 1} 頁
           </h1>
           <button
-            className={`${pagination === maxPagination && "text-gray-500"}`}
+            className={`${pagination === maxPagination ? "pointer-events-none text-gray-500" : "hover:text-blue-500"}`}
             onClick={() => {
               if (pagination === maxPagination) return;
               setPageParam(pagination + 2, { history: "push" });
