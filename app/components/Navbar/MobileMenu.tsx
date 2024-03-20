@@ -57,7 +57,7 @@ const MobileMenu = ({
               </>
             )}
             <DropdownMenuItem className="justify-center">
-              <Link href={"/"}>
+              <Link href={"/home"}>
                 <span>主頁</span>
               </Link>
             </DropdownMenuItem>

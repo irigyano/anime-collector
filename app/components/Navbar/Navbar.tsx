@@ -22,7 +22,7 @@ const Navbar = async () => {
       <div className="fixed -z-20 h-16 w-screen border-b bg-white shadow-md dark:bg-black " />
       <nav className="sticky top-0 z-20 flex h-16 items-center justify-center border-b bg-white shadow-md dark:bg-black  lg:justify-between lg:px-20">
         <div className="flex h-10 basis-1/3 items-center justify-start gap-3">
-          <Link href={"/"}>
+          <Link href={"/home"}>
             <Image
               className="hidden rounded-full border-transparent hover:border-b-2 lg:block"
               alt="logo"
