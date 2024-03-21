@@ -1,22 +1,21 @@
 # Banngumi View
 
-Banngumi View is a fullstack web application designed for anime enthusiasts, utilizing data provided by Annict. User can explore an extensive database of anime works, manage watchlist, track viewing progress, and engage with a vibrant community of fellow fans.
+Banngumi View is a fullstack web application designed for anime enthusiasts, utilizing data provided by Annict.com. User can explore an extensive database of anime works, manage watchlist, track viewing progress, and engage with a vibrant community of fellow fans.
 
-<p align="center">
-  <a href="https://banngumi-view.vercel.app/">Live Demo</a>
-</p>
-
-<img alt="diagram" src="./.github/diagram.png" />
+<a style='font-size:large;font-weight:700;' href="https://banngumi-view.vercel.app/">Live Demo</a>
 
 ## Features
 
-- **Browse Anime Works**: Users can view a comprehensive list of anime works and search by Japanese titles.
-- **Manage Watchlist**: Establish your anilist and share it with friends.
-- **Responsive Design**: Support all devices from mobile up to 4K monitors.
-- **OAuth**: No more forget password on websites.
-- **Dark Mode Support**: 👀 are crucial.
+- **Browse** Anime works based on released year and season
+- **Search** works in Japanese
+- **Watchlist** management according watching status
+- **Responsive Design** that support all devices from mobile up to 4K monitors
+- **OAuth** with Google / GitHub stategy
+- **Dark Mode Support**
 
 ## Tech Stack
+
+<img alt="diagram" src="./.github/diagram.png" />
 
 - **[Next.js](https://nextjs.org/)**: Using App Directory, React Server Components, API Routes Handler.
 - **[Tailwind CSS](https://tailwindcss.com)**: Styling, RWD, and dark mode toggle.
