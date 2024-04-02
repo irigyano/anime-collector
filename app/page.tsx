@@ -18,7 +18,7 @@ const LandingPage = async () => {
             priority
             alt="netflix-bg"
             fill
-            src="https://assets.nflxext.com/ffe/siteui/vlv3/9d3533b2-0e2b-40b2-95e0-ecd7979cc88b/1258f4be-efa5-4738-b470-716bbd93d8ad/TW-zh-20240311-popsignuptwoweeks-perspective_alpha_website_large.jpg"
+            src={"/images/yoink.jpg"}
           ></Image>
         </div>
         <div className="flex flex-1 ">
