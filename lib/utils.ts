@@ -75,4 +75,4 @@ export const seasonMap: Record<string, string> = {
 };
 
 export const DEFAULT_YEAR = "2024";
-export const DEFAULT_SEASON = "winter";
+export const DEFAULT_SEASON = "spring";
