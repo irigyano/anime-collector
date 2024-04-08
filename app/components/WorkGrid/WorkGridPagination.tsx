@@ -42,7 +42,8 @@ const WorkGridPagination = ({ workData }: { workData: WorkData[] }) => {
           return <WorkCard key={work.annictId} work={work} />;
         })}
       </section>
-      <div className="fixed bottom-0 left-1/2 flex -translate-x-1/2 justify-center p-4 2xl:bottom-8">
+      {/* https://github.com/radix-ui/primitives/issues/1925 */}
+      <div className="fixed bottom-0 flex w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] justify-center p-4 2xl:bottom-8">
         <div className="flex w-max justify-center gap-2 rounded-lg bg-white/80 px-4 py-1 dark:bg-black/80">
           <button
             className={`${pagination === 0 ? "pointer-events-none text-gray-500" : "hover:text-blue-500"}`}
