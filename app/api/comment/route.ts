@@ -39,3 +39,17 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json(addedComment);
 }
+
+export async function PUT(request: NextRequest) {}
+export async function DELETE(request: NextRequest) {
+  // consider Zod?
+  const { commentId } = await request.json();
+  const currentUser = await getUserFromSession();
+  if (!currentUser || !commentId)
+    return NextResponse.json({ message: `Missing Info` }, { status: 400 });
+
+  const deletedComment = await prisma.comment.delete({
+    where: { id: commentId },
+  });
+  return NextResponse.json(deletedComment);
+}
