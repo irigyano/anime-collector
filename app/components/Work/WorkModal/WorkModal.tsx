@@ -12,7 +12,6 @@ import CollectionButton from "./CollectionButton";
 import type { StaticImageData } from "next/image";
 import TagList from "../TagList";
 import CommentTextarea from "./CommentTextarea";
-import { RemoveScroll } from "react-remove-scroll";
 import { RxCross2 } from "react-icons/rx";
 
 const WorkModal = ({
@@ -25,7 +24,7 @@ const WorkModal = ({
   toggleModal: () => void;
 }) => {
   return (
-    <RemoveScroll>
+    <>
       <Toaster position="bottom-center" />
       <div className="relative mx-4 my-10 md:mx-auto md:w-2/3 2xl:w-1/3">
         <button
@@ -123,7 +122,7 @@ const WorkModal = ({
           <CommentTextarea work={work} />
         </div>
       </div>
-    </RemoveScroll>
+    </>
   );
 };
 export default WorkModal;
