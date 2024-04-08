@@ -19,6 +19,9 @@ export async function GET(request: NextRequest) {
     include: {
       user: true,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
   return NextResponse.json(comments);
 }
@@ -40,7 +43,20 @@ export async function POST(request: NextRequest) {
   return NextResponse.json(addedComment);
 }
 
-export async function PUT(request: NextRequest) {}
+export async function PUT(request: NextRequest) {
+  const { commentId, comment } = await request.json();
+  const currentUser = await getUserFromSession();
+  if (!currentUser || !commentId)
+    return NextResponse.json({ message: `Missing Info` }, { status: 400 });
+
+  const deletedComment = await prisma.comment.update({
+    where: { id: commentId },
+    data: {
+      comment,
+    },
+  });
+  return NextResponse.json(deletedComment);
+}
 export async function DELETE(request: NextRequest) {
   // consider Zod?
   const { commentId } = await request.json();
