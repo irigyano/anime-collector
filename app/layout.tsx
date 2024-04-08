@@ -7,6 +7,7 @@ import { Viewport } from "next";
 import { getUserFromSession } from "@/lib/utils";
 import ReduxBroadcaster from "./components/ReduxBroadcaster";
 import NextTopLoader from "nextjs-toploader";
+import QueryProvider from "./components/QueryProvider";
 
 const font = Noto_Sans_JP({
   subsets: ["latin"],
@@ -46,11 +47,13 @@ export default async function MainLayout({
           disableTransitionOnChange
         >
           <ReduxProvider>
-            <ReduxBroadcaster currentUser={currentUser}>
-              <NextTopLoader color="#949494" showSpinner={false} />
-              {children}
-              <Analytics />
-            </ReduxBroadcaster>
+            <QueryProvider>
+              <ReduxBroadcaster currentUser={currentUser}>
+                <NextTopLoader color="#949494" showSpinner={false} />
+                {children}
+                <Analytics />
+              </ReduxBroadcaster>
+            </QueryProvider>
           </ReduxProvider>
         </ThemeProvider>
       </body>

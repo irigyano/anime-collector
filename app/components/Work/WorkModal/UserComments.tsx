@@ -1,30 +1,30 @@
 "use client";
 import { Prisma } from "@prisma/client";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import "dayjs/locale/zh-tw";
 import relativeTime from "dayjs/plugin/relativeTime";
+import UserComment from "./UserComment";
+import { useQuery } from "@tanstack/react-query";
 
 type CommentWithUser = Prisma.CommentGetPayload<{ include: { user: true } }>;
 
 dayjs.locale("zh-tw");
 dayjs.extend(relativeTime);
 
-const UserComments = ({ form, workId }: { form: any; workId: number }) => {
-  const [comments, setComments] = useState<CommentWithUser[]>();
-  const [isLoading, setIsLoading] = useState(true);
+const UserComments = ({ workId }: { workId: number }) => {
+  async function getComments(): Promise<CommentWithUser[]> {
+    const res = await fetch(`/api/comment?work=${workId}`);
+    return res.json();
+  }
 
-  // consider tanstack query
-  useEffect(() => {
-    fetch(`/api/comment?work=${workId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setComments(data);
-        setIsLoading(false);
-      });
-  }, [form.formState.isSubmitSuccessful]);
+  const {
+    data: comments,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ["comments"],
+    queryFn: getComments,
+  });
 
   if (isLoading)
     return <p className="flex h-[20%] items-center justify-center">讀取中</p>;
@@ -32,29 +32,9 @@ const UserComments = ({ form, workId }: { form: any; workId: number }) => {
   return (
     <>
       {comments?.length ? (
-        <div className="flex flex-col gap-4 p-2">
+        <div className="flex min-h-[20%] flex-col gap-4 p-2">
           {comments.map((comment) => (
-            <div key={comment.id} className="flex gap-2">
-              <div>
-                <Image
-                  className="rounded-full"
-                  src={comment.user.image}
-                  alt="avatar"
-                  width={50}
-                  height={50}
-                />
-              </div>
-              <div className="flex-1">
-                <Link
-                  className="hover:text-blue-500"
-                  href={`/user/?name=${comment.user.username}`}
-                >
-                  @{comment.user.username}
-                </Link>
-                <span> · {dayjs(comment.createdAt).fromNow()}</span>
-                <div className="break-all">{comment.comment}</div>
-              </div>
-            </div>
+            <UserComment key={comment.id} comment={comment} />
           ))}
         </div>
       ) : (

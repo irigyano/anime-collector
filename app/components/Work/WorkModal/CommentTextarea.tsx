@@ -16,6 +16,7 @@ import toast from "react-hot-toast";
 import { useEffect } from "react";
 import { WorkData } from "@/app/types/types";
 import UserComments from "./UserComments";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const FormSchema = z.object({
   comment: z.string().min(1),
@@ -27,14 +28,19 @@ function TextareaForm({ work }: { work: WorkData }) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: ({ comment }: { comment: string }) =>
+      fetch("/api/comment", {
+        method: "POST",
+        body: JSON.stringify({
+          comment: comment,
+          workId: work.annictId,
+        }),
+      }),
 
-  async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const res = await fetch("/api/comment", {
-      method: "POST",
-      body: JSON.stringify({ comment: data.comment, workId: work.annictId }),
-    });
-    const newComment = await res.json();
-    if (newComment) {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["comments"] });
       toast.success("發表成功");
       fetch("/api/activity", {
         method: "POST",
@@ -44,13 +50,16 @@ function TextareaForm({ work }: { work: WorkData }) {
           workTitle: work.title,
         }),
       });
-    } else toast.error("something went wrong");
-  }
+    },
+  });
 
+  // async function onSubmit(data: z.infer<typeof FormSchema>) {
+  //   mutation.mutate(data);
+  // }
   function checkUserBeforeSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!currentUser) return toast.error("請先登入", { id: "error" });
-    form.handleSubmit(onSubmit)();
+    form.handleSubmit(mutation.mutate as any)();
   }
 
   // clean up after submit
@@ -96,7 +105,7 @@ function TextareaForm({ work }: { work: WorkData }) {
           </Button>
         </form>
       </Form>
-      <UserComments form={form} workId={work.annictId} />
+      <UserComments workId={work.annictId} />
     </>
   );
 }
