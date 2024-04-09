@@ -1,13 +1,17 @@
 import "./globals.css";
 import { Noto_Sans_JP } from "next/font/google";
-import { ReduxProvider } from "@/app/redux/ReduxProvider";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { Analytics } from "@vercel/analytics/react";
 import { Viewport } from "next";
-import { getUserFromSession } from "@/lib/utils";
-import ReduxBroadcaster from "./components/ReduxBroadcaster";
 import NextTopLoader from "nextjs-toploader";
 import QueryProvider from "./components/QueryProvider";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+
+import { getUserFromSession } from "@/lib/getUserAction";
 
 const font = Noto_Sans_JP({
   subsets: ["latin"],
@@ -33,7 +37,11 @@ export default async function MainLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const currentUser = await getUserFromSession();
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: ["user"],
+    queryFn: () => getUserFromSession(),
+  });
 
   return (
     <html lang="zh-tw" suppressHydrationWarning>
@@ -46,15 +54,13 @@ export default async function MainLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ReduxProvider>
-            <QueryProvider>
-              <ReduxBroadcaster currentUser={currentUser}>
-                <NextTopLoader color="#949494" showSpinner={false} />
-                {children}
-                <Analytics />
-              </ReduxBroadcaster>
-            </QueryProvider>
-          </ReduxProvider>
+          <QueryProvider>
+            <HydrationBoundary state={dehydrate(queryClient)}>
+              <NextTopLoader color="#949494" showSpinner={false} />
+              {children}
+              <Analytics />
+            </HydrationBoundary>
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>

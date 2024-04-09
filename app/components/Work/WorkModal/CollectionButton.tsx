@@ -1,10 +1,8 @@
 "use client";
 import toast from "react-hot-toast";
 import { WorkData } from "@/app/types/types";
-import { addCollection } from "@/app/redux/features/user/userSlice";
-import { removeCollection } from "@/app/redux/features/user/userSlice";
-import { AppDispatch, RootState } from "@/app/redux/store";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getUserFromSession } from "@/lib/getUserAction";
 
 type CollectionButtonProp = {
   children: React.ReactNode;
@@ -14,9 +12,6 @@ type CollectionButtonProp = {
   hoverColor: string;
 };
 
-const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-const useAppDispatch: () => AppDispatch = useDispatch;
-
 const CollectionButton = ({
   children,
   work,
@@ -24,41 +19,53 @@ const CollectionButton = ({
   color,
   hoverColor,
 }: CollectionButtonProp) => {
-  const currentUser = useAppSelector((state) => state.user.user);
-  const dispatch = useAppDispatch();
+  const { data: currentUser } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => getUserFromSession(),
+  });
+
+  const queryClient = useQueryClient();
+
+  const doAddCollection = useMutation({
+    mutationFn: () => {
+      return fetch("/api/collection", {
+        method: "POST",
+        body: JSON.stringify({ category, annictId: work.annictId }),
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      fetch("/api/activity", {
+        method: "POST",
+        body: JSON.stringify({
+          category,
+          annictId: work.annictId,
+          workTitle: work.title,
+        }),
+      });
+      toast.success("收藏成功");
+    },
+  });
+
+  const doRemoveCollection = useMutation({
+    mutationFn: () =>
+      fetch("/api/collection", {
+        method: "DELETE",
+        body: JSON.stringify({ category, annictId: work.annictId }),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      toast.success("取消收藏");
+    },
+  });
 
   const modifyCollection = async () => {
     if (!currentUser) return toast.error("請先登入", { id: "error" });
 
-    if (currentUser[category].includes(work.annictId)) {
-      const res = await fetch("/api/collection", {
-        method: "DELETE",
-        body: JSON.stringify({ category, annictId: work.annictId }),
-      });
-      const user = await res.json();
-      if (res.status === 200) {
-        dispatch(removeCollection(user));
-        return toast.success("取消收藏");
-      }
-    } else {
-      const res = await fetch("/api/collection", {
-        method: "POST",
-        body: JSON.stringify({ category, annictId: work.annictId }),
-      });
-      const user = await res.json();
-      if (res.status === 200) {
-        dispatch(addCollection(user));
-        fetch("/api/activity", {
-          method: "POST",
-          body: JSON.stringify({
-            category,
-            annictId: work.annictId,
-            workTitle: work.title,
-          }),
-        });
-        return toast.success("收藏成功");
-      }
-    }
+    if (currentUser[category].includes(work.annictId))
+      return doRemoveCollection.mutate();
+
+    return doAddCollection.mutate();
   };
 
   const isPressed = currentUser

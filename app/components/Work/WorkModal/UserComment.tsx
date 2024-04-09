@@ -7,18 +7,20 @@ import dayjs from "dayjs";
 import "dayjs/locale/zh-tw";
 import { Button } from "@/app/components/ui/button";
 import { Check, Pencil, Trash2, Undo2 } from "lucide-react";
-import { TypedUseSelectorHook, useSelector } from "react-redux";
-import { RootState } from "@/app/redux/store";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Input } from "@/app/components/ui/input";
 import toast from "react-hot-toast";
+import { getUserFromSession } from "@/lib/getUserAction";
 
 type CommentWithUser = Prisma.CommentGetPayload<{ include: { user: true } }>;
 
 const UserComment = ({ comment }: { comment: CommentWithUser }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-  const currentUser = useAppSelector((state) => state.user.user);
+
+  const { data: currentUser } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => getUserFromSession(),
+  });
 
   const queryClient = useQueryClient();
   const doEdit = useMutation({
