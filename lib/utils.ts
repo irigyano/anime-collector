@@ -54,6 +54,14 @@ export async function getUserFromSession() {
     where: {
       id: session.user.id,
     },
+    select: {
+      id: true,
+      username: true,
+      image: true,
+      followingWorks: true,
+      watchingWorks: true,
+      finishedWorks: true,
+    },
   });
   return currentUser;
 }

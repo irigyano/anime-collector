@@ -1,6 +1,4 @@
 "use client";
-import { TypedUseSelectorHook, useSelector } from "react-redux";
-import { RootState } from "@/app/redux/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -16,15 +14,19 @@ import toast from "react-hot-toast";
 import { useEffect } from "react";
 import { WorkData } from "@/app/types/types";
 import UserComments from "./UserComments";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getUserFromSession } from "@/lib/getUserAction";
 
 const FormSchema = z.object({
   comment: z.string().min(1),
 });
 
 function TextareaForm({ work }: { work: WorkData }) {
-  const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-  const currentUser = useAppSelector((state) => state.user.user);
+  const { data: currentUser } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => getUserFromSession(),
+  });
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
