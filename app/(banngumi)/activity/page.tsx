@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import { Metadata } from "next";
-import ActivityCard from "../../components/ActivityCard";
+import ActivityCard from "@/components/ActivityCard";
 import type { Work } from "@/types/work";
 
 export const metadata: Metadata = {

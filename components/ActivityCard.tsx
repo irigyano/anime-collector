@@ -6,11 +6,11 @@ import "dayjs/locale/zh-tw";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Action, Prisma } from "@prisma/client";
 import { useState } from "react";
-import ModalOverlay from "./Work/WorkModal/ModalOverlay";
-import WorkModal from "./Work/WorkModal/WorkModal";
+import ModalOverlay from "../app/components/Work/WorkModal/ModalOverlay";
+import WorkModal from "../app/components/Work/WorkModal/WorkModal";
 import type { Work } from "@/types/work";
 import { filterUrl } from "@/lib/utils";
-import cover_replacement from "../../public/images/cover_replacement.webp";
+import cover_replacement from "@/public/images/cover_replacement.webp";
 
 dayjs.locale("zh-tw");
 dayjs.extend(relativeTime);

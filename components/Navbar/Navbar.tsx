@@ -7,7 +7,7 @@ import { ThemeSwitch } from "./ThemeSwitch";
 import { Github, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import SignInPanel from "../SignInPanel";
+import SignInPanel from "@/components/SignInPanel";
 import { getUserFromSession } from "@/lib/utils";
 
 const Navbar = async () => {

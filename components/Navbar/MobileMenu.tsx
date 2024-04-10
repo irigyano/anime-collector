@@ -14,7 +14,7 @@ import type { User } from "@/types/user";
 import { AiOutlineMenu } from "react-icons/ai";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { signOut } from "next-auth/react";
-import SignInPanel from "../SignInPanel";
+import SignInPanel from "@/components/SignInPanel";
 import ThemeToggle from "./ThemeToggle";
 
 const MobileMenu = ({ currentUser }: { currentUser: User }) => {
