@@ -1,6 +1,6 @@
 import { getUserFromSession } from "@/lib/utils";
 import { redirect } from "next/navigation";
-import { LandingLogin } from "./LandingLogin";
+import { LandingLogin } from "@/components/LandingLogin";
 import Image from "next/image";
 
 const LandingPage = async () => {
