@@ -48,7 +48,7 @@ const ActivityPage = async () => {
 
   return (
     <div className="flex justify-center py-6">
-      <ul className="flex flex-col gap-6">
+      <ul className="flex flex-col gap-6 px-4">
         {activities.map((activity) => (
           <ActivityCard
             activity={activity}
