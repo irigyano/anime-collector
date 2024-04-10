@@ -22,7 +22,8 @@ Banngumi View is a fullstack web application designed for anime enthusiasts, uti
 - **[GraphQL](https://graphql.org/)**: Query data from **[Annict.com](https://developers.annict.com/)** with desired data format.
 - **[MongoDB](https://www.mongodb.com/)**, **[Prisma](https://www.prisma.io/)**: Storing user data in **Documents** format, and ORM makes interacting with database like a breeze.
 - **[NextAuth.js](https://next-auth.js.org)**: OAuth sign in with GitHub/Google strategy.
-- **[Redux Toolkit](https://redux-toolkit.js.org/)**: Manage application states on client side.
+- ~~**[Redux Toolkit](https://redux-toolkit.js.org/)**: Manage application states on client side.~~
+- **[TanStack Query v5](https://tanstack.com/query/latest/docs/framework/react/overview)**: Manage application states on client side.
 
 ## Running Locally
 
@@ -39,4 +40,4 @@ pnpm run dev
 
 ## Roadmap
 
-- [ ] Replace Redux Toolkit with React Query
+- [x] Replace Redux Toolkit with React Query

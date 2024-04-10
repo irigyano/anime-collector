@@ -5,21 +5,24 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/app/components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { RiLogoutBoxLine } from "react-icons/ri";
-import { UserClientSide } from "@/app/types/types";
+import type { User } from "@/types/user";
 
-const ProfileDropdown = ({ currentUser }: { currentUser: UserClientSide }) => {
+const ProfileDropdown = ({ currentUser }: { currentUser: User }) => {
+  // since currenUser already checked from the parent component,
+  // so it would not be null for sure, how to type it better without using '!'?
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Image
           className="rounded-full"
           alt="avatar"
-          src={currentUser.image || "/images/KEKW.webp"}
+          src={currentUser!.image || "/images/KEKW.webp"}
           width={40}
           height={40}
           onError={({ currentTarget }) => {
@@ -30,8 +33,8 @@ const ProfileDropdown = ({ currentUser }: { currentUser: UserClientSide }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem className="justify-center">
-          <Link href={`/user/?name=${currentUser.username}`}>
-            @{currentUser.username}
+          <Link href={`/user/?name=${currentUser!.username}`}>
+            @{currentUser!.username}
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />

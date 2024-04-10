@@ -6,26 +6,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@/app/components/ui/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/app/components/ui/dialog";
+} from "@/components/ui/dropdown-menu";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Image from "next/image";
 import Link from "next/link";
-import { UserClientSide } from "@/app/types/types";
+import type { User } from "@/types/user";
 import { AiOutlineMenu } from "react-icons/ai";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { signOut } from "next-auth/react";
-import SignInPanel from "../SignInPanel";
+import SignInPanel from "@/components/SignInPanel";
 import ThemeToggle from "./ThemeToggle";
 
-const MobileMenu = ({
-  currentUser,
-}: {
-  currentUser: UserClientSide | null;
-}) => {
+const MobileMenu = ({ currentUser }: { currentUser: User }) => {
   return (
     <div className="relative flex basis-1/3 justify-end pr-4 lg:hidden">
       <Dialog>

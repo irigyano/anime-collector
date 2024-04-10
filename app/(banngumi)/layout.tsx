@@ -1,4 +1,4 @@
-import Navbar from "@/app/components/Navbar/Navbar";
+import Navbar from "@/components/Navbar/Navbar";
 
 export default async function MainLayout({
   children,

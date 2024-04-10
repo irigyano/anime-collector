@@ -2,14 +2,14 @@
 import Image from "next/image";
 import { useState } from "react";
 import WorkModal from "./WorkModal/WorkModal";
-import cover_replacement from "../../../public/images/cover_replacement.webp";
+import cover_replacement from "@/public/images/cover_replacement.webp";
 import TagList from "./TagList";
-import { WorkData } from "@/app/types/types";
+import type { Work } from "@/types/work";
 import { parseAsInteger, useQueryState } from "next-usequerystate";
 import { filterUrl } from "@/lib/utils";
 import ModalOverlay from "./WorkModal/ModalOverlay";
 
-const WorkCard = ({ work }: { work: WorkData }) => {
+const WorkCard = ({ work }: { work: Work }) => {
   const [modalParam, setModalParam] = useQueryState("modal", parseAsInteger);
   const [showModal, setShowModal] = useState(modalParam === work.annictId);
   const toggleModal = () => setShowModal(!showModal);

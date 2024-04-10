@@ -1,5 +1,5 @@
 "use client";
-import { WorkData } from "@/app/types/types";
+import type { Work } from "@/types/work";
 import WorkCard from "../Work/WorkCard";
 import { useEffect, useState } from "react";
 import { parseAsInteger, useQueryState } from "next-usequerystate";
@@ -14,7 +14,7 @@ function paginateArray<T>(
   return inputArray.slice(startIndex, endIndex);
 }
 
-const WorkGridPagination = ({ workData }: { workData: WorkData[] }) => {
+const WorkGridPagination = ({ workData }: { workData: Work[] }) => {
   const [pageParam, setPageParam] = useQueryState("page", parseAsInteger);
 
   const workPerPage = 12;

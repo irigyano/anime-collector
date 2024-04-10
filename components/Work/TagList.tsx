@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { WorkData } from "@/app/types/types";
+import type { Work } from "@/types/work";
 
-const TagList = ({ work }: { work: WorkData }) => {
+const TagList = ({ work }: { work: Work }) => {
   return (
     <>
       {work.seasonYear && (
