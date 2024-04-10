@@ -5,10 +5,10 @@ import Link from "next/link";
 import { useState } from "react";
 import dayjs from "dayjs";
 import "dayjs/locale/zh-tw";
-import { Button } from "@/app/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Check, Pencil, Trash2, Undo2 } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Input } from "@/app/components/ui/input";
+import { Input } from "@/components/ui/input";
 import toast from "react-hot-toast";
 import { getUserFromSession } from "@/lib/getUserAction";
 

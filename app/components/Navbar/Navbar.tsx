@@ -5,12 +5,8 @@ import MobileMenu from "./MobileMenu";
 import ProfileDropdown from "./ProfileDropdown";
 import { ThemeSwitch } from "./ThemeSwitch";
 import { Github, LogIn } from "lucide-react";
-import { Button } from "../ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/app/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import SignInPanel from "../SignInPanel";
 import { getUserFromSession } from "@/lib/utils";
 

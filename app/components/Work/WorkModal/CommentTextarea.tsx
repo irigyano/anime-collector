@@ -2,14 +2,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Button } from "@/app/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-} from "@/app/components/ui/form";
-import { Textarea } from "@/app/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Textarea } from "@/components/ui/textarea";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
 import type { Work } from "@/types/work";
