@@ -1,7 +1,7 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
+import { useRouter } from "next-nprogress-bar";
 
 const SearchInput = () => {
   const [searchQuery, setSearchQuery] = useState("");

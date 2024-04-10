@@ -3,15 +3,14 @@ import { Noto_Sans_JP } from "next/font/google";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { Analytics } from "@vercel/analytics/react";
 import { Viewport } from "next";
-import NextTopLoader from "nextjs-toploader";
 import QueryProvider from "@/providers/QueryProvider";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-
 import { getUserFromSession } from "@/lib/getUserAction";
+import ProgressBarProvider from "@/providers/ProgressBarProvider";
 
 const font = Noto_Sans_JP({
   subsets: ["latin"],
@@ -56,8 +55,7 @@ export default async function MainLayout({
         >
           <QueryProvider>
             <HydrationBoundary state={dehydrate(queryClient)}>
-              <NextTopLoader color="#949494" showSpinner={false} />
-              {children}
+              <ProgressBarProvider>{children}</ProgressBarProvider>
               <Analytics />
             </HydrationBoundary>
           </QueryProvider>
