@@ -1,10 +1,10 @@
 import "@/styles/globals.css";
 import { Noto_Sans_JP } from "next/font/google";
-import { ThemeProvider } from "./components/ThemeProvider";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 import { Analytics } from "@vercel/analytics/react";
 import { Viewport } from "next";
 import NextTopLoader from "nextjs-toploader";
-import QueryProvider from "./components/QueryProvider";
+import QueryProvider from "@/providers/QueryProvider";
 import {
   dehydrate,
   HydrationBoundary,
