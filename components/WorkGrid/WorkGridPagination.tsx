@@ -1,6 +1,6 @@
 "use client";
 import type { Work } from "@/types/work";
-import WorkCard from "../../app/components/Work/WorkCard";
+import WorkCard from "../Work/WorkCard";
 import { useEffect, useState } from "react";
 import { parseAsInteger, useQueryState } from "next-usequerystate";
 

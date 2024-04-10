@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import WorkModal from "./WorkModal/WorkModal";
-import cover_replacement from "../../../public/images/cover_replacement.webp";
+import cover_replacement from "@/public/images/cover_replacement.webp";
 import TagList from "./TagList";
 import type { Work } from "@/types/work";
 import { parseAsInteger, useQueryState } from "next-usequerystate";
