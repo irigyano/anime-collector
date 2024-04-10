@@ -1,12 +1,12 @@
 "use client";
 import toast from "react-hot-toast";
-import { WorkData } from "@/app/types/types";
+import type { Work } from "@/types/work";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserFromSession } from "@/lib/getUserAction";
 
 type CollectionButtonProp = {
   children: React.ReactNode;
-  work: WorkData;
+  work: Work;
   category: "followingWorks" | "watchingWorks" | "finishedWorks";
   color: string;
   hoverColor: string;

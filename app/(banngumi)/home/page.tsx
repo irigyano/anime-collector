@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import WorkRenderer from "../../components/WorkGrid/WorkRenderer";
 import LoadingPlaceholder from "../../components/LoadingPlaceholder";
 import type { Metadata } from "next";
-import { ServerProps } from "../../types/types";
+import { ServerProps } from "../../../types/types";
 import { DEFAULT_SEASON, DEFAULT_YEAR, seasonMap } from "@/lib/utils";
 
 export async function generateMetadata({

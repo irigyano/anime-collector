@@ -2,7 +2,7 @@ import prisma from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import { Metadata } from "next";
 import ActivityCard from "../../components/ActivityCard";
-import { WorkData } from "../../types/types";
+import type { Work } from "@/types/work";
 
 export const metadata: Metadata = {
   title: "社群動態",
@@ -44,7 +44,7 @@ const ActivityPage = async () => {
   const res = await fetch(
     `${process.env.HOST_URL}/api/search/id?id=${requestingWorks}`,
   );
-  const works: WorkData[] = await res.json();
+  const works: Work[] = await res.json();
 
   return (
     <div className="flex justify-center py-6">

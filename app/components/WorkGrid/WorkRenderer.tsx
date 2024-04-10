@@ -1,7 +1,7 @@
-import { WorkData } from "@/app/types/types";
 import { DEFAULT_SEASON, DEFAULT_YEAR } from "@/lib/utils";
 import WorkGridPagination from "./WorkGridPagination";
 import SeasonSelector from "./SeasonSelector";
+import type { Work } from "@/types/work";
 
 const WorkRenderer = async ({
   workYear,
@@ -15,7 +15,7 @@ const WorkRenderer = async ({
 
   const endpoint = `${process.env.HOST_URL}/api/search/season?year=${workYear}&season=${workSeason}`;
   const res = await fetch(endpoint);
-  const workData: WorkData[] = await res.json();
+  const workData: Work[] = await res.json();
 
   return (
     <>

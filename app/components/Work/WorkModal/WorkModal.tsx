@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { WorkData } from "@/app/types/types";
+import type { Work } from "@/types/work";
 import Link from "next/link";
 import {
   HiOutlineCheckCircle,
@@ -19,7 +19,7 @@ const WorkModal = ({
   srcUrl,
   toggleModal,
 }: {
-  work: WorkData;
+  work: Work;
   srcUrl: string | StaticImageData;
   toggleModal: () => void;
 }) => {

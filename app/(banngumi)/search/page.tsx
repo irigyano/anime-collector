@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { WorkData } from "../../types/types";
 import WorkGrid from "../../components/WorkGrid/WorkGrid";
+import type { Work } from "@/types/work";
 
 type SearchPageProps = {
   searchParams: { [key: string]: string | undefined };
@@ -21,7 +21,7 @@ const SearchPage = async ({ searchParams }: SearchPageProps) => {
   const res = await fetch(
     `${process.env.HOST_URL}/api/search/title?title=${workTitle}`,
   );
-  const workData: WorkData[] = await res.json();
+  const workData: Work[] = await res.json();
 
   if (!workData.length)
     return (

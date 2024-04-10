@@ -1,9 +1,9 @@
 import prisma from "@/lib/prisma";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { WorkData } from "@/app/types/types";
 import WorkGrid from "@/app/components/WorkGrid/WorkGrid";
 import ClientAvatar from "./ClientAvatar";
+import type { Work } from "@/types/work";
 
 export async function generateMetadata({
   searchParams,
@@ -11,11 +11,8 @@ export async function generateMetadata({
   return { title: `${searchParams.name}` };
 }
 
-function filterCollection(
-  apiCollection: WorkData[],
-  userCollectionIds: number[],
-) {
-  const userCollection: WorkData[] = [];
+function filterCollection(apiCollection: Work[], userCollectionIds: number[]) {
+  const userCollection: Work[] = [];
   for (let work of apiCollection) {
     if (userCollectionIds.includes(work.annictId)) userCollection.push(work);
   }
@@ -37,7 +34,7 @@ const UserPage = async ({ searchParams }: any) => {
   const res = await fetch(
     `${process.env.HOST_URL}/api/search/id?id=${requestingWorks}`,
   );
-  const works: WorkData[] = await res.json();
+  const works: Work[] = await res.json();
 
   const userFollowingCollection = filterCollection(works, user.followingWorks);
   const userWatchingCollection = filterCollection(works, user.watchingWorks);

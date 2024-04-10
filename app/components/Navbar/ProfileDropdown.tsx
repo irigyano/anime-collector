@@ -10,7 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { RiLogoutBoxLine } from "react-icons/ri";
-import { UserClientSide } from "@/app/types/types";
+import { UserClientSide } from "@/types/types";
 
 const ProfileDropdown = ({ currentUser }: { currentUser: UserClientSide }) => {
   return (

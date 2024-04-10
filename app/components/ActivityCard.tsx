@@ -5,11 +5,10 @@ import dayjs from "dayjs";
 import "dayjs/locale/zh-tw";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Action, Prisma } from "@prisma/client";
-
 import { useState } from "react";
 import ModalOverlay from "./Work/WorkModal/ModalOverlay";
 import WorkModal from "./Work/WorkModal/WorkModal";
-import { WorkData } from "../types/types";
+import type { Work } from "@/types/work";
 import { filterUrl } from "@/lib/utils";
 import cover_replacement from "../../public/images/cover_replacement.webp";
 
@@ -30,7 +29,7 @@ const ActivityCard = ({
   work,
 }: {
   activity: ActivityWithUser;
-  work: WorkData;
+  work: Work;
 }) => {
   const { user, action, workTitle, createdAt } = activity;
 

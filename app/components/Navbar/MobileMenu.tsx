@@ -14,7 +14,7 @@ import {
 } from "@/app/components/ui/dialog";
 import Image from "next/image";
 import Link from "next/link";
-import { UserClientSide } from "@/app/types/types";
+import { UserClientSide } from "@/types/types";
 import { AiOutlineMenu } from "react-icons/ai";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { signOut } from "next-auth/react";
