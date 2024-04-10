@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import WorkGrid from "../../components/WorkGrid/WorkGrid";
+import WorkGrid from "@/components/WorkGrid/WorkGrid";
 import type { Work } from "@/types/work";
 
 type SearchPageProps = {

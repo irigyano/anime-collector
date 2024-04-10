@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import WorkRenderer from "../../components/WorkGrid/WorkRenderer";
+import WorkRenderer from "@/components/WorkGrid/WorkRenderer";
 import LoadingPlaceholder from "@/components/LoadingPlaceholder";
 import type { Metadata } from "next";
 import { DEFAULT_SEASON, DEFAULT_YEAR, seasonMap } from "@/lib/utils";

@@ -1,4 +1,4 @@
-import WorkCard from "../Work/WorkCard";
+import WorkCard from "../../app/components/Work/WorkCard";
 import type { Work } from "@/types/work";
 
 const WorkGrid = ({ workData }: { workData: Work[] }) => {

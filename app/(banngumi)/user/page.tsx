@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
-import WorkGrid from "@/app/components/WorkGrid/WorkGrid";
+import WorkGrid from "@/components/WorkGrid/WorkGrid";
 import ClientAvatar from "@/components/ClientAvatar";
 import type { Work } from "@/types/work";
 
