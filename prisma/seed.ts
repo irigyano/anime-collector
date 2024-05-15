@@ -17,7 +17,7 @@ async function main() {
       },
     });
 
-    for (let i = 0; i < Math.ceil(Math.random() * 7 + 3); i++) {
+    for (let i = 0; i < Math.ceil(Math.random() * 3 + 2); i++) {
       const { workId, workTitle } =
         seedWorks[Math.floor(Math.random() * seedWorks.length)];
       await prisma.activity.create({

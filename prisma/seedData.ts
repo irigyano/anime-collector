@@ -1,18 +1,43 @@
 export const seedUsers = [
   {
-    username: "boy30406",
-    image:
-      "https://static-cdn.jtvnw.net/jtv_user_pictures/asiagodtonegg3be0-profile_image-081feb3428b1a1c6-150x150.jpeg",
+    username: "GIGACHAD",
+    image: "https://cdn.7tv.app/emote/60ae958e229664e8667aea38/4x.webp",
   },
   {
-    username: "力量人",
-    image:
-      "https://yt3.ggpht.com/IHSLqZySPR-KF9fhiBj9lsAZrz3a8fomzqRbyY0q_Pm_3_uyfQWaIJEdB_bHjTTZPApCCOUU=s48-c-k-c0x00ffffff-no-rj",
+    username: "COPIUM",
+    image: "https://cdn.7tv.app/emote/60ae4ec30e35477634988c18/4x.webp",
   },
   {
-    username: "黃香梅",
-    image:
-      "https://yt3.googleusercontent.com/ytc/AIdro_keJnoDcYGpXwPRV_nFVQfGY3k8bZgN8UNh_CJmDw=s68-c-k-c0x00ffffff-no-rj-mo",
+    username: "Clueless",
+    image: "https://cdn.7tv.app/emote/60b14a737a157a7f3360fb32/4x.webp",
+  },
+  {
+    username: "RIOT",
+    image: "https://cdn.7tv.app/emote/61dbb508600369a98b38de67/4x.webp",
+  },
+  {
+    username: "lebronJAM",
+    image: "https://cdn.7tv.app/emote/62f424b0ea941a22a1f03268/4x.webp",
+  },
+  {
+    username: "forsen",
+    image: "https://cdn.7tv.app/emote/614a3d1e0f25350dc5d78f2d/4x.webp",
+  },
+  {
+    username: "D:",
+    image: "https://cdn.7tv.app/emote/639938bf1e2f45552fe4fa03/4x.webp",
+  },
+  {
+    username: "Pepega",
+    image: "https://cdn.7tv.app/emote/603eace1115b55000d7282db/4x.webp",
+  },
+  {
+    username: "COCKA",
+    image: "https://cdn.7tv.app/emote/60aeaf8b98f4291470c8e64b/4x.webp",
+  },
+  {
+    username: "classic",
+    image: "https://cdn.7tv.app/emote/630db7e07b84e74996da9552/4x.webp",
   },
 ];
 export const seedWorks = [
@@ -31,6 +56,10 @@ export const seedWorks = [
   { workId: 4086, workTitle: "東京喰種トーキョーグール" },
   { workId: 997, workTitle: "進撃の巨人" },
   { workId: 1166, workTitle: "ソードアート・オンライン" },
+  { workId: 4547, workTitle: "この素晴らしい世界に祝福を！" },
+  { workId: 9125, workTitle: "スキップとローファー" },
+  { workId: 4636, workTitle: "Re:ゼロから始める異世界生活" },
+  { workId: 10518, workTitle: "薬屋のひとりごと" },
 ];
 
 export function generateRandomDateWithinPastMonth() {
