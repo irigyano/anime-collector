@@ -51,13 +51,15 @@ const UserComment = ({ comment }: { comment: CommentWithUser }) => {
 
   return (
     <div className="flex gap-2">
-      <Image
-        className="rounded-full"
-        src={comment.user.image}
-        alt="avatar"
-        width={50}
-        height={50}
-      />
+      <div>
+        <Image
+          className="rounded-full"
+          src={comment.user.image}
+          alt="avatar"
+          width={50}
+          height={50}
+          />
+      </div>
       {isEditing ? (
         <div className="flex flex-1 items-center gap-2">
           <Input
