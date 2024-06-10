@@ -22,7 +22,7 @@ const UserComments = ({ workId }: { workId: number }) => {
     error,
     isLoading,
   } = useQuery({
-    queryKey: ["comments"],
+    queryKey: ['comments', workId],
     queryFn: getComments,
   });
 

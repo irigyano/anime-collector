@@ -37,7 +37,7 @@ function TextareaForm({ work }: { work: Work }) {
       }),
 
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["comments"] });
+      queryClient.invalidateQueries({ queryKey: ['comments', work.annictId] });
       toast.success("發表成功");
       fetch("/api/activity", {
         method: "POST",
