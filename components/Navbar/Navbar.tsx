@@ -44,7 +44,7 @@ const Navbar = async () => {
         <SearchInput />
         <div className="hidden basis-1/3 items-center justify-end gap-2 lg:flex">
           <Link
-            href={"https://github.com/irigyano/Banngumi-View"}
+            href={"https://github.com/irigyano/anime-collector"}
             target="_blank"
           >
             <Button variant="outline" size="icon">

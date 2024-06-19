@@ -19,10 +19,10 @@ const font = Noto_Sans_JP({
 
 export const metadata = {
   title: {
-    default: "Banngumi View",
-    template: "%s | Banngumi View",
+    default: "Anime Collector",
+    template: "%s | Anime Collector",
   },
-  description: "在 Banngumi View 建立你的動畫收藏清單並追蹤社群的追番動態。",
+  description: "在 Anime Collector 建立你的動畫收藏清單並追蹤社群的追番動態。",
 };
 
 export const viewport: Viewport = {

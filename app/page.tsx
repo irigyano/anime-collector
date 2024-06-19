@@ -23,7 +23,7 @@ const LandingPage = async () => {
         </div>
         <div className="flex flex-1 ">
           <div className="hidden flex-1 flex-col items-center justify-center gap-4 p-4 sm:flex">
-            <div className="text-4xl font-extrabold">Banngumi View</div>
+            <div className="text-4xl font-extrabold">Anime Collector</div>
             <span>將您的觀影清單在此集中管理，不再迷失於 OTT 森林之中。</span>
             <Image
               className="fixed bottom-0 left-0 -z-30 object-cover opacity-5"
